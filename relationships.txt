@@ -21,3 +21,37 @@ Prices, as represented in the CSVs, are in cents. Anytime you return a revenue t
 
 #then create the sales engine itself
 
+GIT NOTES FROM KATRINA
+
+Workflow
+If you were working on a branch
+
+git stash save
+# saves any uncommitted changes
+
+git checkout master
+# switching to local master
+
+git pull --rebase origin master
+# this makes sure you have the latest master from GH
+
+git checkout other_branch
+# go back to your branch
+
+git merge master
+# pulls the newest master into your branch
+
+git stash pop
+# brings back uncommitted changes
+
+git commit -m ""
+# puts new changes into the branch
+
+git checkout master
+# switch back to local master
+
+git merge branch
+# adds new changes to the merge
+
+git push origin master
+# pushes new changes to GH master
