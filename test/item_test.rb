@@ -1,7 +1,7 @@
-require 'minitest'
+gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 
-class ItemTest < MiniTest::Test
+class ItemTest < Minitest::Test
 
 end
