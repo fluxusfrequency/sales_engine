@@ -4,6 +4,4 @@ require 'minitest/pride'
 
 class CustomerTest < MiniTest::Test
 
-
-
 end
