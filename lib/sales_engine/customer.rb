@@ -1,3 +1,5 @@
+require 'csv'
+
 class Customer
 
   attr_reader :id, :first_name, :last_name, :created_at, :updated_at
@@ -11,5 +13,9 @@ class Customer
   end
 
   def invoices
+  end
+
+  def load(file)
+    CSV.open(file, headers: true, header_converters: :symbol)
   end
 end
