@@ -9,3 +9,15 @@ The invoice item references an item and an invoice
 The item is connected to many invoice items and one merchant
 The merchant is connected to many invoices and many items
 Prices, as represented in the CSVs, are in cents. Anytime you return a revenue total (like in Merchant#revenue) you must return a BigDecimal representating dollars and cents (two decimals, rounded to the nearest cent).
+
+#build the single objects that take has of data
+# can responds to mehtods
+# give it fake data to make sure it responds
+
+# then build the repos
+# then add their methods
+#create fixtrues with three lines of data
+# fixtures should be csv files
+
+#then create the sales engine itself
+

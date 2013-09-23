@@ -1,8 +1,9 @@
-require 'rspec'
+require 'minitest'
+require 'minitest/autorun'
+require 'minitest/pride'
 
-class CustomerTest
-  describe 'the customer' do
-    it 'should' do
-    end
-  end
+class CustomerTest < MiniTest::Test
+
+
+
 end
