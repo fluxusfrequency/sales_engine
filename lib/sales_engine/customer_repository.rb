@@ -1,4 +1,7 @@
 class CustomerRepository
+  def all
+  end
+
   def random
   end
 

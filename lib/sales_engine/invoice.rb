@@ -15,3 +15,7 @@ class Invoice
   end
 
 end
+
+# connects the customer to multiple invoice items, one or more transactions, and one merchant
+# At least one transaction where their credit card is charged. If the charge fails, more transactions may be created for that single invoice.
+# One or more invoice items: one for each item that they ordered

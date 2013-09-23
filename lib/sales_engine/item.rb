@@ -6,3 +6,4 @@ class Item
   end
 end
 
+# connected to many invoice items and one merchant

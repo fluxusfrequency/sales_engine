@@ -1,4 +1,7 @@
 class InvoiceItemRepository
+  def all
+  end
+
   def random
   end
 

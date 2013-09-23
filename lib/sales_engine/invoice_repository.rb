@@ -1,4 +1,7 @@
 class InvoiceRepository
+  def all
+  end
+
   def random
   end
 

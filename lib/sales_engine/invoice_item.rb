@@ -6,3 +6,5 @@ class InvoiceItem
   end
 
 end
+
+# references an item and an invoice

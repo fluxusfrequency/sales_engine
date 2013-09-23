@@ -1,4 +1,7 @@
 class ItemRepository
+  def all
+  end
+
   def random
   end
 
