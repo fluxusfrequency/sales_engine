@@ -23,7 +23,6 @@ class ItemTest < Minitest::Test
     assert_equal 1, item.merchant_id
     assert_equal "2012-03-27 14:53:59 UTC", item.created_at
     assert_equal "2012-03-27 14:53:59 UTC", item.updated_at
-
   end
 
 end
