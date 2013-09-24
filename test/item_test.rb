@@ -8,7 +8,7 @@ class ItemTest < Minitest::Test
   attr_accessor :item
 
   def setup
-    data = {:id => 1,
+    data = {:id => 13,
             :name => "Item Qui Esse",
             :description => "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.",
             :unit_price => 75107,
@@ -25,7 +25,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_sets_up_attrs
-    assert_equal 1, item.id
+    assert_equal 13, item.id
     assert_equal "Item Qui Esse", item.name
     assert_equal "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", item.description
     assert_equal 75107, item.unit_price
@@ -43,18 +43,19 @@ class ItemTest < Minitest::Test
     assert InvoiceItem, arr[0].class
   end
 
-  # WAIT UNTIL LOUISA UPDATES INVOICE ITEM REPO
-  # def test_it_has_an_invoice_items_method
-  #   assert item.invoice_items
-  # end
+  def test_it_has_an_invoice_items_method
+    assert item.invoice_items
+  end
 
-  # def test_the_invoice_items_method_returns_associated_invoice_items
-  #   assert_equal InvoiceItem, item.invoice_items[0].class
-  # end
+  def test_the_invoice_items_method_returns_associated_invoice_items
+    assert_equal InvoiceItem, item.invoice_items[0].class
+  end
 
-  # def test_the_invoice_items_method_returns_invoice_items_with_the_item_id
-  #   assert_equal item.invoice_items_id, item.invoice_items[0].id.to_i
-  # end
+  def test_the_invoice_items_method_returns_invoice_items_with_the_item_id
+    found_items = item.invoice_items
+    # binding.pry
+    assert_equal item.id, found_items[0].item_id.to_i
+  end
 
   def test_it_has_a_merchant_method
     assert item.merchant

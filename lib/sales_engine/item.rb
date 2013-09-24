@@ -17,7 +17,7 @@ class Item
   end
 
   def invoice_items
-    inv_item_repo = InvoiceItemRepository.new('./test/fixtures/invoice_repository_fixture.csv')
+    inv_item_repo = InvoiceItemRepository.new('test/fixtures/invoice_item_repository_fixture.csv')
     inv_item_repo.find_all_by_item_id(id)
   end
 
