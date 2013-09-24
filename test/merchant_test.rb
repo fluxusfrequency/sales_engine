@@ -8,11 +8,12 @@ class MerchantTest < Minitest::Test
   attr_accessor :merchant
 
   def setup
-    @merchant = Merchant.new(1, "Schroeder-Jerde", "2012-03-27 14:53:59 UTC", "2012-03-27 14:53:59 UTC")
+    data = {:id => 1, :name => "Schroeder-Jerde", :created_at => "2012-03-27 14:53:59 UTC", :updated_at => "2012-03-27 14:53:59 UTC"}
+    @merchant = Merchant.new(data)
   end
 
-  def test
-    true
+  def test_it_returns_a_merchant_object
+    assert_equal Merchant, merchant.class
   end
 
 end

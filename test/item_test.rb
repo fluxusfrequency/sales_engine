@@ -8,7 +8,8 @@ class ItemTest < Minitest::Test
   attr_accessor :item
 
   def setup
-    @item = Item.new(1, "Item Qui Esse", "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", 75107, 1, "2012-03-27 14:53:59 UTC", "2012-03-27 14:53:59 UTC")
+    data = {:id => 1, :name => "Item Qui Esse", :description => "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", :unit_price => 75107, :merchant_id => 1, :created_at => "2012-03-27 14:53:59 UTC", :updated_at => "2012-03-27 14:53:59 UTC"}
+    @item = Item.new(data)
   end
 
   def test_it_returns_an_item_object
