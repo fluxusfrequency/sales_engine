@@ -8,7 +8,12 @@ class MerchantTest < Minitest::Test
   attr_accessor :merchant
 
   def setup
-    data = {:id => 1, :name => "Schroeder-Jerde", :created_at => "2012-03-27 14:53:59 UTC", :updated_at => "2012-03-27 14:53:59 UTC"}
+    data = {:id => 1,
+            :name => "Schroeder-Jerde",
+            :created_at => "2012-03-27 14:53:59 UTC",
+            :updated_at => "2012-03-27 14:53:59 UTC"
+            }
+
     @merchant = Merchant.new(data)
   end
 
