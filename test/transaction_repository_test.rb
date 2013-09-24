@@ -69,14 +69,6 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal transaction_repository.transactions.select { |transaction| transaction.credit_card_number.to_i == 4654405418249632 }, transaction_repository.find_all_by_credit_card_number(4654405418249632)
   end
 
-  def test_find_by_credit_card_expiration_date_returns_a_transaction_with_the_correct_credit_card_expiration_date
-    assert_equal transaction_repository.transactions[0], transaction_repository.find_by_credit_card_expiration_date('')
-  end
-
-  def test_find_all_by_credit_card_expiration_date_returns_a_transaction_with_the_correct_credit_card_expiration_date
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.credit_card_expiration_date == ''}, transaction_repository.find_all_by_credit_card_expiration_date('')
-  end
-
   def test_find_by_result_returns_a_transaction_with_the_correct_result
     assert_equal transaction_repository.transactions[0], transaction_repository.find_by_result("success")
   end

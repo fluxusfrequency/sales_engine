@@ -35,7 +35,7 @@ class TransactionRepository
   private
 
   def self.generate_find_by_methods
-    attrs = [:id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at]
+    attrs = [:id, :invoice_id, :credit_card_number, :result, :created_at, :updated_at]
     attrs.each do |attr|
       define_method("find_by_#{attr}") do |match|
         match ||= ''
@@ -52,7 +52,7 @@ class TransactionRepository
   end
 
   def self.generate_find_all_by_methods
-    attrs = [:id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at]
+    attrs = [:id, :invoice_id, :credit_card_number, :result, :created_at, :updated_at]
     attrs.each do |attr|
       define_method("find_all_by_#{attr}") do |match|
         match ||= ''
