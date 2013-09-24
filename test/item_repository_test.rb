@@ -51,4 +51,12 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_id_returns_an_item_with_the_correct_id
     assert_equal item_repository.items.select { |item| item.id.to_i == 2 }, item_repository.find_all_by_id(2)
   end
+
+  def test_find_by_name_returns_an_item_with_the_correct_name
+    assert_equal item_repository.items[0], item_repository.find_by_name("Item Qui Esse")
+  end
+
+  def test_find_all_by_name_returns_an_item_with_the_correct_name
+    assert_equal item_repository.items.select { |item| item.name == "Item Qui Esse" }, item_repository.find_all_by_name("Item Qui Esse")
+  end
 end

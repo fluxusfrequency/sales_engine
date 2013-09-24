@@ -39,9 +39,11 @@ class ItemRepository
   end
 
   def find_by_name(match)
+    items.find { |item| item.name == match }
   end
 
   def find_all_by_name(match)
+    items.select { |item| item.name == match }
   end
 
   def find_by_description(match)
