@@ -43,4 +43,61 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_returns_an_item_repository_class
     assert_equal ItemRepository, item_repository.class
   end
+
+  def test_find_by_id_returns_an_item_with_the_correct_id
+    assert_equal item_repository.items[0], item_repository.find_by_id(1)
+  end
+
+  def test_find_all_by_id_returns_an_item_with_the_correct_id
+    assert_equal item_repository.items.select { |item| item.id.to_i == 2 }, item_repository.find_all_by_id(2)
+  end
+
+  def test_find_by_name_returns_an_item_with_the_correct_name
+    assert_equal item_repository.items[0], item_repository.find_by_name("Item Qui Esse")
+  end
+
+  def test_find_all_by_name_returns_an_item_with_the_correct_name
+    assert_equal item_repository.items.select { |item| item.name == "Item Qui Esse" }, item_repository.find_all_by_name("Item Qui Esse")
+  end
+
+  def test_find_by_description_returns_an_item_with_the_correct_description
+    assert_equal item_repository.items[0], item_repository.find_by_description("Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.")
+  end
+
+  def test_find_all_by_description_returns_an_item_with_the_correct_description
+    assert_equal item_repository.items.select { |item| item.description == "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro." }, item_repository.find_all_by_description("Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.")
+  end
+
+  def test_find_by_unit_price_returns_an_item_with_the_correct_unit_price
+    assert_equal item_repository.items[0], item_repository.find_by_unit_price(75107)
+  end
+
+  def test_find_all_by_unit_price_returns_an_item_with_the_correct_unit_price
+    assert_equal item_repository.items.select { |item| item.unit_price.to_i == 75107}, item_repository.find_all_by_unit_price(75107)
+  end
+
+  def test_find_by_merchant_id_returns_an_item_with_the_correct_merchant_id
+    assert_equal item_repository.items[0], item_repository.find_by_merchant_id(1)
+  end
+
+  def test_find_all_by_merchant_id_returns_an_item_with_the_correct_merchant_id
+    assert_equal item_repository.items.select { |item| item.merchant_id.to_i == 1}, item_repository.find_all_by_merchant_id(1)
+  end
+
+  def test_find_by_created_at_returns_an_item_with_the_correct_created_at
+    assert_equal item_repository.items[0], item_repository.find_by_created_at("2012-03-27 14:53:59 UTC")
+  end
+
+  def test_find_all_by_created_at_returns_an_item_with_the_correct_created_at
+    assert_equal item_repository.items.select { |item| item.created_at == "2012-03-27 14:53:59 UTC"}, item_repository.find_all_by_created_at("2012-03-27 14:53:59 UTC")
+  end
+
+  def test_find_by_updated_at_returns_an_item_with_the_correct_updated_at
+    assert_equal item_repository.items[0], item_repository.find_by_updated_at("2012-03-27 14:53:59 UTC")
+  end
+
+  def test_find_all_by_updated_at_returns_an_item_with_the_correct_updated_at
+    assert_equal item_repository.items.select { |item| item.updated_at == "2012-03-27 14:53:59 UTC"}, item_repository.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
+  end
+
 end
