@@ -52,11 +52,12 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_by_invoice_id_returns_a_transaction_with_the_correct_invoice_id
+    # binding.pry
     assert_equal transaction_repository.transactions[0], transaction_repository.find_by_invoice_id(1)
   end
 
   def test_find_all_by_invoice_id_returns_a_transaction_with_the_correct_invoice_id
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.invoice_id == 1 }, transaction_repository.find_all_by_name(1)
+    assert_equal transaction_repository.transactions.select { |transaction| transaction.invoice_id == 1 }, transaction_repository.find_all_by_invoice_id(1)
   end
 
   def test_find_by_credit_card_number_returns_a_transaction_with_the_correct_credit_card_number
@@ -64,7 +65,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_credit_card_number_returns_a_transaction_with_the_correct_credit_card_number
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.credit_card_number == 4654405418249632 }, transaction_repository.find_all_by_description(4654405418249632)
+    assert_equal transaction_repository.transactions.select { |transaction| transaction.credit_card_number == 4654405418249632 }, transaction_repository.find_all_by_credit_card_number(4654405418249632)
   end
 
   def test_find_by_credit_card_expiration_date_returns_a_transaction_with_the_correct_credit_card_expiration_date
@@ -72,7 +73,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_credit_card_expiration_date_returns_a_transaction_with_the_correct_credit_card_expiration_date
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.credit_card_expiration_date.to_i == nil}, transaction_repository.find_all_by_unit_price(nil)
+    assert_equal transaction_repository.transactions.select { |transaction| transaction.credit_card_expiration_date.to_i == nil}, transaction_repository.find_all_by_credit_card_expiration_date(nil)
   end
 
   def test_find_by_result_returns_a_transaction_with_the_correct_result
@@ -80,7 +81,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_result_returns_a_transaction_with_the_correct_result
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.result == "success"}, transaction_repository.find_all_by_merchant_id("success")
+    assert_equal transaction_repository.transactions.select { |transaction| transaction.result == "success"}, transaction_repository.find_all_by_result("success")
   end
 
   def test_find_by_created_at_returns_a_transaction_with_the_correct_created_at
