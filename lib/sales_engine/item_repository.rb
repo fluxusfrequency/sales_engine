@@ -30,51 +30,46 @@ class ItemRepository
     items.sample
   end
 
-  def find_by_id(match)
-    items.find { |item| item.id.to_i == match }
+  def self.generate_find_by_methods
+    attrs = [:name, :description, :created_at, :updated_at]
+    attrs_with_int = [:id, :unit_price, :merchant_id]
+    attrs.each do |attr|
+      define_method("find_by_#{attr}") do |match|
+        items.find { |item| item.send(attr) == match }
+      end
+    end
+    attrs_with_int.each do |attr|
+      define_method("find_by_#{attr}") do |match|
+        items.find { |item| item.send(attr).to_i == match }
+      end
+    end
   end
 
-  def find_all_by_id(match)
-    items.select { |item| item.id.to_i == match }
+  def self.generate_find_all_by_methods
+    attrs = [:name, :description, :created_at, :updated_at]
+    attrs_with_int = [:id, :unit_price, :merchant_id]
+    attrs.each do |attr|
+      define_method("find_all_by_#{attr}") do |match|
+        items.select { |item| item.send(attr) == match }
+      end
+    end
+    attrs_with_int.each do |attr|
+      define_method("find_all_by_#{attr}") do |match|
+        items.select { |item| item.send(attr).to_i == match }
+      end
+    end
   end
 
-  def find_by_name(match)
-    items.find { |item| item.name == match }
-  end
+  # def find_by_id(match)
+  #   items.find { |item| item.id.to_i == match }
+  # end
 
-  def find_all_by_name(match)
-    items.select { |item| item.name == match }
-  end
+  # def find_all_by_id(match)
+  #   items.select { |item| item.id.to_i == match }
+  # end
 
-  def find_by_description(match)
-    items.find { |item| item.description == match }
-  end
+generate_find_by_methods
+generate_find_all_by_methods
 
-  def find_all_by_description(match)
-    items.select { |item| item.description == match }
-  end
-
-  def find_by_unit_price(match)
-  end
-
-  def find_all_by_unit_price(match)
-  end
-
-  def find_by_merchant_id(match)
-  end
-
-  def find_all_by_merchant_id(match)
-  end
-
-  def find_by_created_at(match)
-  end
-
-  def find_all_by_created_at(match)
-  end
-
-  def find_by_updated_at(match)
-  end
-
-  def find_all_by_updated_at(match)
-  end
 end
+
