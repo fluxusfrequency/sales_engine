@@ -1,7 +1,7 @@
 require_relative 'loader'
 
 class InvoiceItemRepository
-  attr_reader :items
+  attr_reader :invoice_items
 
   def initialize(file)
     @data = Loader.load(file)

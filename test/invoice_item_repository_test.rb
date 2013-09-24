@@ -13,15 +13,15 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_has_an_attr_called_invoice_items
-    assert items_repository.items
+    assert invoice_item_repository.invoice_items
   end
 
   def test_populated_a_list_of_items
-    assert invoice_item_repository.populate
+    assert invoice_item_repository.populate_list
   end
 
   def test_the_items_array_contains_InvoiceItem_objects
-    assert_equal InvoiceItem, item_repository.items[0].class
+    assert_equal InvoiceItem, invoice_item_repository.invoice_items[0].class
   end
 
   def test_the_all_method_returns_loaded_items
@@ -36,7 +36,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     10.times do
       random_searches << invoice_item_repository.random
     end
-    random_searches.reject {|s| s == invoice_item_repository.items[0]}
+    random_searches.reject {|s| s == invoice_item_repository.invoice_items[0]}
     assert random_searches.length > 2
   end
 

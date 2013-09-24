@@ -13,7 +13,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_has_an_attr_called_customer
-    assert customer_repository.items
+    assert customer_repository.customers
   end
 
   def test_populates_a_list_of_customer
@@ -21,10 +21,10 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_the_items_array_contains_Customer_objects
-    assert_equal Customer, customer_repository.customer[0].class
+    assert_equal Customer, customer_repository.customers[0].class
   end
 
-  def test_the_all_method_returns_loaded_items
+  def test_the_all_method_returns_loaded_customers
     assert customer_repository.all.length > 1
     assert_equal Customer, customer_repository.all[0].class
     assert_equal Customer, customer_repository.all[-1].class
@@ -36,12 +36,12 @@ class CustomerRepositoryTest < Minitest::Test
     10.times do
       random_searches << customer_repository.random
     end
-    random_searches.reject {|s| s == customer_repository.items[0]}
+    random_searches.reject {|s| s == customer_repository.customers[0]}
     assert random_searches.length > 2
   end
 
   def test_it_returns_a_customer_repository_class
-    assert_equal CustomerRepository, customer_respository.class
+    assert_equal CustomerRepository, customer_repository.class
   end
 
 end

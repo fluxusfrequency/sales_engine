@@ -1,4 +1,4 @@
-require_relative 'loaded'
+require_relative 'loader'
 
 class InvoiceRepository
   attr_reader :items
