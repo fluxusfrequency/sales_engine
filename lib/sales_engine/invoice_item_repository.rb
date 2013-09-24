@@ -10,7 +10,7 @@ class InvoiceItemRepository
 
   def populate_list
     @invoice_items = @data.collect do |row|
-      InvoiceItem.new({ 
+      InvoiceItem.new({
         :id => row[:id],
         :item_id => row[:item_id],
         :invoice_id => row[:invoice_id],
@@ -30,9 +30,43 @@ class InvoiceItemRepository
     invoice_items.sample
   end
 
-  def find_by_X(match)
+  private
+
+  def self.generate_find_by_methods
+    attrs = [:id, :invoice_id, :credit_card_number, :result, :created_at, :updated_at]
+    attrs.each do |attr|
+      define_method("find_by_#{attr}") do |match|
+        match ||= ''
+        invoice_items.find { |invoice_item| invoice_item.send(attr).to_s == match.to_s }
+      end
+    end
+    # attrs_with_int = []
+    # attrs_with_int.each do |attr|
+    #   define_method("find_by_#{attr}") do |match|
+    #     match ||= ''
+    #     invoice_items.find { |invoice_item| invoice_item.send(attr).to_s == match.to_s }
+    #   end
+    # end
   end
 
-  def find_all_by_X(match)
+  def self.generate_find_all_by_methods
+    attrs = [:id, :invoice_id, :credit_card_number, :result, :created_at, :updated_at]
+    attrs.each do |attr|
+      define_method("find_all_by_#{attr}") do |match|
+        match ||= ''
+        invoice_items.select { |invoice_item| invoice_item.send(attr).to_s == match.to_s }
+      end
+    end
+    # attrs_with_int = []
+    # attrs_with_int.each do |attr|
+    #   define_method("find_all_by_#{attr}") do |match|
+    #     match ||= ''
+    #     invoice_items.select { |invoice_item| invoice_item.send(attr).to_s == match.to_s }
+    #   end
+    # end
   end
+
+  generate_find_by_methods
+  generate_find_all_by_methods
+
 end
