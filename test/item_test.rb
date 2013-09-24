@@ -35,11 +35,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_an_invoice_items_method
-    assert [], item.invoice_items
+    assert true, item.invoice_items
   end
 
   def test_the_invoice_items_method_returns_assocaiated_invoice_items
-    assert Array, item.invoice_items.class
+    assert InvoiceItem, item.invoice_items[0].class
   end
 
   def test_it_has_a_merchant_method
