@@ -1,7 +1,6 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'csv'
 require_relative '../lib/sales_engine/customer.rb'
 
 class CustomerTest < Minitest::Test
@@ -14,7 +13,7 @@ class CustomerTest < Minitest::Test
 
   # def test_initializes_from_a_hash_of_data
   #   customer.
-  # 
+  #
 
   def test_it_loads_a_file
     assert_equal CSV, customer.load("./data/customers.csv").class

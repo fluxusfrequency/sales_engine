@@ -27,8 +27,14 @@ class MerchantTest < Minitest::Test
     assert true, merchant.invoices
   end
 
+  def test_the_invoice_method_returns_associated_invoices
+  end
+
   def test_it_has_an_items_method
     assert true, merchant.items
+  end
+
+  def test_the_items_method_returns_assocaiated_items
   end
 
   def test_it_has_a_revenue_method

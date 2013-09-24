@@ -28,4 +28,8 @@ class TransactionTest < Minitest::Test
   def test_it_has_an_invoice_method
     assert true, transaction.invoice
   end
+
+  def test_the_invoice_method_returns_an_associated_invoice
+  end
+
 end
