@@ -1,16 +1,16 @@
 require_relative 'loader'
 
 class ItemRepository
-  attr_reader :list
+  attr_reader :items
 
   def initialize(file)
-    @items = Loader.load(file)
+    @data = Loader.load(file)
     populate_list
   end
 
   def populate_list
-    @list = @items.collect do |row|
-      item = {
+    @items = @data.collect do |row|
+      Item.new({
         :id => row[:id],
         :name => row[:name],
         :description => row[:description],
@@ -18,17 +18,19 @@ class ItemRepository
         :merchant_id => row[:merchant_id],
         :created_at => row[:created_at],
         :updated_at => row[:updated_at]
-      }
+      })
     end
   end
 
   def all
+    items
   end
 
   def random
+    items.sample
   end
 
-  def find_by_X(match)
+  def find_by_id(match)
   end
 
   def find_all_by_X(match)
