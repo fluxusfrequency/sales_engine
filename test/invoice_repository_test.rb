@@ -12,8 +12,8 @@ class InvoiceRepositoryTest < Minitest::Test
     @invoice_repository = InvoiceRepository.new('test/fixtures/invoice_repository_fixture.csv')
   end
 
-  def test_it_has_an_attr_called_invoice
-    assert invoice_repository.invoice
+  def test_it_has_an_attr_called_invoices
+    assert invoice_repository.invoices
   end
 
   def test_populates_a_list_of_invoices
@@ -21,7 +21,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_the_invoice_array_contains_Invoice_objects
-    assert_equal Invoice, invoice_repository.invoice[0].class
+    assert_equal Invoice, invoice_repository.invoices[0].class
   end
 
   def test_the_all_method_returns_loaded_items
@@ -36,7 +36,7 @@ class InvoiceRepositoryTest < Minitest::Test
     10.times do
       random_searches << invoice_repository.random
     end
-    random_searches.reject {|s| s == invoice_repository.items[0]}
+    random_searches.reject {|s| s == invoice_repository.invoices[0]}
     assert random_searches.length > 2
   end
 

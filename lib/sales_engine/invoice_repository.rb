@@ -1,7 +1,7 @@
 require_relative 'loader'
 
 class InvoiceRepository
-  attr_reader :items
+  attr_reader :invoices
 
   def initialize(file)
     @data = Loader.load(file)
@@ -9,7 +9,7 @@ class InvoiceRepository
   end
 
   def populate_list
-    @invoice = @data.collect do |row|
+    @invoices = @data.collect do |row|
       Invoice.new({
         :id => row[:id],
         :customer_id => row[:customer_id],
@@ -22,11 +22,11 @@ class InvoiceRepository
   end
 
   def all
-    invoice
+    invoices
   end
 
   def random
-    invoice.sample
+    invoices.sample
   end
 
 end
