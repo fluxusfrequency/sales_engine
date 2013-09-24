@@ -41,4 +41,17 @@ class TransactionTest < Minitest::Test
     assert_equal Invoice, transaction.invoice.class
   end
 
+  # WAIT UNTIL LOUISA UPDATES INVOICE REPO
+  # def test_it_has_an_invoices_method
+  #   assert transaction.invoice
+  # end
+
+  # def test_the_invoice_method_returns_associated_invoice
+  #   assert_equal Invoice, transaction.invoice.class
+  # end
+
+  # def test_the_invoice_method_returns_an_invoice_with_the_transaction_id
+  #   assert_equal transaction.invoice_id, transaction.invoice.id.to_i
+  # end
+
 end
