@@ -43,6 +43,19 @@ class ItemTest < Minitest::Test
     assert InvoiceItem, arr[0].class
   end
 
+  # WAIT UNTIL LOUISA UPDATES INVOICE ITEM REPO
+  # def test_it_has_an_invoice_items_method
+  #   assert item.invoice_items
+  # end
+
+  # def test_the_invoice_items_method_returns_associated_invoice_items
+  #   assert_equal InvoiceItem, item.invoice_items[0].class
+  # end
+
+  # def test_the_invoice_items_method_returns_invoice_items_with_the_item_id
+  #   assert_equal item.invoice_items_id, item.invoice_items[0].id.to_i
+  # end
+
   def test_it_has_a_merchant_method
     assert item.merchant
   end
