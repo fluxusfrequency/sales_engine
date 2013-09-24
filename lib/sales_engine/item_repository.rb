@@ -31,8 +31,46 @@ class ItemRepository
   end
 
   def find_by_id(match)
+    items.find { |item| item.id.to_i == match }
   end
 
-  def find_all_by_X(match)
+  def find_all_by_id(match)
+    items.select { |item| item.id.to_i == match }
+  end
+
+  def find_by_name(match)
+  end
+
+  def find_all_by_name(match)
+  end
+
+  def find_by_description(match)
+  end
+
+  def find_all_by_description(match)
+  end
+
+  def find_by_unit_price(match)
+  end
+
+  def find_all_by_unit_price(match)
+  end
+
+  def find_by_merchant_id(match)
+  end
+
+  def find_all_by_merchant_id(match)
+  end
+
+  def find_by_created_at(match)
+  end
+
+  def find_all_by_created_at(match)
+  end
+
+  def find_by_updated_at(match)
+  end
+
+  def find_all_by_updated_at(match)
   end
 end
