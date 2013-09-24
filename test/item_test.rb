@@ -64,4 +64,8 @@ class ItemTest < Minitest::Test
     assert Merchant, item.merchant.class
   end
 
+  def test_the_merchant_method_returns_the_merchant_with_the_item_id
+    assert_equal item.merchant_id, item.merchant.id.to_i
+  end
+
 end

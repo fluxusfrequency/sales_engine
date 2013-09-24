@@ -14,10 +14,14 @@ class Transaction
     @updated_at = data[:updated_at]
   end
 
-  # def invoice
-  #   inv_repo = InvoiceRepository.new('./test/fixtures/invoice_repository_fixture.csv')
-  #   inv_repo.find_by_id(invoice_id)
-  # end
+  def invoice
+    inv_repo = InvoiceRepository.new('./test/fixtures/invoice_repository_fixture.csv')
+    # inv_repo.find_by_id(invoice_id)
+
+
+    # delete the line below when Invoice Repository is ready
+    Invoice.new({})
+  end
 
 end
 

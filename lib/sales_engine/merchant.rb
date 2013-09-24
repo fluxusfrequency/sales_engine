@@ -21,7 +21,10 @@ class Merchant
 
   def invoices
     inv_repo = InvoiceRepository.new('./test/fixtures/invoice_repository_fixture.csv')
-    inv_repo.find_all_by_merchant_id(id)
+    # inv_repo.find_all_by_merchant_id(id)
+
+    # delete the line below when Invoice Repository is ready
+    Invoice.new({})
   end
 
   def revenue
