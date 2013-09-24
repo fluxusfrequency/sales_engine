@@ -33,33 +33,33 @@ class ItemRepository
   private
 
   def self.generate_find_by_methods
-    attrs = [:name, :description, :created_at, :updated_at]
-    attrs_with_int = [:id, :unit_price, :merchant_id]
+    attrs = [:id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at]
     attrs.each do |attr|
       define_method("find_by_#{attr}") do |match|
-        items.find { |item| item.send(attr) == match }
+        items.find { |item| item.send(attr).to_s == match.to_s }
       end
     end
-    attrs_with_int.each do |attr|
-      define_method("find_by_#{attr}") do |match|
-        items.find { |item| item.send(attr).to_i == match }
-      end
-    end
+    # attrs_with_int = [:id, :unit_price, :merchant_id]
+    # attrs_with_int.each do |attr|
+    #   define_method("find_by_#{attr}") do |match|
+    #     items.find { |item| item.send(attr).to_i == match }
+    #   end
+    # end
   end
 
   def self.generate_find_all_by_methods
-    attrs = [:name, :description, :created_at, :updated_at]
-    attrs_with_int = [:id, :unit_price, :merchant_id]
+    attrs = [:id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at]
     attrs.each do |attr|
       define_method("find_all_by_#{attr}") do |match|
-        items.select { |item| item.send(attr) == match }
+        items.select { |item| item.send(attr).to_s == match.to_s }
       end
     end
-    attrs_with_int.each do |attr|
-      define_method("find_all_by_#{attr}") do |match|
-        items.select { |item| item.send(attr).to_i == match }
-      end
-    end
+    # attrs_with_int = [:id, :unit_price, :merchant_id]
+    # attrs_with_int.each do |attr|
+    #   define_method("find_all_by_#{attr}") do |match|
+    #     items.select { |item| item.send(attr).to_i == match }
+    #   end
+    # end
   end
 
   # def find_by_id(match)

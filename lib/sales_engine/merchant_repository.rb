@@ -31,33 +31,33 @@ class MerchantRepository
   private
 
   def self.generate_find_by_methods
-    attrs = [:name, :created_at, :updated_at]
-    attrs_with_int = [:id]
+    attrs = [:name, :id, :created_at, :updated_at]
     attrs.each do |attr|
       define_method("find_by_#{attr}") do |match|
-        merchants.find { |merchant| merchant.send(attr) == match }
+        merchants.find { |merchant| merchant.send(attr).to_s == match.to_s }
       end
     end
-    attrs_with_int.each do |attr|
-      define_method("find_by_#{attr}") do |match|
-        merchants.find { |merchant| merchant.send(attr).to_i == match }
-      end
-    end
+    # attrs_with_int = [:id]
+    # attrs_with_int.each do |attr|
+    #   define_method("find_by_#{attr}") do |match|
+    #     merchants.find { |merchant| merchant.send(attr).to_i == match }
+    #   end
+    # end
   end
 
   def self.generate_find_all_by_methods
-    attrs = [:name, :created_at, :updated_at]
-    attrs_with_int = [:id]
+    attrs = [:name, :id, :created_at, :updated_at]
     attrs.each do |attr|
       define_method("find_all_by_#{attr}") do |match|
-        merchants.select { |merchant| merchant.send(attr) == match }
+        merchants.select { |merchant| merchant.send(attr).to_s == match.to_s }
       end
     end
-    attrs_with_int.each do |attr|
-      define_method("find_all_by_#{attr}") do |match|
-        merchants.select { |merchant| merchant.send(attr).to_i == match }
-      end
-    end
+    # attrs_with_int = [:id]
+    # attrs_with_int.each do |attr|
+    #   define_method("find_all_by_#{attr}") do |match|
+    #     merchants.select { |merchant| merchant.send(attr).to_i == match }
+    #   end
+    # end
   end
 
   generate_find_by_methods
