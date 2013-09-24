@@ -30,6 +30,8 @@ class ItemRepository
     items.sample
   end
 
+  private
+
   def self.generate_find_by_methods
     attrs = [:name, :description, :created_at, :updated_at]
     attrs_with_int = [:id, :unit_price, :merchant_id]

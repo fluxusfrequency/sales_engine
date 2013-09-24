@@ -73,7 +73,31 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_unit_price_returns_an_item_with_the_correct_unit_price
-    assert_equal item_repository.items.select { |item| item.unit_price == 75107}, item_repository.find_all_by_description(75107)
+    assert_equal item_repository.items.select { |item| item.unit_price.to_i == 75107}, item_repository.find_all_by_unit_price(75107)
+  end
+
+  def test_find_by_merchant_id_returns_an_item_with_the_correct_merchant_id
+    assert_equal item_repository.items[0], item_repository.find_by_merchant_id(1)
+  end
+
+  def test_find_all_by_merchant_id_returns_an_item_with_the_correct_merchant_id
+    assert_equal item_repository.items.select { |item| item.merchant_id.to_i == 1}, item_repository.find_all_by_merchant_id(1)
+  end
+
+  def test_find_by_created_at_returns_an_item_with_the_correct_created_at
+    assert_equal item_repository.items[0], item_repository.find_by_created_at("2012-03-27 14:53:59 UTC")
+  end
+
+  def test_find_all_by_created_at_returns_an_item_with_the_correct_created_at
+    assert_equal item_repository.items.select { |item| item.created_at == "2012-03-27 14:53:59 UTC"}, item_repository.find_all_by_created_at("2012-03-27 14:53:59 UTC")
+  end
+
+  def test_find_by_updated_at_returns_an_item_with_the_correct_updated_at
+    assert_equal item_repository.items[0], item_repository.find_by_updated_at("2012-03-27 14:53:59 UTC")
+  end
+
+  def test_find_all_by_updated_at_returns_an_item_with_the_correct_updated_at
+    assert_equal item_repository.items.select { |item| item.updated_at == "2012-03-27 14:53:59 UTC"}, item_repository.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
   end
 
 end
