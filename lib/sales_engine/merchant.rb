@@ -1,7 +1,7 @@
 require_relative 'item'
 require_relative 'invoice'
 require_relative 'item_repository'
-# require_relative 'invoice_repository'
+require_relative 'invoice_repository'
 
 class Merchant
   attr_reader :id, :name, :created_at, :updated_at
@@ -16,15 +16,11 @@ class Merchant
   def items
     item_repo = ItemRepository.new('./test/fixtures/item_repository_fixture.csv')
     item_repo.find_all_by_merchant_id(id)
-    # [Item.new({})]
   end
 
   def invoices
     inv_repo = InvoiceRepository.new('./test/fixtures/invoice_repository_fixture.csv')
-    # inv_repo.find_all_by_merchant_id(id)
-
-    # delete the line below when Invoice Repository is ready
-    Invoice.new({})
+    inv_repo.find_all_by_merchant_id(id)
   end
 
   def revenue

@@ -1,5 +1,5 @@
 require_relative 'invoice'
-# require_relative 'invoice_repository'
+require_relative 'invoice_repository'
 
 class Transaction
   attr_reader :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at
@@ -16,11 +16,7 @@ class Transaction
 
   def invoice
     inv_repo = InvoiceRepository.new('./test/fixtures/invoice_repository_fixture.csv')
-    # inv_repo.find_by_id(invoice_id)
-
-
-    # delete the line below when Invoice Repository is ready
-    Invoice.new({})
+    inv_repo.find_by_id(invoice_id)
   end
 
 end

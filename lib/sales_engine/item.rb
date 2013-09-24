@@ -18,10 +18,7 @@ class Item
 
   def invoice_items
     inv_item_repo = InvoiceItemRepository.new('./test/fixtures/invoice_repository_fixture.csv')
-    # inv_repo.find_all_by_item_id(id)
-
-    # delete the line below when Invoice Repository is ready
-    [Invoice.new({})]
+    inv_item_repo.find_all_by_item_id(id)
   end
 
   def merchant
