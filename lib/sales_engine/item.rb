@@ -19,7 +19,7 @@ class Item
   end
 
   def merchant
-    @merchant = Merchant.new({})
+    Merchant.new({})
   end
 end
 

@@ -29,7 +29,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_has_an_items_method
-    assert_equal [], merchant.items
+    assert merchant.items
   end
 
   def test_the_items_method_returns_assocaiated_items
@@ -37,7 +37,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_has_an_invoices_method
-    assert_equal [], merchant.invoices
+    assert merchant.invoices
   end
 
   def test_the_invoice_method_returns_associated_invoices
@@ -45,7 +45,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_has_a_revenue_method
-    assert true, merchant.revenue
+    assert merchant.revenue
   end
 
   def test_the_a_revenue_method_returns_a_big_decimal
