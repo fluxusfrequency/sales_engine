@@ -28,6 +28,7 @@ class Merchant
     BigDecimal.new(100)
     # BigDecimal
   end
+  # NOT SURE IF THIS IS STILL PART OF THE PROJECT
 
 end
 
