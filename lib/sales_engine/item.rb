@@ -1,3 +1,5 @@
+require_relative 'merchant'
+
 class Item
   attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at
 
@@ -12,11 +14,11 @@ class Item
   end
 
   def invoice_items
-    true
+    []
   end
 
   def merchant
-    true
+    @merchant = Merchant.new({})
   end
 end
 
