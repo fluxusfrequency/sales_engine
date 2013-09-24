@@ -1,7 +1,7 @@
 class Merchant
   attr_reader :id, :name, :created_at, :updated_at
 
-  def initialize(data)
+  def initialize(data={})
     @id = data[:id]
     @name = data[:name]
     @created_at = data[:created_at]
