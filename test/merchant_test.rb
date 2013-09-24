@@ -16,4 +16,11 @@ class MerchantTest < Minitest::Test
     assert_equal Merchant, merchant.class
   end
 
+  def test_it_sets_up_attrs
+    assert_equal 1, merchant.id
+    assert_equal "Schroeder-Jerde", merchant.name
+    assert_equal "2012-03-27 14:53:59 UTC", merchant.created_at
+    assert_equal "2012-03-27 14:53:59 UTC", merchant.updated_at
+  end
+
 end
