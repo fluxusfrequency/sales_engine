@@ -8,6 +8,7 @@ class CustomerTest < Minitest::Test
   attr_accessor :customer
 
   def setup
+<<<<<<< HEAD
     data = {:id => 1,
             :first_name => "Joey"
             :last_name => "Ondricka"
@@ -28,6 +29,13 @@ class CustomerTest < Minitest::Test
     assert_equal "Ondricka", customer.last_name
     assert_equal "2012-03-27 14:54:09 UTC", customer.created_at
     assert_equal "2012-03-27 14:54:09 UTC", customer.updated_at
+=======
+    data = {
+      :id => 1
+    }
+
+    @customer = Customer.new(data)
+>>>>>>> master
   end
 
   def test_it_has_an_invoice

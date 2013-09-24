@@ -1,3 +1,6 @@
+require_relative 'item'
+require_relative 'invoice'
+
 class Merchant
   attr_reader :id, :name, :created_at, :updated_at
 
@@ -9,15 +12,15 @@ class Merchant
   end
 
   def items
-    true
+    [Item.new({})]
   end
 
   def invoices
-    true
+    [Invoice.new({})]
   end
 
   def revenue
-    true
+    BigDecimal.new(100)
     # BigDecimal
   end
 

@@ -28,22 +28,28 @@ class MerchantTest < Minitest::Test
     assert_equal "2012-03-27 14:53:59 UTC", merchant.updated_at
   end
 
-  def test_it_has_an_invoices_method
-    assert true, merchant.invoices
-  end
-
-  def test_the_invoice_method_returns_associated_invoices
-  end
-
   def test_it_has_an_items_method
-    assert true, merchant.items
+    assert merchant.items
   end
 
   def test_the_items_method_returns_assocaiated_items
+    assert_equal Item, merchant.items[0].class
+  end
+
+  def test_it_has_an_invoices_method
+    assert merchant.invoices
+  end
+
+  def test_the_invoice_method_returns_associated_invoices
+    assert_equal Invoice, merchant.invoices[0].class
   end
 
   def test_it_has_a_revenue_method
-    assert true, merchant.revenue
+    assert merchant.revenue
+  end
+
+  def test_the_a_revenue_method_returns_a_big_decimal
+    assert BigDecimal, merchant.revenue.class
   end
 
 end
