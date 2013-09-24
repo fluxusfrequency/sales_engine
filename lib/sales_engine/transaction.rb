@@ -12,6 +12,7 @@ class Transaction
   end
 
   def invoice
+    true
   end
 
 end

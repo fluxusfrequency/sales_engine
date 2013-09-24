@@ -12,9 +12,11 @@ class Item
   end
 
   def invoice_items
+    true
   end
 
   def merchant
+    true
   end
 end
 

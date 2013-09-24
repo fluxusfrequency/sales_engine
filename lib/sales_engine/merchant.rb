@@ -9,12 +9,15 @@ class Merchant
   end
 
   def items
+    true
   end
 
   def invoices
+    true
   end
 
   def revenue
+    true
     # BigDecimal
   end
 

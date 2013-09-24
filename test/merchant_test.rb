@@ -23,4 +23,16 @@ class MerchantTest < Minitest::Test
     assert_equal "2012-03-27 14:53:59 UTC", merchant.updated_at
   end
 
+  def test_it_has_an_invoices_method
+    assert true, merchant.invoices
+  end
+
+  def test_it_has_an_items_method
+    assert true, merchant.items
+  end
+
+  def test_it_has_a_revenue_method
+    assert true, merchant.revenue
+  end
+
 end
