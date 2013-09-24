@@ -1,35 +1,67 @@
 require_relative 'loader'
+require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :list
+  attr_reader :merchants
 
   def initialize(file)
-    @merchants = Loader.load(file)
+    @data = Loader.load(file)
     populate_list
   end
 
   def populate_list
-    @list = @merchants.collect do |row|
-      merchant = {
+    @merchants = @data.collect do |row|
+      Merchant.new({
         :id => row[:id],
         :name => row[:name],
         :created_at => row[:created_at],
         :updated_at => row[:updated_at]
-      }
+      })
     end
   end
 
   def all
+    merchants
   end
 
   def random
+    merchants.sample
   end
 
-  def find_by_X(match)
+  private
+
+  def self.generate_find_by_methods
+    attrs = [:name, :created_at, :updated_at]
+    attrs_with_int = [:id]
+    attrs.each do |attr|
+      define_method("find_by_#{attr}") do |match|
+        merchants.find { |merchant| merchant.send(attr) == match }
+      end
+    end
+    attrs_with_int.each do |attr|
+      define_method("find_by_#{attr}") do |match|
+        merchants.find { |merchant| merchant.send(attr).to_i == match }
+      end
+    end
   end
 
-  def find_all_by_X(match)
+  def self.generate_find_all_by_methods
+    attrs = [:name, :created_at, :updated_at]
+    attrs_with_int = [:id]
+    attrs.each do |attr|
+      define_method("find_all_by_#{attr}") do |match|
+        merchants.select { |merchant| merchant.send(attr) == match }
+      end
+    end
+    attrs_with_int.each do |attr|
+      define_method("find_all_by_#{attr}") do |match|
+        merchants.select { |merchant| merchant.send(attr).to_i == match }
+      end
+    end
   end
+
+  generate_find_by_methods
+  generate_find_all_by_methods
 
 end
 
