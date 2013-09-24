@@ -39,7 +39,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert random_searches.length > 2
   end
 
-  def test_it_returns_an_merchant_repository_class
+  def test_it_returns_a_merchant_repository_class
     assert_equal MerchantRepository, merchant_repository.class
   end
 
@@ -59,19 +59,19 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal merchant_repository.merchants.select { |merchant| merchant.name == "Schroeder-Jerde" }, merchant_repository.find_all_by_name("Schroeder-Jerde")
   end
 
-  def test_find_by_created_at_returns_an_merchant_with_the_correct_created_at
+  def test_find_by_created_at_returns_a_merchant_with_the_correct_created_at
     assert_equal merchant_repository.merchants[0], merchant_repository.find_by_created_at("2012-03-27 14:53:59 UTC")
   end
 
-  def test_find_all_by_created_at_returns_an_merchant_with_the_correct_created_at
+  def test_find_all_by_created_at_returns_a_merchant_with_the_correct_created_at
     assert_equal merchant_repository.merchants.select { |merchant| merchant.created_at == "2012-03-27 14:53:59 UTC"}, merchant_repository.find_all_by_created_at("2012-03-27 14:53:59 UTC")
   end
 
-  def test_find_by_updated_at_returns_an_merchant_with_the_correct_updated_at
+  def test_find_by_updated_at_returns_a_merchant_with_the_correct_updated_at
     assert_equal merchant_repository.merchants[0], merchant_repository.find_by_updated_at("2012-03-27 14:53:59 UTC")
   end
 
-  def test_find_all_by_updated_at_returns_an_merchant_with_the_correct_updated_at
+  def test_find_all_by_updated_at_returns_a_merchant_with_the_correct_updated_at
     assert_equal merchant_repository.merchants.select { |merchant| merchant.updated_at == "2012-03-27 14:53:59 UTC"}, merchant_repository.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
   end
 end
