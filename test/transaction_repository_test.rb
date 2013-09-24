@@ -57,7 +57,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_invoice_id_returns_a_transaction_with_the_correct_invoice_id
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.invoice_id == 1 }, transaction_repository.find_all_by_invoice_id(1)
+    assert_equal transaction_repository.transactions.select { |transaction| transaction.invoice_id.to_i == 1 }, transaction_repository.find_all_by_invoice_id(1)
   end
 
   def test_find_by_credit_card_number_returns_a_transaction_with_the_correct_credit_card_number
@@ -65,7 +65,8 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_credit_card_number_returns_a_transaction_with_the_correct_credit_card_number
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.credit_card_number == 4654405418249632 }, transaction_repository.find_all_by_credit_card_number(4654405418249632)
+    # binding.pry
+    assert_equal transaction_repository.transactions.select { |transaction| transaction.credit_card_number.to_i == 4654405418249632 }, transaction_repository.find_all_by_credit_card_number(4654405418249632)
   end
 
   def test_find_by_credit_card_expiration_date_returns_a_transaction_with_the_correct_credit_card_expiration_date
