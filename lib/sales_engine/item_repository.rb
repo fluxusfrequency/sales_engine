@@ -47,9 +47,11 @@ class ItemRepository
   end
 
   def find_by_description(match)
+    items.find { |item| item.description == match }
   end
 
   def find_all_by_description(match)
+    items.select { |item| item.description == match }
   end
 
   def find_by_unit_price(match)

@@ -59,4 +59,13 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_name_returns_an_item_with_the_correct_name
     assert_equal item_repository.items.select { |item| item.name == "Item Qui Esse" }, item_repository.find_all_by_name("Item Qui Esse")
   end
+
+  def test_find_by_name_returns_an_item_with_the_correct_description
+    assert_equal item_repository.items[0], item_repository.find_by_description("Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.")
+  end
+
+  def test_find_all_by_description_returns_an_item_with_the_correct_description
+    assert_equal item_repository.items.select { |item| item.description == "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro." }, item_repository.find_all_by_description("Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.")
+  end
+
 end
