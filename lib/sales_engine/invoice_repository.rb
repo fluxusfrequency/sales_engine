@@ -11,12 +11,12 @@ class InvoiceRepository
   def populate_list
     @invoice = @data.collect do |row|
       Invoice.new({
-        :id = row[:id]
-        :customer_id = row[:customer_id]
-        :merchant_id = row[:merchant_id]
-        :status = row[:status]
-        :created_at = row[:data]
-        :updated_at = row[:updated_at]
+        :id => row[:id],
+        :customer_id => row[:customer_id],
+        :merchant_id => row[:merchant_id],
+        :status => row[:status],
+        :created_at => row[:data],
+        :updated_at => row[:updated_at]
       })
     end
   end

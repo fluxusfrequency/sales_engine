@@ -1,18 +1,18 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './lib/sales_engine/invoice_test.rb'
+require_relative '../lib/sales_engine/invoice.rb'
 
 class InvoiceTest < Minitest::Test
 
   attr_accessor :invoice
 
   def setup
-    data = {:id => 1
-            :customer_id => 1
-            :merchant_id => 26
-            :status => "shipped"
-            :created_at => "2012-03-25 09:54:09 UTC"
+    data = {:id => 1,
+            :customer_id => 1,
+            :merchant_id => 26,
+            :status => "shipped",
+            :created_at => "2012-03-25 09:54:09 UTC",
             :updated_at => "2012-03-25 09:54:09 UTC"
             }
    @invoice = Invoice.new(data)
@@ -32,7 +32,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_has_a_transactions_method
-    assert true, invoice.transaction
+    assert true, invoice.transactions
   end
 
   def test_it_has_an_invoice_items_method
