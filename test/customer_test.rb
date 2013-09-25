@@ -41,4 +41,9 @@ class CustomerTest < Minitest::Test
     assert_equal Invoice, customer.invoices[0].class
   end
 
+  def test_the_invoices_method_returns_invoices_with_the_merchant_id
+    assert_equal customer.id, customer.invoices[0].customer_id.to_i
+    assert_equal customer.id, customer.invoices[-1].customer_id.to_i
+  end
+
 end
