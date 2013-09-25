@@ -1,7 +1,7 @@
 require_relative 'loader'
 require_relative 'merchant'
 
-module SalesEngine
+class SalesEngine
   class MerchantRepository
     attr_reader :merchants
 

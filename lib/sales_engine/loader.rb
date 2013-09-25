@@ -1,6 +1,6 @@
 require 'csv'
 
-module SalesEngine
+class SalesEngine
   class Loader
     def initialize
     end

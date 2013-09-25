@@ -3,11 +3,11 @@ require_relative 'invoice_item'
 require_relative 'invoice_item_repository'
 require_relative 'merchant_repository'
 
-module SalesEngine
+class SalesEngine
   class Item
-    attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at
+    attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at, :engine
 
-    def initialize(data={})
+    def initialize(data={}, engine)
       @id = data[:id]
       @name = data[:name]
       @description = data[:description]
@@ -15,15 +15,16 @@ module SalesEngine
       @merchant_id = data[:merchant_id]
       @created_at = data[:created_at]
       @updated_at = data[:updated_at]
+      @engine = engine
     end
 
     def invoice_items
-      inv_item_repo = InvoiceItemRepository.new('test/fixtures/invoice_item_repository_fixture.csv')
+      inv_item_repo = engine.invoice_items_repository
       inv_item_repo.find_all_by_item_id(id)
     end
 
     def merchant
-      merchant_repo = MerchantRepository.new('test/fixtures/merchant_repository_fixture.csv')
+      merchant_repo = engine.merchant_repository
       merchant_repo.find_by_id(merchant_id)
     end
   end

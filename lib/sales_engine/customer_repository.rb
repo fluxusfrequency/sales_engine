@@ -1,6 +1,6 @@
 require_relative 'loader'
 
-module SalesEngine
+class SalesEngine
   class CustomerRepository
     attr_reader :customers
 

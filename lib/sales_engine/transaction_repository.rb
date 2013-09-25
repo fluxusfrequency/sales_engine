@@ -1,7 +1,7 @@
 require_relative 'loader'
 require_relative 'transaction'
 
-module SalesEngine
+class SalesEngine
   class TransactionRepository
     attr_reader :transactions
 
