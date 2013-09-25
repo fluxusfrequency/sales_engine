@@ -15,7 +15,7 @@ class CustomerTest < Minitest::Test
             :created_at => "2012-03-27 14:54:09 UTC",
             :updated_at => "2012-03-27 14:54:09 UTC"
           }
-          
+
     @customer = Customer.new(data)
 
   end
@@ -25,7 +25,6 @@ class CustomerTest < Minitest::Test
   end
 
   def test_it_sets_up_attrs
-    # binding.pry
     assert_equal 1, customer.id
     assert_equal "Joey", customer.first_name
     assert_equal "Ondricka", customer.last_name
@@ -33,8 +32,13 @@ class CustomerTest < Minitest::Test
     assert_equal "2012-03-27 14:54:09 UTC", customer.updated_at
   end
 
-  def test_it_has_an_invoices
-    assert true, customer.invoices
+  def test_it_has_an_invoices_method
+    assert customer.invoices
+  end
+
+  def test_the_invoices_method_returns_assocaiated_invoices
+    # binding.pry
+    assert_equal Invoice, customer.invoices[0].class
   end
 
 end

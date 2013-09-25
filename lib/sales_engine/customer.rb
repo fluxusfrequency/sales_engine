@@ -1,3 +1,6 @@
+require_relative 'invoice'
+require_relative 'invoice_repository'
+
 class Customer
   attr_reader :id, :first_name, :last_name, :created_at, :updated_at
 
@@ -10,7 +13,8 @@ class Customer
   end
 
   def invoices
-    true
+    inv_repo = InvoiceRepository.new('./test/fixtures/invoice_repository_fixture.csv')
+    inv_repo.find_all_by_customer_id(id)
   end
 
 end
