@@ -37,7 +37,6 @@ class CustomerTest < Minitest::Test
   end
 
   def test_the_invoices_method_returns_assocaiated_invoices
-    # binding.pry
     assert_equal SalesEngine::Invoice, customer.invoices[0].class
   end
 
