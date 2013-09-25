@@ -1,3 +1,14 @@
+require_relative 'transaction'
+require_relative 'invoice_item'
+require_relative 'item'
+require_relative 'customer'
+require_relative 'merchant'
+require_relative 'transaction_repository'
+require_relative 'invoice_item_repository'
+require_relative 'item_repository'
+require_relative 'customer_repository'
+require_relative 'merchant_repository'
+
 class Invoice
   attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
 
@@ -11,23 +22,31 @@ class Invoice
   end
 
   def transactions
-    true
+    tran_repo = TransactionRepository.new('./test/fixtures/transaction_repository_fixture.csv')
+    tran_repo.find_all_by_invoice_id(id)
   end
 
   def invoice_items
-    true
+    inv_repo = InvoiceItemRepository.new('./test/fixtures/invoice_item_repository_fixture.csv')
+    inv_repo.find_all_by_invoice_id(id)
   end
 
   def items
+  # This has to get called through the invoice items somehow
+  #   items_repo = ItemsRepository.new('./test/fixtures/item_repository_fixture.csv')
+  #   items_repo.find_all_by_()
     true
   end
 
   def customer
-    true
+    cust_repo = CustomerRepository.new('./test/fixtures/customer_repository_fixture.csv')
+    cust_repo.find_by_id(customer_id)
   end
 
   def merchant
-    true
+    merch_repo = MerchantRepository.new('./test/fixtures/merchant_repository_fixture.csv')
+    merch_repo.find_by_id(merchant_id)
+    # binding.pry
   end
 
 end
