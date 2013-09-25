@@ -27,14 +27,13 @@ class Invoice
   end
 
   def invoice_items
-    inv_repo = InvoiceItemRepository.new('./test/fixtures/invoice_item_repository_fixture.csv')
-    inv_repo.find_all_by_invoice_id(id)
+    @inv_repo = InvoiceItemRepository.new('./test/fixtures/invoice_item_repository_fixture.csv')
+    @inv_repo.find_all_by_invoice_id(id)
   end
 
   def items
   # This has to get called through the invoice items somehow
-  #   items_repo = ItemsRepository.new('./test/fixtures/item_repository_fixture.csv')
-  #   items_repo.find_all_by_()
+  # @inv_repo.find_all_by_item_id()
     true
   end
 
