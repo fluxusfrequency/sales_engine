@@ -34,12 +34,28 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_it_has_an_invoice_method
-    assert true, invoice_item.invoice
+    assert invoice_item.invoice
+  end
+
+  def test_the_invoice_method_returns_an_associated_invoice
+    assert_equal Invoice, invoice_item.invoice.class
+  end
+
+  def test_the_invoice_method_returns_an_invoice_with_the_invoice_item_id
+    assert_equal invoice_item.invoice_id, invoice_item.invoice.id.to_i
   end
 
   def test_it_has_an_item_method
-    assert true, invoice_item.item
+    assert invoice_item.item
   end
 
+  def test_the_item_method_returns_an_associated_item
+    assert_equal Item, invoice_item.item.class
+  end
+
+  def test_the_item_method_returns_an_item_with_the_invoice_item_id
+    found_item = invoice_item.item
+    assert_equal invoice_item.item_id, found_item.id.to_i
+  end
 
 end

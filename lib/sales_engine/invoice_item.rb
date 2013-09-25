@@ -13,11 +13,13 @@ class InvoiceItem
   end
 
   def invoice
-    true
+    inv_repo = InvoiceRepository.new('./test/fixtures/invoice_repository_fixture.csv')
+    inv_repo.find_by_id(invoice_id)
   end
 
   def item
-    true
+    item_repo = ItemRepository.new('./test/fixtures/item_repository_fixture.csv')
+    item_repo.find_by_id(item_id)
   end
 
 end
