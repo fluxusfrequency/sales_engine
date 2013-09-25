@@ -16,11 +16,11 @@ class TransactionTest < Minitest::Test
             :updated_at => "2012-03-27 14:54:09 UTC"
             }
 
-    @transaction = Transaction.new(data)
+    @transaction = SalesEngine::Transaction.new(data)
   end
 
   def test_it_returns_a_transaction_object
-    assert_equal Transaction, transaction.class
+    assert_equal SalesEngine::Transaction, transaction.class
   end
 
   def test_it_sets_up_attrs
@@ -38,7 +38,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_the_invoice_method_returns_an_associated_invoice
-    assert_equal Invoice, transaction.invoice.class
+    assert_equal SalesEngine::Invoice, transaction.invoice.class
   end
 
   def test_the_invoice_method_returns_an_invoice_with_the_transaction_id

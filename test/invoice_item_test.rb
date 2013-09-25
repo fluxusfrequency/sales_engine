@@ -16,7 +16,7 @@ class InvoiceItemTest < Minitest::Test
             :created_at => "2012-03-27 14:54:09 UTC",
             :updated_at => "2012-03-27 14:54:09 UTC"
             }
-    @invoice_item = InvoiceItem.new(data)
+    @invoice_item = SalesEngine::InvoiceItem.new(data)
   end
 
   def test_it_sets_up_attrs
@@ -30,7 +30,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_it_returns_as_item_object
-    assert_equal InvoiceItem, invoice_item.class
+    assert_equal SalesEngine::InvoiceItem, invoice_item.class
   end
 
   def test_it_has_an_invoice_method
@@ -38,7 +38,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_the_invoice_method_returns_an_associated_invoice
-    assert_equal Invoice, invoice_item.invoice.class
+    assert_equal SalesEngine::Invoice, invoice_item.invoice.class
   end
 
   def test_the_invoice_method_returns_an_invoice_with_the_invoice_item_id
@@ -50,7 +50,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_the_item_method_returns_an_associated_item
-    assert_equal Item, invoice_item.item.class
+    assert_equal SalesEngine::Item, invoice_item.item.class
   end
 
   def test_the_item_method_returns_an_item_with_the_invoice_item_id

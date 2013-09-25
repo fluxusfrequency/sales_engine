@@ -9,46 +9,48 @@ require_relative 'item_repository'
 require_relative 'customer_repository'
 require_relative 'merchant_repository'
 
-class Invoice
-  attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
+module SalesEngine
+  class Invoice
+    attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
 
-  def initialize(data)
-    @id = data[:id]
-    @customer_id = data[:customer_id]
-    @merchant_id = data[:merchant_id]
-    @status = data[:status]
-    @created_at = data[:created_at]
-    @updated_at = data[:updated_at]
-  end
-
-  def transactions
-    tran_repo = TransactionRepository.new('./test/fixtures/transaction_repository_fixture.csv')
-    tran_repo.find_all_by_invoice_id(id)
-  end
-
-  def invoice_items
-    @inv_repo = InvoiceItemRepository.new('./test/fixtures/invoice_item_repository_fixture.csv')
-    @inv_repo.find_all_by_invoice_id(id)
-  end
-
-  def items
-    item_repo = ItemRepository.new('./test/fixtures/item_repository_fixture.csv')
-    invoice_items.collect do |invoice_item|
-      item_repo.find_by_id(invoice_item.item_id)
+    def initialize(data)
+      @id = data[:id]
+      @customer_id = data[:customer_id]
+      @merchant_id = data[:merchant_id]
+      @status = data[:status]
+      @created_at = data[:created_at]
+      @updated_at = data[:updated_at]
     end
-  end
 
-  def customer
-    cust_repo = CustomerRepository.new('./test/fixtures/customer_repository_fixture.csv')
-    cust_repo.find_by_id(customer_id)
-  end
+    def transactions
+      tran_repo = TransactionRepository.new('./test/fixtures/transaction_repository_fixture.csv')
+      tran_repo.find_all_by_invoice_id(id)
+    end
 
-  def merchant
-    merch_repo = MerchantRepository.new('./test/fixtures/merchant_repository_fixture.csv')
-    merch_repo.find_by_id(merchant_id)
-    # binding.pry
-  end
+    def invoice_items
+      @inv_repo = InvoiceItemRepository.new('./test/fixtures/invoice_item_repository_fixture.csv')
+      @inv_repo.find_all_by_invoice_id(id)
+    end
 
+    def items
+      item_repo = ItemRepository.new('./test/fixtures/item_repository_fixture.csv')
+      invoice_items.collect do |invoice_item|
+        item_repo.find_by_id(invoice_item.item_id)
+      end
+    end
+
+    def customer
+      cust_repo = CustomerRepository.new('./test/fixtures/customer_repository_fixture.csv')
+      cust_repo.find_by_id(customer_id)
+    end
+
+    def merchant
+      merch_repo = MerchantRepository.new('./test/fixtures/merchant_repository_fixture.csv')
+      merch_repo.find_by_id(merchant_id)
+      # binding.pry
+    end
+
+  end
 end
 
 # connects the customer to multiple invoice items, one or more transactions, and one merchant

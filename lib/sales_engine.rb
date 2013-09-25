@@ -1,33 +1,24 @@
-require 'csv'
-require_relative './sales_engine/customer'
-require_relative './sales_engine/customer_repository'
-require_relative './sales_engine/invoice'
-require_relative './sales_engine/invoice_repository'
-require_relative './sales_engine/invoice_item'
-require_relative './sales_engine/invoice_item_repository'
-require_relative './sales_engine/merchant'
-require_relative './sales_engine/merchant_repository'
-require_relative './sales_engine/transaction'
+Dir["./lib/sales_engine/*.rb"].each do |file|
+  require file
+end
 
-class SalesEngine
-
-  def startup
+module SalesEngine
+  def self.startup
   end
 
-  def merchant_repository
+  def self.merchant_repository
   end
 
-  def invoice_repository
+  def self.invoice_repository
   end
 
-  def item_repository
+  def self.item_repository
   end
 
-  def invoice_item_repository
+  def self.invoice_item_repository
   end
 
-  def customer_repository
+  def self.customer_repository
   end
 
 end
-

@@ -16,12 +16,12 @@ class CustomerTest < Minitest::Test
             :updated_at => "2012-03-27 14:54:09 UTC"
           }
 
-    @customer = Customer.new(data)
+    @customer = SalesEngine::Customer.new(data)
 
   end
 
   def test_it_returns_an_item_object
-    assert_equal Customer, customer.class
+    assert_equal SalesEngine::Customer, customer.class
   end
 
   def test_it_sets_up_attrs
@@ -38,7 +38,7 @@ class CustomerTest < Minitest::Test
 
   def test_the_invoices_method_returns_assocaiated_invoices
     # binding.pry
-    assert_equal Invoice, customer.invoices[0].class
+    assert_equal SalesEngine::Invoice, customer.invoices[0].class
   end
 
   def test_the_invoices_method_returns_invoices_with_the_merchant_id

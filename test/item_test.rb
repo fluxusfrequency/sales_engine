@@ -17,11 +17,11 @@ class ItemTest < Minitest::Test
             :updated_at => "2012-03-27 14:53:59 UTC"
             }
 
-    @item = Item.new(data)
+    @item = SalesEngine::Item.new(data)
   end
 
   def test_it_returns_an_item_object
-    assert_equal Item, item.class
+    assert_equal SalesEngine::Item, item.class
   end
 
   def test_it_sets_up_attrs
@@ -40,7 +40,7 @@ class ItemTest < Minitest::Test
 
   def test_the_invoice_items_method_returns_assocaiated_invoice_items
     arr = item.invoice_items
-    assert InvoiceItem, arr[0].class
+    assert SalesEngine::InvoiceItem, arr[0].class
   end
 
   def test_it_has_an_invoice_items_method
@@ -48,7 +48,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_the_invoice_items_method_returns_associated_invoice_items
-    assert_equal InvoiceItem, item.invoice_items[0].class
+    assert_equal SalesEngine::InvoiceItem, item.invoice_items[0].class
   end
 
   def test_the_invoice_items_method_returns_invoice_items_with_the_item_id
@@ -62,7 +62,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_the_merchant_method_returns_the_assocaiated_merchant
-    assert Merchant, item.merchant.class
+    assert SalesEngine::Merchant, item.merchant.class
   end
 
   def test_the_merchant_method_returns_the_merchant_with_the_item_id

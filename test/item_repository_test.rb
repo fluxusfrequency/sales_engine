@@ -9,7 +9,7 @@ class ItemRepositoryTest < Minitest::Test
   attr_accessor :item_repository
 
   def setup
-    @item_repository = ItemRepository.new('test/fixtures/item_repository_fixture.csv')
+    @item_repository = SalesEngine::ItemRepository.new('test/fixtures/item_repository_fixture.csv')
   end
 
   def test_it_has_an_attr_called_items
@@ -21,17 +21,17 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_the_items_array_contains_Item_objects
-    assert_equal Item, item_repository.items[0].class
+    assert_equal SalesEngine::Item, item_repository.items[0].class
   end
 
   def test_the_all_method_returns_loaded_items
     assert item_repository.all.length > 1
-    assert_equal Item, item_repository.all[0].class
-    assert_equal Item, item_repository.all[-1].class
+    assert_equal SalesEngine::Item, item_repository.all[0].class
+    assert_equal SalesEngine::Item, item_repository.all[-1].class
   end
 
   def test_the_random_method_returns_a_random_item_from_the_loaded_items
-    assert_equal Item, item_repository.random.class
+    assert_equal SalesEngine::Item, item_repository.random.class
     random_searches = []
     10.times do
       random_searches << item_repository.random
@@ -41,7 +41,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_an_item_repository_class
-    assert_equal ItemRepository, item_repository.class
+    assert_equal SalesEngine::ItemRepository, item_repository.class
   end
 
   def test_find_by_id_returns_an_item_with_the_correct_id

@@ -15,11 +15,11 @@ class InvoiceTest < Minitest::Test
             :created_at => "2012-03-25 09:54:09 UTC",
             :updated_at => "2012-03-25 09:54:09 UTC"
             }
-   @invoice = Invoice.new(data)
+   @invoice = SalesEngine::Invoice.new(data)
   end
 
   def test_it_returns_an_item_object
-    assert_equal Invoice, invoice.class
+    assert_equal SalesEngine::Invoice, invoice.class
   end
 
   def test_it_sets_up_attrs
@@ -36,7 +36,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_the_transcations_method_returns_assocaiated_transcations
-    assert_equal Transaction, invoice.transactions[0].class
+    assert_equal SalesEngine::Transaction, invoice.transactions[0].class
   end
 
   def test_the_transcations_method_returns_transcations_with_the_invoice_id
@@ -49,7 +49,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_the_invoice_items_method_returns_assocaiated_invoice_items
-    assert_equal InvoiceItem, invoice.invoice_items[0].class
+    assert_equal SalesEngine::InvoiceItem, invoice.invoice_items[0].class
   end
 
   def test_the_invoice_items_method_returns_invoice_items_with_the_invoice_id
@@ -75,7 +75,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_the_customer_method_returns_assocaiated_customer
-    assert_equal Customer, invoice.customer.class
+    assert_equal SalesEngine::Customer, invoice.customer.class
   end
 
   def test_the_customer_method_returns_customer_with_the_invoice_id
@@ -87,7 +87,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_the_items_method_returns_assocaiated_items
-    assert_equal Merchant, invoice.merchant.class
+    assert_equal SalesEngine::Merchant, invoice.merchant.class
   end
 
   def test_the_items_method_returns_items_with_the_invoice_id

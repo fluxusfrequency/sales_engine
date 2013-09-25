@@ -8,7 +8,7 @@ class MerchantRepositoryTest < Minitest::Test
   attr_accessor :merchant_repository
 
   def setup
-    @merchant_repository = MerchantRepository.new('test/fixtures/merchant_repository_fixture.csv')
+    @merchant_repository = SalesEngine::MerchantRepository.new('test/fixtures/merchant_repository_fixture.csv')
   end
 
   def test_it_has_an_attr_called_merchants
@@ -20,17 +20,17 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_the_merchants_array_contains_merchant_objects
-    assert_equal Merchant, merchant_repository.merchants[0].class
+    assert_equal SalesEngine::Merchant, merchant_repository.merchants[0].class
   end
 
   def test_the_all_method_returns_loaded_merchants
     assert merchant_repository.all.length > 1
-    assert_equal Merchant, merchant_repository.all[0].class
-    assert_equal Merchant, merchant_repository.all[-1].class
+    assert_equal SalesEngine::Merchant, merchant_repository.all[0].class
+    assert_equal SalesEngine::Merchant, merchant_repository.all[-1].class
   end
 
   def test_the_random_method_returns_a_random_merchant_from_the_loaded_merchants
-    assert_equal Merchant, merchant_repository.random.class
+    assert_equal SalesEngine::Merchant, merchant_repository.random.class
     random_searches = []
     10.times do
       random_searches << merchant_repository.random
@@ -40,7 +40,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_a_merchant_repository_class
-    assert_equal MerchantRepository, merchant_repository.class
+    assert_equal SalesEngine::MerchantRepository, merchant_repository.class
   end
 
   def test_find_by_id_returns_a_merchant_with_the_correct_id

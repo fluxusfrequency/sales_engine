@@ -8,7 +8,7 @@ class TransactionRepositoryTest < Minitest::Test
   attr_accessor :transaction_repository
 
   def setup
-    @transaction_repository = TransactionRepository.new('test/fixtures/transaction_repository_fixture.csv')
+    @transaction_repository = SalesEngine::TransactionRepository.new('test/fixtures/transaction_repository_fixture.csv')
   end
 
   def test_it_has_an_attr_called_transactions
@@ -20,17 +20,17 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_the_transactions_array_contains_transaction_objects
-    assert_equal Transaction, transaction_repository.transactions[0].class
+    assert_equal SalesEngine::Transaction, transaction_repository.transactions[0].class
   end
 
   def test_the_all_method_returns_loaded_transactions
     assert transaction_repository.all.length > 1
-    assert_equal Transaction, transaction_repository.all[0].class
-    assert_equal Transaction, transaction_repository.all[-1].class
+    assert_equal SalesEngine::Transaction, transaction_repository.all[0].class
+    assert_equal SalesEngine::Transaction, transaction_repository.all[-1].class
   end
 
   def test_the_random_method_returns_a_random_transaction_from_the_loaded_transactions
-    assert_equal Transaction, transaction_repository.random.class
+    assert_equal SalesEngine::Transaction, transaction_repository.random.class
     random_searches = []
     10.times do
       random_searches << transaction_repository.random
@@ -40,7 +40,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_an_transaction_repository_class
-    assert_equal TransactionRepository, transaction_repository.class
+    assert_equal SalesEngine::TransactionRepository, transaction_repository.class
   end
 
   def test_find_by_id_returns_a_transaction_with_the_correct_id

@@ -14,11 +14,11 @@ class MerchantTest < Minitest::Test
             :updated_at => "2012-03-27 14:53:59 UTC"
             }
 
-    @merchant = Merchant.new(data)
+    @merchant = SalesEngine::Merchant.new(data)
   end
 
   def test_it_returns_a_merchant_object
-    assert_equal Merchant, merchant.class
+    assert_equal SalesEngine::Merchant, merchant.class
   end
 
   def test_it_sets_up_attrs
@@ -33,7 +33,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_the_items_method_returns_assocaiated_items
-    assert_equal Item, merchant.items[0].class
+    assert_equal SalesEngine::Item, merchant.items[0].class
   end
 
   def test_the_items_method_returns_items_with_the_merchant_id
@@ -46,7 +46,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_the_invoice_method_returns_associated_invoices
-    assert_equal Invoice, merchant.invoices[0].class
+    assert_equal SalesEngine::Invoice, merchant.invoices[0].class
   end
 
   def test_the_invoices_method_returns_invoices_with_the_merchant_id
