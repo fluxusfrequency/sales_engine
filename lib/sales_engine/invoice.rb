@@ -32,9 +32,10 @@ class Invoice
   end
 
   def items
-  # This has to get called through the invoice items somehow
-  # @inv_repo.find_all_by_item_id()
-    true
+    item_repo = ItemRepository.new('./test/fixtures/item_repository_fixture.csv')
+    invoice_items.collect do |invoice_item|
+      item_repo.find_by_id(invoice_item.item_id)
+    end
   end
 
   def customer
