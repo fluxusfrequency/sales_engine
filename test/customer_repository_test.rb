@@ -44,4 +44,44 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal SalesEngine::CustomerRepository, customer_repository.class
   end
 
+  def test_find_by_id_returns_a_customer_with_the_correct_id
+    assert_equal customer_repository.customers[0], customer_repository.find_by_id(1)
+  end
+
+  def test_find_all_by_id_returns_a_customer_with_the_correct_id
+    assert_equal customer_repository.customers.select { |x| x.id.to_i == 1 }, customer_repository.find_all_by_id(1)
+  end
+
+  def test_find_by_first_name_returns_a_customer_with_the_first_name
+    assert_equal customer_repository.customers[0], customer_repository.find_by_first_name("Joey")
+  end
+
+  def test_find_all_by_first_name_returns_a_customer_with_the_first_name
+    assert_equal customer_repository.customers.select { |x| x.first_name == "Joey" }, customer_repository.find_all_by_first_name("Joey")
+  end
+
+  def test_find_by_last_name_returns_a_customer_with_the_correct_last_name
+    assert_equal customer_repository.customers[0], customer_repository.find_by_last_name("Ondricka")
+  end
+
+  def test_find_all_by_last_name_returns_a_customer_with_the_correct_last_name
+    assert_equal customer_repository.customers.select { |x| x.last_name == "Ondricka" }, customer_repository.find_all_by_last_name("Ondricka")
+  end
+
+  def test_find_by_created_at_returns_a_customer_with_the_correct_created_at
+    assert_equal customer_repository.customers[0], customer_repository.find_by_created_at("2012-03-27 14:54:09 UTC")
+  end
+
+  def test_find_all_by_created_at_returns_a_customer_with_the_correct_created_at
+    assert_equal customer_repository.customers.select { |x| x.created_at == "2012-03-27 14:54:09 UTC" }, customer_repository.find_all_by_created_at("2012-03-27 14:54:09 UTC")
+  end
+
+  def test_find_by_updated_at_returns_a_customer_with_the_correct_updated_at
+    assert_equal customer_repository.customers[0], customer_repository.find_by_updated_at("2012-03-27 14:54:09 UTC")
+  end
+
+  def test_find_all_by_updated_at_returns_a_customer_with_the_correct_updated_at
+    assert_equal customer_repository.customers.select { |x| x.updated_at == "2012-03-27 14:54:09 UTC" }, customer_repository.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
+  end
+
 end
