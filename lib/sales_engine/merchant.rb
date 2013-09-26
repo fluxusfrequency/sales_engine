@@ -1,3 +1,6 @@
+require_relative '../sales_engine.rb'
+require 'bigdecimal'
+
 class SalesEngine
   class Merchant
     attr_reader :id, :name, :created_at, :updated_at, :engine
@@ -23,7 +26,12 @@ class SalesEngine
     def revenue
       # returns the total revenue for that merchant across all transactions
       revenue = BigDecimal.new(100)
-      # revenue / 100
+      invoices.each do |invoice|
+        invoice.invoice_items.each do |inv_item|
+          revenue += BigDecimal.new(inv_item.quantity.to_i * inv_item.unit_price.to_i)
+        end
+      end
+      revenue / 100
     end
 
     # def revenue(date)

@@ -54,12 +54,12 @@ class MerchantTest < Minitest::Test
     assert_equal merchant.id, merchant.invoices[-1].merchant_id.to_i
   end
 
-  def test_it_has_a_revenue_method
-    assert merchant.revenue
-  end
+  # def test_it_has_a_revenue_method
+  #   assert merchant.revenue
+  # end
 
-  def test_the_a_revenue_method_returns_a_big_decimal
-    assert BigDecimal, merchant.revenue.class
-  end
+  # def test_the_a_revenue_method_returns_a_big_decimal
+  #   assert BigDecimal, merchant.revenue.class
+  # end
 
 end

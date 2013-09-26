@@ -71,4 +71,16 @@ class MerchantRepositoryTest < Minitest::Test
   def test_find_all_by_updated_at_returns_a_merchant_with_the_correct_updated_at
     assert_equal "2012-03-27 14:53:59 UTC", merchant_repository.find_all_by_updated_at("2012-03-27 14:53:59 UTC").first.updated_at
   end
+
+  def test_it_has_a_most_revenue_method
+    assert merchant_repository.most_revenue(3)
+  end
+
+  def test_the_most_revenue_method_returns_an_array_of_merchants
+    assert_equal SalesEngine::Merchant, merchant_repository.most_revenue(3).first.class
+  end
+
+  # def test_the_most_revenue_method_returns_an_array_of_merchants_ranked_by_revenue
+  #   assert merchant_repository.most_revenue(3).first.revenue > merchant_repository.most_revenue(3).last.revenue
+  # end
 end
