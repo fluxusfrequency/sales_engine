@@ -15,7 +15,7 @@ class InvoiceTest < Minitest::Test
             :created_at => "2012-03-25 09:54:09 UTC",
             :updated_at => "2012-03-25 09:54:09 UTC"
             }
-   @invoice = SalesEngine::Invoice.new(data)
+   @invoice = SalesEngine::Invoice.new(data, SalesEngine)
   end
 
   def test_it_returns_an_item_object

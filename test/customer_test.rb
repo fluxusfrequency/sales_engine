@@ -1,5 +1,4 @@
 gem 'minitest'
-require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_engine/customer.rb'
@@ -16,7 +15,7 @@ class CustomerTest < Minitest::Test
             :updated_at => "2012-03-27 14:54:09 UTC"
           }
 
-    @customer = SalesEngine::Customer.new(data)
+    @customer = SalesEngine::Customer.new(data, SalesEngine)
 
   end
 
@@ -37,12 +36,12 @@ class CustomerTest < Minitest::Test
   end
 
   def test_the_invoices_method_returns_assocaiated_invoices
-    assert_equal SalesEngine::Invoice, customer.invoices[0].class
+    assert_equal SalesEngine::Invoice, customer.invoices.first.class
   end
 
-  def test_the_invoices_method_returns_invoices_with_the_merchant_id
-    assert_equal customer.id, customer.invoices[0].customer_id.to_i
-    assert_equal customer.id, customer.invoices[-1].customer_id.to_i
+  def test_the_invoices_method_returns_invoices_with_the_customer_id
+    assert_equal customer.id, customer.invoices.first.customer_id.to_i
+    assert_equal customer.id, customer.invoices.last.customer_id.to_i
   end
 
 end

@@ -2,6 +2,7 @@ require_relative 'merchant'
 require_relative 'invoice_item'
 require_relative 'invoice_item_repository'
 require_relative 'merchant_repository'
+require_relative '../sales_engine.rb'
 
 class SalesEngine
   class Item
@@ -19,7 +20,7 @@ class SalesEngine
     end
 
     def invoice_items
-      inv_item_repo = engine.invoice_items_repository
+      inv_item_repo = engine.invoice_item_repository
       inv_item_repo.find_all_by_item_id(id)
     end
 

@@ -1,5 +1,6 @@
 require_relative 'invoice'
 require_relative 'invoice_repository'
+require_relative '../sales_engine.rb'
 
 class SalesEngine
   class Transaction

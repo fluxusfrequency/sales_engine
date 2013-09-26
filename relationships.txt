@@ -55,3 +55,6 @@ git merge branch
 
 git push origin master
 # pushes new changes to GH master
+
+# Make it private. Only write tests for methods accessible from the API, and behaviors that can be produced through the API.
+

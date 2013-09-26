@@ -1,5 +1,7 @@
 require_relative 'invoice'
 require_relative 'invoice_repository'
+require_relative '../sales_engine.rb'
+
 
 class SalesEngine
   class Customer
@@ -15,7 +17,7 @@ class SalesEngine
     end
 
     def invoices
-      inv_repo = engine.invoices_repository
+      inv_repo = engine.invoice_repository
       inv_repo.find_all_by_customer_id(id)
     end
 

@@ -2,6 +2,7 @@ gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_engine/transaction.rb'
+require_relative '../lib/sales_engine.rb'
 
 class TransactionTest < Minitest::Test
   attr_accessor :transaction
@@ -16,7 +17,7 @@ class TransactionTest < Minitest::Test
             :updated_at => "2012-03-27 14:54:09 UTC"
             }
 
-    @transaction = SalesEngine::Transaction.new(data)
+    @transaction = SalesEngine::Transaction.new(data, SalesEngine)
   end
 
   def test_it_returns_a_transaction_object
@@ -42,6 +43,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_the_invoice_method_returns_an_invoice_with_the_transaction_id
+    # binding.pry
     assert_equal transaction.invoice_id, transaction.invoice.id.to_i
   end
 

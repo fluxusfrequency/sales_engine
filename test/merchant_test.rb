@@ -14,7 +14,7 @@ class MerchantTest < Minitest::Test
             :updated_at => "2012-03-27 14:53:59 UTC"
             }
 
-    @merchant = SalesEngine::Merchant.new(data)
+    @merchant = SalesEngine::Merchant.new(data, SalesEngine)
   end
 
   def test_it_returns_a_merchant_object

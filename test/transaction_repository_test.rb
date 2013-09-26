@@ -5,6 +5,7 @@ require_relative '../lib/sales_engine/transaction.rb'
 require_relative '../lib/sales_engine/transaction_repository.rb'
 
 class TransactionRepositoryTest < Minitest::Test
+
   attr_accessor :transaction_repository
 
   def setup
@@ -13,10 +14,6 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_has_an_attr_called_transactions
     assert transaction_repository.transactions
-  end
-
-  def test_populates_a_list_of_transactions
-    assert transaction_repository.populate_list
   end
 
   def test_the_transactions_array_contains_transaction_objects
@@ -48,7 +45,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_id_returns_a_transaction_with_the_correct_id
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.id.to_i == 2 }, transaction_repository.find_all_by_id(2)
+    assert_equal 2, transaction_repository.find_all_by_id(2).first.id.to_i
   end
 
   def test_find_by_invoice_id_returns_a_transaction_with_the_correct_invoice_id
@@ -57,7 +54,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_invoice_id_returns_a_transaction_with_the_correct_invoice_id
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.invoice_id.to_i == 1 }, transaction_repository.find_all_by_invoice_id(1)
+    assert_equal 1, transaction_repository.find_all_by_invoice_id(1).first.id.to_i
   end
 
   def test_find_by_credit_card_number_returns_a_transaction_with_the_correct_credit_card_number
@@ -65,8 +62,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_credit_card_number_returns_a_transaction_with_the_correct_credit_card_number
-    # binding.pry
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.credit_card_number.to_i == 4654405418249632 }, transaction_repository.find_all_by_credit_card_number(4654405418249632)
+    assert_equal 4654405418249632, transaction_repository.find_all_by_credit_card_number(4654405418249632).first.credit_card_number.to_i
   end
 
   def test_find_by_result_returns_a_transaction_with_the_correct_result
@@ -74,7 +70,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_result_returns_a_transaction_with_the_correct_result
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.result == "success"}, transaction_repository.find_all_by_result("success")
+    assert_equal "success", transaction_repository.find_all_by_result("success").first.result
   end
 
   def test_find_by_created_at_returns_a_transaction_with_the_correct_created_at
@@ -82,7 +78,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_created_at_returns_a_transaction_with_the_correct_created_at
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.created_at == "2012-03-27 14:54:09 UTC"}, transaction_repository.find_all_by_created_at("2012-03-27 14:54:09 UTC")
+    assert_equal "2012-03-27 14:54:09 UTC", transaction_repository.find_all_by_created_at("2012-03-27 14:54:09 UTC").first.created_at
   end
 
   def test_find_by_updated_at_returns_a_transaction_with_the_correct_updated_at
@@ -90,6 +86,6 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_updated_at_returns_a_transaction_with_the_correct_updated_at
-    assert_equal transaction_repository.transactions.select { |transaction| transaction.updated_at == "2012-03-27 14:54:09 UTC"}, transaction_repository.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
+    assert_equal "2012-03-27 14:54:09 UTC", transaction_repository.find_all_by_updated_at("2012-03-27 14:54:09 UTC").first.updated_at
   end
 end

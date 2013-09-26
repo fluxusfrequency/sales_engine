@@ -17,7 +17,7 @@ class ItemTest < Minitest::Test
             :updated_at => "2012-03-27 14:53:59 UTC"
             }
 
-    @item = SalesEngine::Item.new(data)
+    @item = SalesEngine::Item.new(data, SalesEngine)
   end
 
   def test_it_returns_an_item_object

@@ -3,7 +3,6 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_engine/invoice.rb'
 require_relative '../lib/sales_engine/invoice_repository.rb'
-require 'pry'
 
 class InvoiceRepositoryTest < Minitest::Test
 
@@ -15,10 +14,6 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_has_an_attr_called_invoices
     assert invoice_repository.invoices
-  end
-
-  def test_populates_a_list_of_invoices
-    assert invoice_repository.populate_list
   end
 
   def test_the_invoice_array_contains_Invoice_objects
@@ -50,7 +45,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_id_returns_an_invoice_with_the_correct_id
-    assert_equal invoice_repository.invoices.select { |x| x.id.to_i == 1 }, invoice_repository.find_all_by_id(1)
+    assert_equal 1, invoice_repository.find_all_by_id(1).first.id.to_i
   end
 
   def test_find_by_customer_id_returns_an_invoice_with_the_correct_customer_id
@@ -58,7 +53,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_customer_id_returns_an_invoice_with_the_correct_customer_id
-    assert_equal invoice_repository.invoices.select { |x| x.customer_id.to_i == 1 }, invoice_repository.find_all_by_customer_id(1)
+    assert_equal 1, invoice_repository.find_all_by_customer_id(1).first.id.to_i
   end
 
   def test_find_by_merchant_id_returns_an_invoice_with_the_correct_merchant_id
@@ -66,8 +61,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id_returns_an_invoice_with_the_correct_merchant_id
-    # binding.pry
-    assert_equal invoice_repository.invoices.select { |x| x.merchant_id.to_i == 26 }, invoice_repository.find_all_by_merchant_id(26)
+    assert_equal 26, invoice_repository.find_all_by_merchant_id(26).first.merchant_id.to_i
   end
 
   def test_find_by_status_returns_an_invoice_with_the_correct_status
@@ -75,7 +69,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_status_returns_an_invoice_with_the_correct_status
-    assert_equal invoice_repository.invoices.select { |x| x.status == "shipped" }, invoice_repository.find_all_by_status("shipped")
+    assert_equal "shipped", invoice_repository.find_all_by_status("shipped").first.status
   end
 
   def test_find_by_created_at_returns_an_invoice_with_the_correct_created_at
@@ -83,7 +77,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_created_at_returns_an_invoice_with_the_correct_created_at
-    assert_equal invoice_repository.invoices.select { |x| x.created_at == "2012-03-25 09:54:09 UTC" }, invoice_repository.find_all_by_created_at("2012-03-25 09:54:09 UTC")
+    assert_equal "2012-03-25 09:54:09 UTC", invoice_repository.find_all_by_created_at("2012-03-25 09:54:09 UTC").first.created_at
   end
 
   def test_find_by_updated_at_returns_an_invoice_with_the_correct_updated_at
@@ -91,7 +85,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_updated_at_returns_an_invoice_with_the_correct_updated_at
-    assert_equal invoice_repository.invoices.select { |x| x.updated_at == "2012-03-27 14:53:59 UTC"}, invoice_repository.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
+    # binding.pry
+    assert_equal "2012-03-25 09:54:09 UTC", invoice_repository.find_all_by_updated_at("2012-03-25 09:54:09 UTC").first.updated_at
   end
 
 end

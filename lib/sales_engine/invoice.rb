@@ -8,6 +8,7 @@ require_relative 'invoice_item_repository'
 require_relative 'item_repository'
 require_relative 'customer_repository'
 require_relative 'merchant_repository'
+require_relative '../sales_engine.rb'
 
 class SalesEngine
   class Invoice
@@ -29,12 +30,12 @@ class SalesEngine
     end
 
     def invoice_items
-      @inv_repo = engine.invoice_items_repository
-      @inv_repo.find_all_by_invoice_id(id)
+      inv_repo = engine.invoice_item_repository
+      inv_repo.find_all_by_invoice_id(id)
     end
 
     def items
-      item_repo = ItemRepository.new('./test/fixtures/item_repository_fixture.csv')
+      item_repo = engine.item_repository
       invoice_items.collect do |invoice_item|
         item_repo.find_by_id(invoice_item.item_id)
       end

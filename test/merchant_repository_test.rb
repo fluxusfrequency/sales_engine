@@ -5,6 +5,7 @@ require_relative '../lib/sales_engine/merchant.rb'
 require_relative '../lib/sales_engine/merchant_repository.rb'
 
 class MerchantRepositoryTest < Minitest::Test
+
   attr_accessor :merchant_repository
 
   def setup
@@ -13,10 +14,6 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_has_an_attr_called_merchants
     assert merchant_repository.merchants
-  end
-
-  def test_populates_a_list_of_merchants
-    assert merchant_repository.populate_list
   end
 
   def test_the_merchants_array_contains_merchant_objects
@@ -48,7 +45,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_id_returns_a_merchant_with_the_correct_id
-    assert_equal merchant_repository.merchants.select { |merchant| merchant.id.to_i == 2 }, merchant_repository.find_all_by_id(2)
+    assert_equal 2, merchant_repository.find_all_by_id(2).first.id.to_i
   end
 
   def test_find_by_name_returns_a_merchant_with_the_correct_name
@@ -56,7 +53,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name_returns_a_merchant_with_the_correct_name
-    assert_equal merchant_repository.merchants.select { |merchant| merchant.name == "Schroeder-Jerde" }, merchant_repository.find_all_by_name("Schroeder-Jerde")
+    assert_equal "Schroeder-Jerde", merchant_repository.find_all_by_name("Schroeder-Jerde").first.name
   end
 
   def test_find_by_created_at_returns_a_merchant_with_the_correct_created_at
@@ -64,7 +61,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_created_at_returns_a_merchant_with_the_correct_created_at
-    assert_equal merchant_repository.merchants.select { |merchant| merchant.created_at == "2012-03-27 14:53:59 UTC"}, merchant_repository.find_all_by_created_at("2012-03-27 14:53:59 UTC")
+    assert_equal "2012-03-27 14:53:59 UTC", merchant_repository.find_all_by_created_at("2012-03-27 14:53:59 UTC").first.created_at
   end
 
   def test_find_by_updated_at_returns_a_merchant_with_the_correct_updated_at
@@ -72,6 +69,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_updated_at_returns_a_merchant_with_the_correct_updated_at
-    assert_equal merchant_repository.merchants.select { |merchant| merchant.updated_at == "2012-03-27 14:53:59 UTC"}, merchant_repository.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
+    assert_equal "2012-03-27 14:53:59 UTC", merchant_repository.find_all_by_updated_at("2012-03-27 14:53:59 UTC").first.updated_at
   end
 end

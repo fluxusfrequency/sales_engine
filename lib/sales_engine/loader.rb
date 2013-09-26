@@ -1,4 +1,5 @@
 require 'csv'
+require_relative '../sales_engine.rb'
 
 class SalesEngine
   class Loader

@@ -2,6 +2,7 @@ require_relative 'item'
 require_relative 'invoice'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
+require_relative '../sales_engine.rb'
 
 class SalesEngine
   class Merchant
@@ -16,20 +17,19 @@ class SalesEngine
     end
 
     def items
-      item_repo = engine.items_repository
+      item_repo = engine.item_repository
       item_repo.find_all_by_merchant_id(id)
     end
 
     def invoices
-      inv_repo = engine.invoices_repository
+      inv_repo = engine.invoice_repository
       inv_repo.find_all_by_merchant_id(id)
     end
 
     def revenue
-      BigDecimal.new(100)
-      # BigDecimal
+      revenue = BigDecimal.new(100)
+      # revenue / 100
     end
-    # NOT SURE IF THIS IS STILL PART OF THE PROJECT
 
   end
 end
