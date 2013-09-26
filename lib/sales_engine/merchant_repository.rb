@@ -19,6 +19,18 @@ class SalesEngine
       merchants.sample
     end
 
+    # def most_revenue(x)
+    #   returns the top x merchant instances ranked by total revenue
+    # end
+
+    # def most_items(x)
+    #   returns the top x merchant instances ranked by total number of items sold
+    # end
+
+    # def revenue(date)
+    #   returns the total revenue for that date across all merchants
+    # end
+
     private
 
     def populate_list

@@ -1,9 +1,3 @@
-require_relative 'item'
-require_relative 'invoice'
-require_relative 'item_repository'
-require_relative 'invoice_repository'
-require_relative '../sales_engine.rb'
-
 class SalesEngine
   class Merchant
     attr_reader :id, :name, :created_at, :updated_at, :engine
@@ -27,9 +21,26 @@ class SalesEngine
     end
 
     def revenue
+      # returns the total revenue for that merchant across all transactions
       revenue = BigDecimal.new(100)
       # revenue / 100
     end
+
+    # def revenue(date)
+    #   returns the total revenue for that merchant for a specific invoice date
+    # end
+
+    # def favorite_customer
+    #   returns the Customer who has conducted the most successful transactions
+    # end
+
+    # def customers_with_pending_invoices
+    #   returns a collection of Customer instances which have pending (unpaid) invoices
+    # end
+
+    # NOTE: Failed charges should never be counted in revenue totals or statistics.
+
+    # NOTE: All revenues should be reported as a BigDecimal object with two decimal places.
 
   end
 end

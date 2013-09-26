@@ -1,7 +1,3 @@
-require_relative 'invoice'
-require_relative 'invoice_repository'
-require_relative '../sales_engine.rb'
-
 class SalesEngine
   class Transaction
     attr_reader :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at, :engine

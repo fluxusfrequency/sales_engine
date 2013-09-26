@@ -1,9 +1,3 @@
-require_relative 'merchant'
-require_relative 'invoice_item'
-require_relative 'invoice_item_repository'
-require_relative 'merchant_repository'
-require_relative '../sales_engine.rb'
-
 class SalesEngine
   class Item
     attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at, :engine
@@ -28,6 +22,10 @@ class SalesEngine
       merchant_repo = engine.merchant_repository
       merchant_repo.find_by_id(merchant_id)
     end
+
+    # def best_day
+    #   returns the date with the most sales for the given item using the invoice date
+    # end
   end
 end
 # connected to many invoice items and one merchant

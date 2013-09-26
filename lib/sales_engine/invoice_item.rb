@@ -1,5 +1,3 @@
-require_relative '../sales_engine.rb'
-
 class SalesEngine
   class InvoiceItem
 
