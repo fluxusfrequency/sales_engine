@@ -1,6 +1,4 @@
 require_relative 'loader'
-require_relative 'transaction'
-require_relative '../sales_engine.rb'
 
 class SalesEngine
   class TransactionRepository

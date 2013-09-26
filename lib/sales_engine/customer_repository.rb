@@ -1,5 +1,4 @@
 require_relative 'loader'
-require_relative '../sales_engine.rb'
 
 class SalesEngine
   class CustomerRepository

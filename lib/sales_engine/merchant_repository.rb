@@ -1,6 +1,4 @@
 require_relative 'loader'
-require_relative 'merchant'
-require_relative '../sales_engine.rb'
 
 class SalesEngine
   class MerchantRepository
