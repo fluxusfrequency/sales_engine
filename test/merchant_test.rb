@@ -54,12 +54,23 @@ class MerchantTest < Minitest::Test
     assert_equal merchant.id, merchant.invoices[-1].merchant_id.to_i
   end
 
-  # def test_it_has_a_revenue_method
-  #   assert merchant.revenue
-  # end
+  def test_the_a_revenue_method_returns_a_big_decimal
+    assert_equal BigDecimal, merchant.revenue.class
+  end
 
-  # def test_the_a_revenue_method_returns_a_big_decimal
-  #   assert BigDecimal, merchant.revenue.class
-  # end
+  def test_the_revenue_method_with_a_date_param_returns_a_big_decimal
+    assert_equal BigDecimal, merchant.revenue("2012-03-27 14:53:59 UTC").class
+  end
+
+  def test_the_favorite_customer_method_returns_a_customer_object
+    assert_equal SalesEngine::Customer, merchant.favorite_customer.class
+  end
+
+  def test_the_a_customers_with_pending_invoices_method_returns_an_array_of_customers
+    result = merchant.customers_with_pending_invoices
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Customer, result.first.class
+    assert_equal SalesEngine::Customer, result.last.class
+  end
 
 end

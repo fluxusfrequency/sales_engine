@@ -1,3 +1,5 @@
+require_relative '../sales_engine.rb'
+
 class SalesEngine
   class Invoice
     attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at, :engine
@@ -37,6 +39,20 @@ class SalesEngine
     def merchant
       merch_repo = engine.merchant_repository
       merch_repo.find_by_id(merchant_id)
+    end
+
+    #find invoices whose transactions have succeded
+    def successful_transactions
+      transactions.select do |transaction|
+        transaction.result == "success"
+      end
+    end
+
+    #find invoices whose transactions have failed
+    def failed_transactions
+      transactions.select do |transaction|
+        transaction.result == "failed"
+      end
     end
 
   end
