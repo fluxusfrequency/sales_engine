@@ -4,7 +4,6 @@ end
 
 class SalesEngine
   def self.startup
-
   end
 
   def self.load_for(klass)
@@ -12,32 +11,38 @@ class SalesEngine
   end
 
   def self.merchant_repository
-    MerchantRepository.new(load_for("merchants"))
+    merchant_repo ||= MerchantRepository.new(load_for("merchants"))
+    merchant_repo
   end
 
   def self.invoice_repository
-    InvoiceRepository.new(load_for("invoices"))
+    invoice_repo ||= InvoiceRepository.new(load_for("invoices"))
+    invoice_repo
   end
 
   def self.item_repository
-    ItemRepository.new(load_for("items"))
+    item_repo ||= ItemRepository.new(load_for("items"))
+    item_repo
   end
 
   def self.invoice_item_repository
-    InvoiceItemRepository.new(load_for("invoice_items"))
+    invoice_item_repo ||= InvoiceItemRepository.new(load_for("invoice_items"))
+    invoice_item_repo
   end
 
   def self.customer_repository
-    CustomerRepository.new(load_for("customers"))
+    customer_repo ||= CustomerRepository.new(load_for("customers"))
+    customer_repo
   end
 
   def self.transaction_repository
-    TransactionRepository.new(load_for("transactions"))
+    transaction_repo ||= TransactionRepository.new(load_for("transactions"))
+    transaction_repo
   end
 
 end
 
-# solution to DB problem: create a singleton class called Database
+# Jeff's solution to DB problem: create a singleton class called Database
 # class Database
 #   def items
 #     @items ||= ItemRepository.new
