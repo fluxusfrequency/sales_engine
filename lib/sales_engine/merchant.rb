@@ -15,20 +15,21 @@ class SalesEngine
 
     def items
       item_repo = engine.item_repository
-      item_repo.find_all_by_merchant_id(id)
+      result ||= item_repo.find_all_by_merchant_id(id)
     end
 
     def invoices
       inv_repo = engine.invoice_repository
-      inv_repo.find_all_by_merchant_id(id)
+      result ||= inv_repo.find_all_by_merchant_id(id)
     end
 
     def revenue(date="default")
       if date == "default"
-        BigDecimal.new(revenue_without_date)
+        result ||= BigDecimal.new(revenue_without_date)
       else
-        BigDecimal.new(revenue_with_date(date))
+        result ||= BigDecimal.new(revenue_with_date(date))
       end
+
     end
 
     def favorite_customer
@@ -49,9 +50,6 @@ class SalesEngine
       find_pending_invoices.collect { |i| i.customer }
     end
 
-
-    private
-
     def revenue_without_date
       # returns the total revenue for that merchant across all transactions
       rev = 0
@@ -68,7 +66,7 @@ class SalesEngine
     end
 
     def revenue_with_date(date)
-      #   returns the total revenue for that merchant for a specific invoice date
+      #  returns the total revenue for merchant on a specific invoice date
       rev = 0
       invoices.each do |invoice|
         invoice.transactions.each do |transaction|
@@ -87,10 +85,9 @@ class SalesEngine
     def find_pending_invoices
       pending_invoices = []
 
-      #reject transactions that failed but later succeeded, and pass the invoice those the rest to the pending_invoices array
       invoices.each do |invoice|
-        invoice.failed_transactions.each do |failure|
-          unless invoice.successful_transactions.any?{|success| success.invoice_id == failure.invoice_id}
+        invoice.transactions.each do |transaction|
+          unless transaction.result == "success"
             pending_invoices << invoice
           end
         end

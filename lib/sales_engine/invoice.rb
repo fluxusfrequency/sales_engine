@@ -16,40 +16,40 @@ class SalesEngine
 
     def transactions
       tran_repo = engine.transaction_repository
-      tran_repo.find_all_by_invoice_id(id)
+      result ||= tran_repo.find_all_by_invoice_id(id)
     end
 
     def invoice_items
       inv_repo = engine.invoice_item_repository
-      inv_repo.find_all_by_invoice_id(id)
+      result ||= inv_repo.find_all_by_invoice_id(id)
     end
 
     def items
       item_repo = engine.item_repository
-      invoice_items.collect do |invoice_item|
+      result ||= invoice_items.collect do |invoice_item|
         item_repo.find_by_id(invoice_item.item_id)
       end
     end
 
     def customer
       cust_repo = engine.customer_repository
-      cust_repo.find_by_id(customer_id)
+      result ||= cust_repo.find_by_id(customer_id)
     end
 
     def merchant
       merch_repo = engine.merchant_repository
-      merch_repo.find_by_id(merchant_id)
+      result ||= merch_repo.find_by_id(merchant_id)
     end
 
     #find invoices whose transactions have succeded
     def successful_transactions
-      transactions.select do |transaction|
+      result ||= transactions.select do |transaction|
         transaction.result == "success"
       end
     end
 
     #find invoices whose transactions have failed
-    def failed_transactions
+    result ||= def failed_transactions
       transactions.select do |transaction|
         transaction.result == "failed"
       end

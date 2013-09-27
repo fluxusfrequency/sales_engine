@@ -1,6 +1,7 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'bigdecimal'
 require_relative '../lib/sales_engine/item.rb'
 
 class ItemTest < Minitest::Test
@@ -53,12 +54,7 @@ class ItemTest < Minitest::Test
 
   def test_the_invoice_items_method_returns_invoice_items_with_the_item_id
     found_items = item.invoice_items
-    # binding.pry
     assert_equal item.id, found_items[0].item_id.to_i
-  end
-
-  def test_it_has_a_merchant_method
-    assert item.merchant
   end
 
   def test_the_merchant_method_returns_the_assocaiated_merchant
@@ -69,4 +65,11 @@ class ItemTest < Minitest::Test
     assert_equal item.merchant_id, item.merchant.id.to_i
   end
 
+  def test_the_best_day_method_returns_a_date
+    assert item.best_day.match(/\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\s\w{3}/)[0]
+  end
+
+  def test_the_revenue_generated_method_returns_a_big_decimal
+    assert_equal BigDecimal, item.revenue_generated.class
+  end
 end

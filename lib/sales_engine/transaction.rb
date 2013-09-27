@@ -17,7 +17,7 @@ class SalesEngine
 
     def invoice
       inv_repo = engine.invoice_repository
-      inv_repo.find_by_id(invoice_id)
+      result ||= inv_repo.find_by_id(invoice_id)
     end
 
   end

@@ -15,7 +15,7 @@ class SalesEngine
 
     def invoices
       inv_repo = engine.invoice_repository
-      inv_repo.find_all_by_customer_id(id)
+      result ||= inv_repo.find_all_by_customer_id(id)
     end
 
     # def transactions

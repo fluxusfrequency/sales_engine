@@ -18,12 +18,12 @@ class SalesEngine
 
     def invoice
       inv_repo = engine.invoice_repository
-      inv_repo.find_by_id(invoice_id)
+      result ||= inv_repo.find_by_id(invoice_id)
     end
 
     def item
       item_repo = engine.item_repository
-      item_repo.find_by_id(item_id)
+      result ||= item_repo.find_by_id(item_id)
     end
 
   end

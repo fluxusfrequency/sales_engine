@@ -1,6 +1,7 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'bigdecimal'
 require_relative '../lib/sales_engine/merchant.rb'
 require_relative '../lib/sales_engine/merchant_repository.rb'
 
@@ -72,15 +73,21 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "2012-03-27 14:53:59 UTC", merchant_repository.find_all_by_updated_at("2012-03-27 14:53:59 UTC").first.updated_at
   end
 
-  def test_it_has_a_most_revenue_method
-    assert merchant_repository.most_revenue(3)
+  def test_the_most_revenue_method_returns_an_array_of_merchants_sorted_by_revenue
+    result = merchant_repository.most_revenue(2)
+    assert_equal SalesEngine::Merchant, result.first.class
+    assert result.first.revenue > result.last.revenue
   end
 
-  def test_the_most_revenue_method_returns_an_array_of_merchants
-    assert_equal SalesEngine::Merchant, merchant_repository.most_revenue(3).first.class
+  def test_the_most_items_x_method_returns_an_array_of_x_merchants
+    result = merchant_repository.most_items(2)
+    assert Array, result.class
+    # assert_equal SalesEngine::Merchant, result.class.first
+    # assert_equal 2, result.length
   end
 
-  # def test_the_most_revenue_method_returns_an_array_of_merchants_ranked_by_revenue
-  #   assert merchant_repository.most_revenue(3).first.revenue > merchant_repository.most_revenue(3).last.revenue
-  # end
+  def test_the_revenue_date_method_returns_a_big_decimal
+    assert_equal BigDecimal, merchant_repository.revenue("2012-03-27 14:53:59 UTC").class
+  end
+
 end
