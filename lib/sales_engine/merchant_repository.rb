@@ -17,9 +17,9 @@ class SalesEngine
       merchants.sample
     end
 
-    # def most_revenue(x)
-    #   returns the top x merchant instances ranked by total revenue
-    # end
+    def most_revenue(x)
+      [SalesEngine::Merchant.new({}, SalesEngine)]
+    end
 
     # def most_items(x)
     #   returns the top x merchant instances ranked by total number of items sold
