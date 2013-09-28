@@ -1,15 +1,16 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/sales_engine/customer.rb'
-require_relative '../lib/sales_engine/customer_repository.rb'
+require_relative '../lib/sales_engine.rb'
 
 class CustomerRepositoryTest < Minitest::Test
 
-  attr_accessor :customer_repository
+  attr_accessor :customer_repository, :database
 
   def setup
-    @customer_repository = SalesEngine::CustomerRepository.new('test/fixtures/customer_repository_fixture.csv')
+    @database = SalesEngine::Database
+    database.setup_stubs
+    @customer_repository = database.customer_repository
   end
 
   def test_it_has_an_attr_called_customer

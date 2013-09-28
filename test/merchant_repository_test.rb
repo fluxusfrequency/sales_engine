@@ -2,15 +2,16 @@ gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'bigdecimal'
-require_relative '../lib/sales_engine/merchant.rb'
-require_relative '../lib/sales_engine/merchant_repository.rb'
+require_relative '../lib/sales_engine.rb'
 
 class MerchantRepositoryTest < Minitest::Test
 
-  attr_accessor :merchant_repository
+  attr_accessor :merchant_repository, :database
 
   def setup
-    @merchant_repository = SalesEngine::MerchantRepository.new('test/fixtures/merchant_repository_fixture.csv')
+    @database = SalesEngine::Database
+    database.setup_stubs
+    @merchant_repository = database.merchant_repository
   end
 
   def test_it_has_an_attr_called_merchants

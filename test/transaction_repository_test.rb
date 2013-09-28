@@ -1,15 +1,16 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/sales_engine/transaction.rb'
-require_relative '../lib/sales_engine/transaction_repository.rb'
+require_relative '../lib/sales_engine.rb'
 
 class TransactionRepositoryTest < Minitest::Test
 
-  attr_accessor :transaction_repository
+  attr_accessor :transaction_repository, :database
 
   def setup
-    @transaction_repository = SalesEngine::TransactionRepository.new('test/fixtures/transaction_repository_fixture.csv')
+    @database = SalesEngine::Database
+    database.setup_stubs
+    @transaction_repository = database.transaction_repository
   end
 
   def test_it_has_an_attr_called_transactions
@@ -49,7 +50,6 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_by_invoice_id_returns_a_transaction_with_the_correct_invoice_id
-    # binding.pry
     assert_equal transaction_repository.transactions[0], transaction_repository.find_by_invoice_id(1)
   end
 

@@ -14,13 +14,11 @@ class SalesEngine
     end
 
     def items
-      item_repo = engine.item_repository
-      @items ||= item_repo.find_all_by_merchant_id(id)
+      SalesEngine::Database.item_repository.find_all_by_merchant_id(id)
     end
 
     def invoices
-      inv_repo = engine.invoice_repository
-      @invoices ||= inv_repo.find_all_by_merchant_id(id)
+      SalesEngine::Database.invoice_repository.find_all_by_merchant_id(id)
     end
 
     def revenue(date="default")

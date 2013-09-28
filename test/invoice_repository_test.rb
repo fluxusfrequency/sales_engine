@@ -1,15 +1,16 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/sales_engine/invoice.rb'
-require_relative '../lib/sales_engine/invoice_repository.rb'
+require_relative '../lib/sales_engine.rb'
 
 class InvoiceRepositoryTest < Minitest::Test
 
-  attr_accessor :invoice_repository
+  attr_accessor :invoice_repository, :database
 
   def setup
-    @invoice_repository = SalesEngine::InvoiceRepository.new('test/fixtures/invoice_repository_fixture.csv')
+    @database = SalesEngine::Database
+    database.setup_stubs
+    @invoice_repository = database.invoice_repository
   end
 
   def test_it_has_an_attr_called_invoices

@@ -5,7 +5,7 @@ class SalesEngine
     attr_reader :invoice_items
 
     def initialize(file)
-      @data = Loader.load(file)
+      @data = SalesEngine::Loader.load(file)
       populate_list
     end
 
@@ -21,7 +21,7 @@ class SalesEngine
 
     def populate_list
       @invoice_items = @data.collect do |row|
-        InvoiceItem.new(row, SalesEngine)
+        SalesEngine::InvoiceItem.new(row, SalesEngine)
       end
     end
 

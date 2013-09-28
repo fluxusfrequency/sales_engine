@@ -1,15 +1,16 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/sales_engine/item.rb'
-require_relative '../lib/sales_engine/item_repository.rb'
+require_relative '../lib/sales_engine.rb'
 
 class ItemRepositoryTest < Minitest::Test
 
-  attr_accessor :item_repository
+  attr_accessor :item_repository, :database
 
   def setup
-    @item_repository = SalesEngine::ItemRepository.new('test/fixtures/item_repository_fixture.csv')
+    @database = SalesEngine::Database
+    database.setup_stubs
+    @item_repository = database.item_repository
   end
 
   def test_it_has_an_attr_called_items
@@ -97,7 +98,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_the_most_revenue_x_method_returns_an_array_of_items_sorted_by_revenue
-    result = item_repository.most_revenue(2)
+    item_repository.most_revenue(2)
     assert_equal Array, result.class
     assert_equal SalesEngine::Item, result.first.class
     assert result.first.revenue_generated > result.last.revenue_generated
