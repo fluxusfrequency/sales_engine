@@ -4,40 +4,7 @@ end
 
 class SalesEngine
   def self.startup
-  end
-
-  def self.load_for(klass)
-    "./data/#{klass}.csv"
-  end
-
-  def self.merchant_repository
-    merchant_repo ||= MerchantRepository.new(load_for("merchants"))
-    merchant_repo
-  end
-
-  def self.invoice_repository
-    invoice_repo ||= InvoiceRepository.new(load_for("invoices"))
-    invoice_repo
-  end
-
-  def self.item_repository
-    item_repo ||= ItemRepository.new(load_for("items"))
-    item_repo
-  end
-
-  def self.invoice_item_repository
-    invoice_item_repo ||= InvoiceItemRepository.new(load_for("invoice_items"))
-    invoice_item_repo
-  end
-
-  def self.customer_repository
-    customer_repo ||= CustomerRepository.new(load_for("customers"))
-    customer_repo
-  end
-
-  def self.transaction_repository
-    transaction_repo ||= TransactionRepository.new(load_for("transactions"))
-    transaction_repo
+    SalesEngine::Database.setup
   end
 
 end

@@ -49,8 +49,8 @@ class SalesEngine
     end
 
     #find invoices whose transactions have failed
-    result ||= def failed_transactions
-      transactions.select do |transaction|
+    def failed_transactions
+      result ||= transactions.select do |transaction|
         transaction.result == "failed"
       end
     end

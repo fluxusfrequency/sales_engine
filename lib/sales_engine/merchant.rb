@@ -15,12 +15,12 @@ class SalesEngine
 
     def items
       item_repo = engine.item_repository
-      result ||= item_repo.find_all_by_merchant_id(id)
+      @items ||= item_repo.find_all_by_merchant_id(id)
     end
 
     def invoices
       inv_repo = engine.invoice_repository
-      result ||= inv_repo.find_all_by_merchant_id(id)
+      @invoices ||= inv_repo.find_all_by_merchant_id(id)
     end
 
     def revenue(date="default")
@@ -83,17 +83,22 @@ class SalesEngine
     end
 
     def find_pending_invoices
-      pending_invoices = []
+      @pending_invoices ||= []
 
-      invoices.each do |invoice|
-        invoice.transactions.each do |transaction|
-          unless transaction.result == "success"
-            pending_invoices << invoice
+      if @pending_invoices.empty?
+        invoices.each do |invoice|
+          invoice.transactions.each do |transaction|
+            unless transaction.result == "success"
+              @pending_invoices << invoice
+            end
           end
         end
-
       end
-      pending_invoices
+      @pending_invoices
+    end
+
+    def find_successful_invoices
+      invoices - find_pending_invoices
     end
 
   end

@@ -16,12 +16,12 @@ class SalesEngine
     end
 
     def invoice_items
-      inv_item_repo = engine.invoice_item_repository
+      inv_item_repo ||= engine.invoice_item_repository
       inv_item_repo.find_all_by_item_id(id)
     end
 
     def merchant
-      merchant_repo = engine.merchant_repository
+      merchant_repo ||= engine.merchant_repository
       merchant_repo.find_by_id(merchant_id)
     end
 
@@ -74,6 +74,7 @@ class SalesEngine
       end
 
       item_revenue /= 100
+      BigDecimal.new(item_revenue)
     end
 
   end

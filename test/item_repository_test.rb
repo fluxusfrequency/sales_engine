@@ -96,4 +96,11 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "2012-03-27 14:53:59 UTC", item_repository.find_all_by_updated_at("2012-03-27 14:53:59 UTC").first.updated_at
   end
 
+  def test_the_most_revenue_x_method_returns_an_array_of_items_sorted_by_revenue
+    result = item_repository.most_revenue(2)
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Item, result.first.class
+    assert result.first.revenue_generated > result.last.revenue_generated
+  end
+
 end

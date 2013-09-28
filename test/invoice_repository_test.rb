@@ -85,19 +85,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_updated_at_returns_an_invoice_with_the_correct_updated_at
-    # binding.pry
     assert_equal "2012-03-25 09:54:09 UTC", invoice_repository.find_all_by_updated_at("2012-03-25 09:54:09 UTC").first.updated_at
-  end
-
-  def test_it_has_a_most_revenue_x_method
-    assert invoice_repository.most_revenue(2)
-  end
-
-  def test_the_most_revenue_x_method_returns_an_array_of_items_sorted_by_revenue
-    result = invoice_repository.most_revenue(2)
-    assert_equal Array, result.class
-    assert_equal SalesEngine::Item, result.first.class
-    # assert result.first.revenue_generated > result.last.revenue_generated
   end
 
 end
