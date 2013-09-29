@@ -32,9 +32,19 @@ class SalesEngine
       sorted_items[0..x.to_i]
     end
 
-    # def most_items(x)
-    #   returns the top x item instances ranked by total number sold
-    # end
+    def most_items(x)
+      # returns the top x item instances ranked by total number sold
+      item_counts = Hash.new(0)
+      items.each_with_object(item_counts) do |item|
+        item_counts[item] += item.number_sold
+      end
+
+      sorted_item_sales_nested_array = item_counts.sort_by{|item, count| count}.reverse
+      sorted_counts = sorted_item_sales_nested_array.collect do |inner_array|
+        inner_array.first
+      end
+      sorted_counts[0..x.to_i]
+    end
 
     private
 

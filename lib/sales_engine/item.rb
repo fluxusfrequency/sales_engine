@@ -37,6 +37,25 @@ class SalesEngine
     end
 
     def revenue_generated
+      # count the quantity * price of this item on each invoice item
+      item_revenue = 0
+      find_successful_invoice_items.each do |successful_invoice_item|
+        item_revenue += successful_invoice_item.quantity.to_i * successful_invoice_item.unit_price.to_i
+      end
+
+      item_revenue /= 100
+      BigDecimal.new(item_revenue)
+    end
+
+    def number_sold
+      total = 0
+      find_successful_invoice_items.each do |successful_invoice_item|
+        total += successful_invoice_item.quantity.to_i
+      end
+      total
+    end
+
+    def find_successful_invoice_items
       # find the merchant that owns this item (merchant)
       # find all of the successful invoices for that merchant
       successful_invoices = merchant.invoices - merchant.find_pending_invoices
@@ -63,15 +82,7 @@ class SalesEngine
           end
         end
       end
-
-      # count the quantity * price of this item on each invoice item
-      item_revenue = 0
-      successful_invoice_items.each do |successful_invoice_item|
-        item_revenue += successful_invoice_item.quantity.to_i * successful_invoice_item.unit_price.to_i
-      end
-
-      item_revenue /= 100
-      BigDecimal.new(item_revenue)
+      successful_invoice_items
     end
 
   end

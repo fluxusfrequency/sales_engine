@@ -74,4 +74,8 @@ class ItemTest < Minitest::Test
   def test_the_revenue_generated_method_returns_a_big_decimal
     assert_equal BigDecimal, item.revenue_generated.class
   end
+
+  def test_the_items_sold_method_returns_a_number
+    assert_equal Fixnum, item.number_sold.class
+  end
 end

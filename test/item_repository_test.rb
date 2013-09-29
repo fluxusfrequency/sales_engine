@@ -104,4 +104,15 @@ class ItemRepositoryTest < Minitest::Test
     assert result.first.revenue_generated > result.last.revenue_generated
   end
 
+  def test_it_has_a_most_items_method
+    assert item_repository.most_items(2)
+  end
+
+  def test_the_most_items_method_returns_an_array_of_items_sorted_by_number_sold
+    result = item_repository.most_items(2)
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Item, result.first.class
+    assert result.first.number_sold > result.last.number_sold
+  end
+
 end
