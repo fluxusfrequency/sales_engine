@@ -6,7 +6,7 @@ require_relative '../lib/sales_engine/item.rb'
 
 class ItemTest < Minitest::Test
 
-  attr_accessor :item
+  attr_accessor :item, :database
 
   def setup
     data = {:id => 13,
@@ -19,6 +19,8 @@ class ItemTest < Minitest::Test
             }
 
     @item = SalesEngine::Item.new(data, SalesEngine)
+    @database = SalesEngine::Database
+    database.setup_stubs
   end
 
   def test_it_returns_an_item_object

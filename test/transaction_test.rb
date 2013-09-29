@@ -4,7 +4,7 @@ require 'minitest/pride'
 require_relative '../lib/sales_engine.rb'
 
 class TransactionTest < Minitest::Test
-  attr_accessor :transaction
+  attr_accessor :transaction, :database
 
   def setup
     data = {:id => 1,
@@ -17,6 +17,8 @@ class TransactionTest < Minitest::Test
             }
 
     @transaction = SalesEngine::Transaction.new(data, SalesEngine)
+    @database = SalesEngine::Database
+    database.setup_stubs
   end
 
   def test_it_returns_a_transaction_object

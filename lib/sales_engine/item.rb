@@ -44,7 +44,6 @@ class SalesEngine
       # find all of the invoice items that match this item (invoice_items)
       # find all of the invoices that contain those invoice items (invoices_with_this_item)
       invoices_with_this_item = invoice_items.collect { |invoice_item| invoice_item.invoice }
-
       # select only the invoices that belong to the merchant and were also successful
       matching_invoices = []
       invoices_with_this_item.each do |invoice|

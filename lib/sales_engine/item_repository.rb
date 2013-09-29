@@ -20,10 +20,11 @@ class SalesEngine
 
     def most_revenue(x)
     #   returns the top x item instances ranked by total revenue generated
-      item_revenues = Hash.new(BigDecimal.new(0))
+      item_revenues = Hash.new(0)
       items.each_with_object(item_revenues) do |item|
         item_revenues[item] += item.revenue_generated
       end
+
       sorted_item_count_nested_array = item_revenues.sort_by{|item, revenue| revenue }.reverse
       sorted_items = sorted_item_count_nested_array.collect do |inner_array|
         inner_array.first

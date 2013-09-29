@@ -5,7 +5,7 @@ require_relative '../lib/sales_engine/item.rb'
 
 class InvoiceItemTest < Minitest::Test
 
-  attr_accessor :invoice_item
+  attr_accessor :invoice_item, :database
 
   def setup
     data = {:id => 1,
@@ -17,6 +17,8 @@ class InvoiceItemTest < Minitest::Test
             :updated_at => "2012-03-27 14:54:09 UTC"
             }
     @invoice_item = SalesEngine::InvoiceItem.new(data, SalesEngine)
+    @database = SalesEngine::Database
+    database.setup_stubs
   end
 
   def test_it_sets_up_attrs

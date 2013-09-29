@@ -17,7 +17,7 @@ class SalesEngine
       merchants.sample
     end
 
-    def most_revenue(x=1)
+    def most_revenue(x)
       x ||= 0
       sorted ||= merchants.each {|merchant| merchant.revenue}
       sorted[0..x.to_i]
@@ -35,7 +35,7 @@ class SalesEngine
       # returns the total revenue for that date across all merchants
       revenue = 0
       merchants.each do |merchant|
-        revenue += merchant.revenue(date)
+        revenue += merchant.revenue
       end
       revenue
     end

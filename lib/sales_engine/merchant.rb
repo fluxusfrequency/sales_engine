@@ -23,9 +23,9 @@ class SalesEngine
 
     def revenue(date="default")
       if date == "default"
-        result ||= BigDecimal.new(revenue_without_date)
+        BigDecimal.new(revenue_without_date)
       else
-        result ||= BigDecimal.new(revenue_with_date(date))
+        BigDecimal.new(revenue_with_date(date))
       end
 
     end

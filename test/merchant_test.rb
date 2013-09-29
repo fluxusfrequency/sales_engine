@@ -5,7 +5,7 @@ require_relative '../lib/sales_engine/merchant.rb'
 
 class MerchantTest < Minitest::Test
 
-  attr_accessor :merchant
+  attr_accessor :merchant, :database
 
   def setup
     data = {:id => 1,
@@ -15,6 +15,8 @@ class MerchantTest < Minitest::Test
             }
 
     @merchant = SalesEngine::Merchant.new(data, SalesEngine)
+    @database = SalesEngine::Database
+    database.setup_stubs
   end
 
   def test_it_returns_a_merchant_object

@@ -5,7 +5,7 @@ require_relative '../lib/sales_engine/invoice.rb'
 
 class InvoiceTest < Minitest::Test
 
-  attr_accessor :invoice
+  attr_accessor :invoice, :database
 
   def setup
     data = {:id => 1,
@@ -15,7 +15,9 @@ class InvoiceTest < Minitest::Test
             :created_at => "2012-03-25 09:54:09 UTC",
             :updated_at => "2012-03-25 09:54:09 UTC"
             }
-   @invoice = SalesEngine::Invoice.new(data, SalesEngine)
+    @invoice = SalesEngine::Invoice.new(data, SalesEngine)
+    @database = SalesEngine::Database
+    database.setup_stubs
   end
 
   def test_it_returns_an_item_object

@@ -23,9 +23,8 @@ class SalesEngine
     end
 
     def items
-      SalesEngine::Database.item_repository
       result ||= invoice_items.collect do |invoice_item|
-        item_repo.find_by_id(invoice_item.item_id)
+        SalesEngine::Database.item_repository.find_by_id(invoice_item.item_id)
       end
     end
 
