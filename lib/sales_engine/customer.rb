@@ -17,9 +17,15 @@ class SalesEngine
       SalesEngine::Database.invoice_repository.find_all_by_customer_id(id)
     end
 
-    # def transactions
-    #   returns an array of Transaction instances associated with the customer
-    # end
+    def transactions
+      transactions = []
+      invoices.each do |invoice|
+        SalesEngine::Database.transaction_repository.find_all_by_invoice_id(id).each do |invoice|
+          transactions << invoice
+        end
+      end
+      transactions
+    end
 
     # def favorite_merchant
     #   returns an instance of Merchant where the customer has conducted the most successful transactions

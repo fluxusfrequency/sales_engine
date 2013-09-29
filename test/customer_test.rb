@@ -45,4 +45,10 @@ class CustomerTest < Minitest::Test
     assert_equal customer.id, customer.invoices.last.customer_id.to_i
   end
 
+  def test_the_transactions_method_returns_an_array_of_Transaction_instances_associated_with_the_customer
+    result = customer.transactions
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Transaction, result.first.class
+  end
+
 end
