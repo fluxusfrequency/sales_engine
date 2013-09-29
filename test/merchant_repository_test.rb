@@ -81,10 +81,10 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_the_most_items_x_method_returns_an_array_of_x_merchants
-    result = merchant_repository.most_items(2)
+    result = merchant_repository.most_items(1)
     assert Array, result.class
-    # assert_equal SalesEngine::Merchant, result.class.first
-    # assert_equal 2, result.length
+    assert_equal SalesEngine::Merchant, result.first.class
+    assert_equal 1, result.length
   end
 
   def test_the_revenue_date_method_returns_a_big_decimal
