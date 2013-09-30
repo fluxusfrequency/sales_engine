@@ -51,4 +51,12 @@ class CustomerTest < Minitest::Test
     assert_equal SalesEngine::Transaction, result.first.class
   end
 
+  def test_it_the_favorite_merchant_method_returns_a_Merchant_object
+    assert_equal SalesEngine::Merchant, customer.favorite_merchant.class
+  end
+
+  def test_the_favorite_merchant_method_returns_the_merchant_where_the_customer_has_completed_the_most_successful_transactions
+    assert_equal SalesEngine::Merchant, customer.favorite_merchant.class
+  end
+
 end
