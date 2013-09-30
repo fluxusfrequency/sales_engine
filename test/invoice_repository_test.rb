@@ -89,4 +89,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal "2012-03-25 09:54:09 UTC", invoice_repository.find_all_by_updated_at("2012-03-25 09:54:09 UTC").first.updated_at
   end
 
+  def test_it_has_a_create_function_that_takes_a_hash_of_parameters
+    params_hash = {customer: "customer", merchant: "merchant", status: "shipped",
+                                      items: ["item1", "item2", "item3"]}
+    assert invoice_repository.create(params_hash)
+  end
+
 end
