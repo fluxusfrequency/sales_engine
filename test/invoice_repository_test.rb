@@ -2,6 +2,7 @@ gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_engine.rb'
+require_relative '../lib/sales_engine/invoice_repository.rb'
 
 class InvoiceRepositoryTest < Minitest::Test
 
@@ -90,9 +91,32 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_has_a_create_function_that_takes_a_hash_of_parameters
-    params_hash = {customer: "customer", merchant: "merchant", status: "shipped",
-                                      items: ["item1", "item2", "item3"]}
-    assert invoice_repository.create(params_hash)
+    item_data = {:id => 13,
+            :name => "Item Qui Esse",
+            :description => "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.",
+            :unit_price => 75107,
+            :merchant_id => 1,
+            :created_at => "2012-03-27 14:53:59 UTC",
+            :updated_at => "2012-03-27 14:53:59 UTC"
+            }
+    customer_data = {:id => 1,
+            :first_name => "Joey",
+            :last_name => "Ondricka",
+            :created_at => "2012-03-27 14:54:09 UTC",
+            :updated_at => "2012-03-27 14:54:09 UTC"
+            }
+    merchant_data = {:id => 1,
+            :name => "Schroeder-Jerde",
+            :created_at => "2012-03-27 14:53:59 UTC",
+            :updated_at => "2012-03-27 14:53:59 UTC"
+            }
+    item1 = SalesEngine::Item.new(item_data, SalesEngine)
+    item2 = SalesEngine::Item.new(item_data, SalesEngine)
+    customer = SalesEngine::Customer.new(customer_data, SalesEngine)
+    merchant = SalesEngine::Merchant.new(merchant_data, SalesEngine)
+
+    params_hash = {id: SalesEngine::Database.find_last_invoice.id, customer: customer, merchant: merchant, status: "shipped", items: [item1, item1, item2]}
+    # assert_equal true, SalesEngine::Database.invoice_repository.create(params_hash)
   end
 
 end

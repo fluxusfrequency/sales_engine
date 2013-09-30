@@ -19,8 +19,8 @@ class SalesEngine
 
     def most_revenue(x)
       x ||= 0
-      sorted ||= merchants.each {|merchant| merchant.revenue}
-      sorted[0..x.to_i]
+      sorted = merchants.each {|merchant| merchant.revenue}
+      sorted[0..x-1]
     end
 
     #   returns the top x merchant instances ranked by total number of items sold
@@ -28,10 +28,10 @@ class SalesEngine
       x ||= 0
       count = count_all_merchant_sales
       sorted_array = count.sort_by {|merchant, sales| sales}
-      result = sorted_array[0..(x-1).to_i].collect do |inner_array|
+      inner = sorted_array[0..(x-1)].collect do |inner_array|
         inner_array.first
       end
-      result
+      inner[0..x-1]
     end
 
     def revenue(date)
