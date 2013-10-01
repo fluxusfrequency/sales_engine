@@ -27,7 +27,6 @@ class SalesEngine
       else
         BigDecimal.new(revenue_with_date(date))
       end
-
     end
 
     def favorite_customer

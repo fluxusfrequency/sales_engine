@@ -39,54 +39,19 @@ class SalesEngine
         invoice_repository.invoices.last
       end
 
-      def save_new_row(klass, invoice)
-        CSV.open(load_stubs_for(klass), 'w', headers: true, header_converters: :symbol)
-        invoice_attrs = [invoice.id, invoice.customer_id, invoice.merchant_id, invoice.status, invoice.created_at, invoice.updated_at]
-        invoice_repository << invoice_attrs
+      def save_new_invoice_item_row(invoice_item)
+        invoice_item_attrs = [invoice_item.id, invoice_item.item_id, invoice_item.invoice_id, invoice_item.quantity, invoice_item.unit_price, invoice_item.created_at, invoice_item.updated_at]
+        file = CSV.open(load_stubs_for("invoice_item"), 'ab', headers: true, header_converters: :symbol) do |csv|
+          csv << invoice_item_attrs
+        end
       end
 
-      # def load_customer_methods
-      #   @customer_invoices = customer.invoices
-      #   # @customer_transactions = customer_transactions
-      #   # @customer_favorite_merchant = customer.favorite_merchant
-      # end
-
-      # def load_invoice_methods
-      #   @invoice_transactions = invoice.transactions
-      #   @invoice_invoice_items = invoice.invoice_items
-      #   @invoice_idets_collection = invoice.items
-      #   @invoice_customer = invoice.customer
-      #   @invoice_merchant = invoice.merchant
-      #   @invoice_successful_transactions = invoice.succesful_transactions
-      #   @invoice_failed_transactions = invoice.failed_transactions
-      # end
-
-      # def load_invoice_items
-      #   @invoice_item_invoices = invoice_item.invoices
-      #   @invoice_item_items = invoice_item.items
-      # end
-
-      # def load_items
-      #   @item_invoice_items = item.invoice_items
-      #   @item_merchant = item.merchant
-      #   @item_best_day = item.best_day
-      #   @item_revenue_generated = item.revenue_generated
-      # end
-
-      # def load_merchants
-      #   @merchant_items = merchant.items
-      #   @merchant_invoices = merchant_invoices
-      #   @merchant_revenue = merchant.revenue
-      #   @merchant_favorite_customer = merchant.favorite_customer
-      #   @merchant_customers_with_pending_invoices = merchant.customers_with_pending_invoices
-      #   @merchant_revenue_without_date = merchant.revenue_without_date
-      #   @merchant_revenue_with_date = merchant.revenue_with_date
-      #   @merchant_find_pending_invoices = merchant.find_pending_invoices
-      # end
-
-      # def load_transactions
-      #   @transaction_invoice = transaction.invoice
-      # end
+      def save_new_invoice_row(invoice)
+        invoice_attrs = [invoice.id, invoice.customer_id, invoice.merchant_id, invoice.status, invoice.created_at, invoice.updated_at]
+        CSV.open(load_stubs_for("invoice"), 'ab', headers: true, header_converters: :symbol) do |csv|
+          csv << invoice_attrs
+        end
+      end
 
     end
   end

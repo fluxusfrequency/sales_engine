@@ -24,31 +24,34 @@ class SalesEngine
         item_counts[item] += 1
       end
 
-      item_counts.each do |item, count|
-        invoice_item_hash = {
-          :id => SalesEngine::Database.find_last_invoice_item.id.to_i + 1,
-          :item_id => item.id,
-          :invoice_id => SalesEngine::Database.find_last_invoice.id.to_i + 1,
-          :quantity => count,
-          :unit_price => item.unit_price,
-          :created_at => item.created_at,
-          :updated_at => item.updated_at
-        }
-        new_invoice_item = SalesEngine::InvoiceItem.new(invoice_item_hash, SalesEngine)
-        SalesEngine::Database.save_new_row("invoice_item", new_invoice_item)
-      end
-
       data = {
-        :id => params.values[0].id.to_i,
+        :id => params.values[0].to_i,
         :customer_id => params.values[1].id.to_i,
         :merchant_id => params.values[2].id.to_i,
-        :status => params.values[0],
+        :status => params.values[3],
         :created_at => Time.now,
         :updated_at => Time.now
         }
 
       new_invoice = SalesEngine::Invoice.new(data, SalesEngine)
-      SalesEngine::Database.save_new_row("invoice", new_invoice)
+      SalesEngine::Database.save_new_invoice_row(new_invoice)
+
+      item_counts.keys.each_with_index do |item, index|
+        next_id = SalesEngine::Database.find_last_invoice_item.id.to_i+index+1
+        invoice_item_hash = {
+          :id => next_id,
+          # the above line is not working ?!
+          :item_id => item.id,
+          :invoice_id => params.values[0].to_i,
+          :quantity => item_counts[item],
+          :unit_price => item.unit_price,
+          :created_at => item.created_at,
+          :updated_at => item.updated_at
+        }
+        new_invoice_item = SalesEngine::InvoiceItem.new(invoice_item_hash, SalesEngine)
+        SalesEngine::Database.save_new_invoice_item_row(new_invoice_item)
+      end
+
     end
 
     # Given a hash of inputs, you can create new invoices on the fly using this syntax:

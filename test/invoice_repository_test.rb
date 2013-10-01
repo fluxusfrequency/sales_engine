@@ -14,6 +14,9 @@ class InvoiceRepositoryTest < Minitest::Test
     @invoice_repository = database.invoice_repository
   end
 
+  def teardown
+  end
+
   def test_it_has_an_attr_called_invoices
     assert invoice_repository.invoices
   end
@@ -91,10 +94,18 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_has_a_create_function_that_takes_a_hash_of_parameters
-    item_data = {:id => 13,
+    item1_data = {:id => 13,
             :name => "Item Qui Esse",
             :description => "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.",
             :unit_price => 75107,
+            :merchant_id => 1,
+            :created_at => "2012-03-27 14:53:59 UTC",
+            :updated_at => "2012-03-27 14:53:59 UTC"
+            }
+    item2_data = {:id => 14,
+            :name => "Monkeys In A Barrel",
+            :description => "They're a barrel of fun.",
+            :unit_price => 55135,
             :merchant_id => 1,
             :created_at => "2012-03-27 14:53:59 UTC",
             :updated_at => "2012-03-27 14:53:59 UTC"
@@ -110,13 +121,13 @@ class InvoiceRepositoryTest < Minitest::Test
             :created_at => "2012-03-27 14:53:59 UTC",
             :updated_at => "2012-03-27 14:53:59 UTC"
             }
-    item1 = SalesEngine::Item.new(item_data, SalesEngine)
-    item2 = SalesEngine::Item.new(item_data, SalesEngine)
+    item1 = SalesEngine::Item.new(item1_data, SalesEngine)
+    item2 = SalesEngine::Item.new(item2_data, SalesEngine)
     customer = SalesEngine::Customer.new(customer_data, SalesEngine)
     merchant = SalesEngine::Merchant.new(merchant_data, SalesEngine)
 
-    params_hash = {id: SalesEngine::Database.find_last_invoice.id, customer: customer, merchant: merchant, status: "shipped", items: [item1, item1, item2]}
-    # assert_equal true, SalesEngine::Database.invoice_repository.create(params_hash)
+    params_hash = {id: SalesEngine::Database.find_last_invoice.id.to_i+1, customer: customer, merchant: merchant, status: "shipped", items: [item1, item1, item2]}
+    assert SalesEngine::Database.invoice_repository.create(params_hash)
   end
 
 end
