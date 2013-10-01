@@ -1,6 +1,4 @@
-require_relative 'loader'
 require_relative '../sales_engine.rb'
-require 'pry'
 
 class SalesEngine
   class InvoiceRepository
@@ -29,35 +27,37 @@ class SalesEngine
 
         item_counts.keys.each_with_index do |item, index|
           next_id = SalesEngine::Database.find_last_invoice_item.id.to_i+index+1
-          invoice_item_hash = {
-            :id => next_id,
-            :item_id => item.id,
-            :invoice_id => params[:id],
-            :quantity => item_counts[item],
-            :unit_price => item.unit_price,
-            :created_at => item.created_at,
-            :updated_at => item.updated_at
-          }
-          new_invoice_item = SalesEngine::InvoiceItem.new(invoice_item_hash, SalesEngine)
-          SalesEngine::Database.save_new_invoice_item_row(new_invoice_item)
+          data_hash = { :id => next_id,
+                        :item_id => item.id,
+                        :invoice_id => params[:id],
+                        :quantity => item_counts[item],
+                        :unit_price => item.unit_price,
+                        :created_at => item.created_at,
+                        :updated_at => item.updated_at
+                        }
+          new_invoice_item = SalesEngine::InvoiceItem.new(data_hash, SalesEngine)
+          SalesEngine::Database.invoice_item_repository.save_new_invoice_item_row(new_invoice_item)
         end
       end
 
-      data = {
-        :id => SalesEngine::Database.find_last_invoice.id.to_i+1,
+      new_invoice = SalesEngine::Invoice.new(data_hash_for_new_invoice(params), SalesEngine)
+      SalesEngine::Database.save_new_invoice_row(new_invoice)
+
+      SalesEngine::Database.reload_invoice_repository(file)
+      SalesEngine::Database.reload_invoice_item_repository(SalesEngine::Database.invoice_item_repository.file)
+
+      new_invoice
+
+    end
+
+    def data_hash_for_new_invoice(params)
+      { :id => SalesEngine::Database.find_last_invoice.id.to_i+1,
         :customer_id => params[:customer].id,
         :merchant_id => params[:merchant].id,
         :status => params[:status] || 'pending',
         :created_at => Time.now,
         :updated_at => Time.now
         }
-
-      new_invoice = SalesEngine::Invoice.new(data, SalesEngine)
-      SalesEngine::Database.save_new_invoice_row(new_invoice)
-
-      SalesEngine::Database.setup
-      new_invoice
-
     end
 
     def save_new_invoice_row(invoice)

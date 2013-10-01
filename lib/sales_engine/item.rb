@@ -29,29 +29,40 @@ class SalesEngine
       end
     end
 
-    def best_day
-      # returns the date with the most sales for the given item using the invoice date
-      date_counts = Hash.new(0)
+    def successful_invoice_items
+      successes = invoices.select do |invoice|
+        invoice.successful? && invoice.merchant_id == merchant.id
+      end
+
+      successes.collect { |invoice| invoice.invoice_items }.flatten
+    end
+
+    def successful_transactions
       successes = invoices.collect do |invoice|
         invoice.successful_transactions
       end
+      successes.flatten
+    end
 
-      successes.flatten.each_with_object(date_counts) do |transaction|
+    def count_successful_transaction_dates
+      date_counts = Hash.new(0)
+      successful_transactions.each_with_object(date_counts) do |transaction|
         date = Time.strptime(transaction.invoice.created_at, "%Y-%m-%d %H:%M:%S %z").to_date
         date_counts[date] += 1
       end
+      date_counts
+    end
 
-      sorted_dates = date_counts.sort_by {|date, count| count}
-      sorted_dates.reverse.first.first
+    def best_day
+      sorted_dates = count_successful_transaction_dates.sort_by {|date, count| count}.reverse
+      sorted_dates.flatten.first
     end
 
     def revenue_generated
-      # count the quantity * price of this item on each invoice item
       item_revenue = 0
       successful_invoice_items.each do |successful_invoice_item|
         item_revenue += successful_invoice_item.quantity.to_i * successful_invoice_item.unit_price.to_i
       end
-
       BigDecimal.new(item_revenue) / 100
     end
 
@@ -63,20 +74,5 @@ class SalesEngine
       total
     end
 
-    def successful_invoice_items
-    # select only the invoices that belong to the merchant and were also successful
-
-      successes = invoices.select do |invoice|
-        invoice.successful? && invoice.merchant_id == merchant.id
-      end
-
-      successful_invoice_items = successes.collect do |invoice|
-        invoice.invoice_items
-      end
-
-      successful_invoice_items.flatten
-    end
-
   end
 end
-# connected to many invoice items and one merchant

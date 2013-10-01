@@ -26,4 +26,3 @@ class SalesEngine
 
   end
 end
-# references an item and an invoice

@@ -65,6 +65,8 @@ class SalesEngine
       SalesEngine::Database.invoice_repository.create(params_for_invoice)
     end
 
+    private
+
     def params_for_invoice
       {:id => SalesEngine::Database.find_last_invoice.id.to_i+1,
       :customer => customer,

@@ -47,22 +47,17 @@ class SalesEngine
     end
 
     def transactions
-      tr = invoices.collect do |invoice|
-        invoice.transactions
-      end
-      tr.flatten
+      invoices.collect { |invoice| invoice.transactions }.flatten
     end
 
     def favorite_customer
       customer_hash = Hash.new(0)
-      invoices.each_with_object(customer_hash) do |invoice|
-        invoice.transactions.each do |transaction|
-          if transaction.result == "success"
-            customer_hash[invoice.customer] += 1
-          end
-        end
+      successful_transactions.collect do |transaction|
+        customer_hash[transaction.invoice.customer] += 1
       end
-      customer_hash.sort_by{ |customer, count| count }.first.first
+
+      customers = customer_hash.sort_by{ |customer, count| count }.reverse
+      customers.flatten.first
     end
 
     def customers_with_pending_invoices

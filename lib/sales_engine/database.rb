@@ -2,7 +2,6 @@ require_relative '../sales_engine.rb'
 
 class SalesEngine
   class Database
-
     class << self
       attr_reader :customer_repository, :invoice_repository, :invoice_item_repository, :item_repository, :merchant_repository, :transaction_repository
 
@@ -25,6 +24,14 @@ class SalesEngine
 
       def load_for(dir, klass)
         "#{dir}/#{klass}s.csv"
+      end
+
+      def reload_invoice_repository(file)
+        invoice_repository = SalesEngine::InvoiceRepository.new(file)
+      end
+
+      def reload_invoice_item_repository(file)
+        invoice_repository = SalesEngine::InvoiceRepository.new(file)
       end
 
       def find_last_invoice_item

@@ -25,4 +25,3 @@ class SalesEngine
 
   end
 end
-# references only the invoice

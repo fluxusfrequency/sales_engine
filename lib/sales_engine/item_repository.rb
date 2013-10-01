@@ -1,5 +1,4 @@
-require_relative 'loader'
-require 'bigdecimal'
+require_relative '../sales_engine.rb'
 
 class SalesEngine
   class ItemRepository
