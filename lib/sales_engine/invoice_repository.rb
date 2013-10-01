@@ -4,9 +4,10 @@ require 'pry'
 
 class SalesEngine
   class InvoiceRepository
-    attr_reader :invoices
+    attr_reader :invoices, :file, :data
 
     def initialize(file)
+      @file = file
       @data = Loader.load(file)
       populate_list
     end
@@ -30,9 +31,8 @@ class SalesEngine
           next_id = SalesEngine::Database.find_last_invoice_item.id.to_i+index+1
           invoice_item_hash = {
             :id => next_id,
-            # the above line is not working ?!
             :item_id => item.id,
-            :invoice_id => data[:id],
+            :invoice_id => params[:id],
             :quantity => item_counts[item],
             :unit_price => item.unit_price,
             :created_at => item.created_at,
@@ -45,8 +45,8 @@ class SalesEngine
 
       data = {
         :id => SalesEngine::Database.find_last_invoice.id.to_i+1,
-        :customer_id => params[:customer_id],
-        :merchant_id => params[:merchant_id],
+        :customer_id => params[:customer].id,
+        :merchant_id => params[:merchant].id,
         :status => params[:status] || 'pending',
         :created_at => Time.now,
         :updated_at => Time.now
@@ -60,24 +60,17 @@ class SalesEngine
 
     end
 
-    # Given a hash of inputs, you can create new invoices on the fly using this syntax:
-
-    # invoice = invoice_repository.create(customer: customer, merchant: merchant, status: "shipped",
-    #                          items: [item1, item2, item3])
-    # Assuming that customer, merchant, and item1/item2/item3 are instances of their respective classes.
-
-    # You should determine the quantity bought for each item by how many times the item is in the :items array. So, for items: [item1, item1, item2], the quantity bought will be 2 for item1 and 1 for item2.
-
-    # Then, on such an invoice you can call:
-
-    # invoice.charge(credit_card_number: "4444333322221111",
-    #                credit_card_expiration: "10/13", result: "success")
-    # The objects created through this process would then affect calculations, finds, etc.
+    def save_new_invoice_row(invoice)
+      invoice_attrs = [invoice.id, invoice.customer_id, invoice.merchant_id, invoice.status, invoice.created_at, invoice.updated_at]
+      CSV.open(file, 'ab', headers: true, header_converters: :symbol) do |csv|
+        csv << invoice_attrs
+      end
+    end
 
     private
 
     def populate_list
-      @invoices = @data.collect do |row|
+      @invoices = data.collect do |row|
         Invoice.new(row, SalesEngine)
       end
     end

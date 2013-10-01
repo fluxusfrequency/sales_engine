@@ -1,14 +1,18 @@
+require 'time'
+require 'csv'
+require 'bigdecimal'
+
 Dir["./lib/sales_engine/*.rb"].each do |file|
   require file
 end
 
 class SalesEngine
-  def initialize(data="")
-    startup
+  def initialize(data="./data")
+    startup(data)
   end
 
-  def startup
-    SalesEngine::Database.setup
+  def startup(data)
+    SalesEngine::Database.load_data(data)
   end
 
   def customer_repository

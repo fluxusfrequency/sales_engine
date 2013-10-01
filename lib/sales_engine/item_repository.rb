@@ -3,11 +3,20 @@ require 'bigdecimal'
 
 class SalesEngine
   class ItemRepository
-    attr_reader :items
+    attr_reader :items, :file, :data
 
     def initialize(file)
+      @file = file
       @data = Loader.load(file)
       populate_list
+    end
+
+    def find_by_unit_price(match)
+      items.find { |item| BigDecimal.new(item.unit_price) == match }
+    end
+
+    def find_all_by_unit_price(match)
+      items.select { |item| BigDecimal.new(item.unit_price) == match }
     end
 
     def all
@@ -29,11 +38,10 @@ class SalesEngine
       sorted_items = sorted_item_count_nested_array.collect do |inner_array|
         inner_array.first
       end
-      sorted_items[0..x.to_i]
+      sorted_items[0..x.to_i-1]
     end
 
     def most_items(x)
-      # returns the top x item instances ranked by total number sold
       item_counts = Hash.new(0)
       items.each_with_object(item_counts) do |item|
         item_counts[item] += item.number_sold
@@ -49,18 +57,18 @@ class SalesEngine
     private
 
     def populate_list
-      @items = @data.collect do |row|
+      @items = data.collect do |row|
         Item.new(row, SalesEngine)
       end
     end
 
-    [:id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at].each do |attr|
+    [:id, :name, :description, :merchant_id, :created_at, :updated_at].each do |attr|
       define_method("find_by_#{attr}") do |match|
         items.find { |item| item.send(attr).to_s == match.to_s }
       end
     end
 
-    [:id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at].each do |attr|
+    [:id, :name, :description, :merchant_id, :created_at, :updated_at].each do |attr|
       define_method("find_all_by_#{attr}") do |match|
         items.select { |item| item.send(attr).to_s == match.to_s }
       end

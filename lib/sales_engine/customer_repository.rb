@@ -2,9 +2,10 @@ require_relative 'loader'
 
 class SalesEngine
   class CustomerRepository
-    attr_reader :customers
+    attr_reader :customers, :file, :data
 
     def initialize(file)
+      @file = file
       @data = Loader.load(file)
       populate_list
     end
@@ -20,7 +21,7 @@ class SalesEngine
     private
 
     def populate_list
-      @customers = @data.collect do |row|
+      @customers = data.collect do |row|
         Customer.new(row, SalesEngine)
       end
     end

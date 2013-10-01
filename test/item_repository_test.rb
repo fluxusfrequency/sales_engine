@@ -66,11 +66,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_unit_price_returns_an_item_with_the_correct_unit_price
-    assert_equal item_repository.items[0], item_repository.find_by_unit_price(75107)
+    assert_equal item_repository.items[0], item_repository.find_by_unit_price(BigDecimal.new(75107))
   end
 
   def test_find_all_by_unit_price_returns_an_item_with_the_correct_unit_price
-    assert_equal 75107, item_repository.find_all_by_unit_price(75107).first.unit_price.to_i
+    price = item_repository.find_all_by_unit_price(BigDecimal.new(75107)).first.unit_price
+    assert_equal BigDecimal.new(75107), BigDecimal.new(price)
   end
 
   def test_find_by_merchant_id_returns_an_item_with_the_correct_merchant_id

@@ -23,14 +23,38 @@ class SalesEngine
 
     def revenue(date="default")
       if date == "default"
-        BigDecimal.new(revenue_without_date)
+        BigDecimal.new(revenue_without_date) / 100
       else
-        BigDecimal.new(revenue_with_date(date))
+        BigDecimal.new(revenue_with_date(date)) / 100
       end
     end
 
+    def revenue_without_date
+      rev = 0
+      successful_invoice_items.each do |inv_item|
+        rev += (inv_item.quantity.to_i * inv_item.unit_price.to_i)
+      end
+      rev
+    end
+
+    def revenue_with_date(date)
+      rev = 0
+      successful_invoice_items.each do |inv_item|
+        if inv_item.created_at == date
+          rev += (inv_item.quantity.to_i * inv_item.unit_price.to_i)
+        end
+      end
+      rev
+    end
+
+    def transactions
+      tr = invoices.collect do |invoice|
+        invoice.transactions
+      end
+      tr.flatten
+    end
+
     def favorite_customer
-      # returns the Customer who has conducted the most successful transactions
       customer_hash = Hash.new(0)
       invoices.each_with_object(customer_hash) do |invoice|
         invoice.transactions.each do |transaction|
@@ -43,62 +67,34 @@ class SalesEngine
     end
 
     def customers_with_pending_invoices
-      # returns a collection of Customer instances which have pending (unpaid) invoices
-      find_pending_invoices.collect { |i| i.customer }
+      pending_invoices.collect { |i| i.customer }
     end
 
-    def revenue_without_date
-      # returns the total revenue for that merchant across all transactions
-      rev = 0
-      invoices.each do |invoice|
-        invoice.transactions.each do |transaction|
-          if transaction.result == "success"
-            invoice.invoice_items.each do |inv_item|
-              rev += (inv_item.quantity.to_i * inv_item.unit_price.to_i)
-            end
-          end
-        end
+    def successful_invoices
+      invoices - pending_invoices
+    end
+
+    def pending_invoices
+      p_invoices ||= []
+
+      if p_invoices.empty?
+        p_invoices = pending_transactions.collect { |transaction| transaction.invoice }
       end
-      rev /= 100
+
+      p_invoices
     end
 
-    def revenue_with_date(date)
-      #  returns the total revenue for merchant on a specific invoice date
-      rev = 0
-      invoices.each do |invoice|
-        invoice.transactions.each do |transaction|
-          if transaction.result == "success"
-            invoice.invoice_items.each do |inv_item|
-              if inv_item.created_at == date
-                rev += (inv_item.quantity.to_i * inv_item.unit_price.to_i)
-              end
-            end
-          end
-        end
-      end
-      rev /= 100
+    def successful_transactions
+      transactions.select { |transaction| transaction.successful? }
     end
 
-    def find_pending_invoices
-      @pending_invoices ||= []
-
-      if @pending_invoices.empty?
-        invoices.each do |invoice|
-          invoice.transactions.each do |transaction|
-            unless transaction.result == "success"
-              @pending_invoices << invoice
-            end
-          end
-        end
-      end
-      @pending_invoices
+    def pending_transactions
+      transactions = successful_transactions
     end
 
-    def find_successful_invoices
-      invoices - find_pending_invoices
+    def successful_invoice_items
+      successful_transactions.collect { |transaction| transaction.invoice.invoice_items }.flatten
     end
 
   end
 end
-
-# connected to many invoices and many items

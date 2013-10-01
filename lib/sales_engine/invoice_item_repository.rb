@@ -2,9 +2,11 @@ require_relative 'loader'
 
 class SalesEngine
   class InvoiceItemRepository
-    attr_reader :invoice_items
+
+    attr_reader :invoice_items, :file, :data
 
     def initialize(file)
+      @file = file
       @data = SalesEngine::Loader.load(file)
       populate_list
     end
@@ -17,10 +19,17 @@ class SalesEngine
       invoice_items.sample
     end
 
+    def save_new_invoice_item_row(invoice_item)
+      invoice_item_attrs = [invoice_item.id, invoice_item.item_id, invoice_item.invoice_id, invoice_item.quantity, invoice_item.unit_price, invoice_item.created_at, invoice_item.updated_at]
+      CSV.open(file, 'ab', headers: true, header_converters: :symbol) do |csv|
+        csv << invoice_item_attrs
+      end
+    end
+
     private
 
     def populate_list
-      @invoice_items = @data.collect do |row|
+      @invoice_items = data.collect do |row|
         SalesEngine::InvoiceItem.new(row, SalesEngine)
       end
     end

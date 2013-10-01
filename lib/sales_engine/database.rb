@@ -2,33 +2,29 @@ require_relative '../sales_engine.rb'
 
 class SalesEngine
   class Database
+
     class << self
       attr_reader :customer_repository, :invoice_repository, :invoice_item_repository, :item_repository, :merchant_repository, :transaction_repository
 
       def setup
-        @customer_repository = SalesEngine::CustomerRepository.new(load_for("customer"))
-        @invoice_repository = SalesEngine::InvoiceRepository.new(load_for("invoice"))
-        @invoice_item_repository = SalesEngine::InvoiceItemRepository.new(load_for("invoice_item"))
-        @item_repository = SalesEngine::ItemRepository.new(load_for("item"))
-        @merchant_repository = SalesEngine::MerchantRepository.new(load_for("merchant"))
-        @transaction_repository = SalesEngine::TransactionRepository.new(load_for("transaction"))
+        load_data('./data')
       end
 
       def setup_stubs
-        @customer_repository = SalesEngine::CustomerRepository.new(load_stubs_for("customer"))
-        @invoice_repository = SalesEngine::InvoiceRepository.new(load_stubs_for("invoice"))
-        @invoice_item_repository = SalesEngine::InvoiceItemRepository.new(load_stubs_for("invoice_item"))
-        @item_repository = SalesEngine::ItemRepository.new(load_stubs_for("item"))
-        @merchant_repository = SalesEngine::MerchantRepository.new(load_stubs_for("merchant"))
-        @transaction_repository = SalesEngine::TransactionRepository.new(load_stubs_for("transaction"))
+        load_data('./test/fixtures')
       end
 
-      def load_for(klass)
-        "./data/#{klass}s.csv"
+      def load_data(dir)
+        @customer_repository = SalesEngine::CustomerRepository.new(load_for(dir, "customer"))
+        @invoice_repository = SalesEngine::InvoiceRepository.new(load_for(dir, "invoice"))
+        @invoice_item_repository = SalesEngine::InvoiceItemRepository.new(load_for(dir, "invoice_item"))
+        @item_repository = SalesEngine::ItemRepository.new(load_for(dir, "item"))
+        @merchant_repository = SalesEngine::MerchantRepository.new(load_for(dir, "merchant"))
+        @transaction_repository = SalesEngine::TransactionRepository.new(load_for(dir, "transaction"))
       end
 
-      def load_stubs_for(klass)
-        "./test/fixtures/#{klass}_repository_fixture.csv"
+      def load_for(dir, klass)
+        "#{dir}/#{klass}s.csv"
       end
 
       def find_last_invoice_item
@@ -44,24 +40,15 @@ class SalesEngine
       end
 
       def save_new_invoice_item_row(invoice_item)
-        invoice_item_attrs = [invoice_item.id, invoice_item.item_id, invoice_item.invoice_id, invoice_item.quantity, invoice_item.unit_price, invoice_item.created_at, invoice_item.updated_at]
-        file = CSV.open(load_for("invoice_item"), 'ab', headers: true, header_converters: :symbol) do |csv|
-          csv << invoice_item_attrs
-        end
+        invoice_item_repository.save_new_invoice_item_row(invoice_item)
       end
 
       def save_new_invoice_row(invoice)
-        invoice_attrs = [invoice.id, invoice.customer_id, invoice.merchant_id, invoice.status, invoice.created_at, invoice.updated_at]
-        CSV.open(load_for("invoice"), 'ab', headers: true, header_converters: :symbol) do |csv|
-          csv << invoice_attrs
-        end
+        invoice_repository.save_new_invoice_row(invoice)
       end
 
       def save_new_transaction_row(transaction)
-        transaction_attrs = [transaction.id, transaction.invoice_id, transaction.credit_card_number, transaction.credit_card_expiration_date, transaction.result, transaction.created_at, transaction.updated_at]
-        CSV.open(load_for("transaction"), 'ab', headers: true, header_converters: :symbol) do |csv|
-          csv << transaction_attrs
-        end
+        transaction_repository.save_new_transaction_row(transaction)
       end
 
     end

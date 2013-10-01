@@ -68,7 +68,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_the_best_day_method_returns_a_date
-    assert item.best_day.match(/\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\s\w{3}/)[0]
+    assert_equal Date, item.best_day.class
   end
 
   def test_the_revenue_generated_method_returns_a_big_decimal

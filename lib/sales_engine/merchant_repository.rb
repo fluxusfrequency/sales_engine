@@ -2,9 +2,10 @@ require_relative 'loader'
 
 class SalesEngine
   class MerchantRepository
-    attr_reader :merchants
+    attr_reader :merchants, :file, :data
 
     def initialize(file)
+      @file = file
       @data = Loader.load(file)
       populate_list
     end
@@ -46,7 +47,7 @@ class SalesEngine
     private
 
     def populate_list
-      @merchants = @data.collect do |row|
+      @merchants = data.collect do |row|
         Merchant.new(row, SalesEngine)
       end
     end
@@ -54,8 +55,7 @@ class SalesEngine
     def count_all_merchant_sales
       merchant_sales = Hash.new(0)
       merchants.each_with_object(merchant_sales) do |merchant|
-        successful_invoices = merchant.invoices - merchant.find_pending_invoices
-        successful_invoices.each do |invoice|
+        merchant.successful_invoices.each do |invoice|
           merchant_sales[merchant] += invoice.items.length
         end
       end

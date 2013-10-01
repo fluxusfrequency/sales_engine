@@ -2,9 +2,10 @@ require_relative 'loader'
 
 class SalesEngine
   class TransactionRepository
-    attr_reader :transactions
+    attr_reader :transactions, :file, :data
 
     def initialize(file)
+      @file = file
       @data = Loader.load(file)
       populate_list
     end
@@ -33,10 +34,17 @@ class SalesEngine
 
     end
 
+    def save_new_transaction_row(transaction)
+      transaction_attrs = [transaction.id, transaction.invoice_id, transaction.credit_card_number, transaction.credit_card_expiration_date, transaction.result, transaction.created_at, transaction.updated_at]
+      CSV.open(file, 'ab', headers: true, header_converters: :symbol) do |csv|
+        csv << transaction_attrs
+      end
+    end
+
     private
 
     def populate_list
-      @transactions = @data.collect do |row|
+      @transactions = data.collect do |row|
         Transaction.new(row, SalesEngine)
       end
     end

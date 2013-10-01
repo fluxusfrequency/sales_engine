@@ -1,4 +1,5 @@
 require_relative '../sales_engine.rb'
+require 'time'
 
 class SalesEngine
   class Item
@@ -23,66 +24,58 @@ class SalesEngine
       SalesEngine::Database.merchant_repository.find_by_id(merchant_id)
     end
 
+    def invoices
+      invoice_items.collect do |invoice_item|
+        invoice_item.invoice
+      end
+    end
+
     def best_day
       # returns the date with the most sales for the given item using the invoice date
       date_counts = Hash.new(0)
-      invoice_items.each do |invoice_item|
-        results = invoice_item.invoice.successful_transactions
-        results.each_with_object(date_counts) do |successful_transaction|
-          date_counts[successful_transaction.created_at] += 1
-        end
+      successes = invoices.collect do |invoice|
+        invoice.successful_transactions
       end
+
+      successes.flatten.each_with_object(date_counts) do |transaction|
+        date = Time.strptime(transaction.invoice.created_at, "%Y-%m-%d %H:%M:%S %z").to_date
+        date_counts[date] += 1
+      end
+
       sorted_dates = date_counts.sort_by {|date, count| count}
-      sorted_dates.last[0]
+      sorted_dates.reverse.first.first
     end
 
     def revenue_generated
       # count the quantity * price of this item on each invoice item
       item_revenue = 0
-      find_successful_invoice_items.each do |successful_invoice_item|
+      successful_invoice_items.each do |successful_invoice_item|
         item_revenue += successful_invoice_item.quantity.to_i * successful_invoice_item.unit_price.to_i
       end
 
-      item_revenue /= 100
-      BigDecimal.new(item_revenue)
+      BigDecimal.new(item_revenue) / 100
     end
 
     def number_sold
       total = 0
-      find_successful_invoice_items.each do |successful_invoice_item|
+      successful_invoice_items.each do |successful_invoice_item|
         total += successful_invoice_item.quantity.to_i
       end
       total
     end
 
-    def find_successful_invoice_items
-      # find the merchant that owns this item (merchant)
-      # find all of the successful invoices for that merchant
-      successful_invoices = merchant.invoices - merchant.find_pending_invoices
+    def successful_invoice_items
+    # select only the invoices that belong to the merchant and were also successful
 
-      # find all of the invoice items that match this item (invoice_items)
-      # find all of the invoices that contain those invoice items (invoices_with_this_item)
-      invoices_with_this_item = invoice_items.collect { |invoice_item| invoice_item.invoice }
-      # select only the invoices that belong to the merchant and were also successful
-      matching_invoices = []
-      invoices_with_this_item.each do |invoice|
-        successful_invoices.each do |suc_inv|
-          if suc_inv.id == invoice.id
-            matching_invoices << invoice
-          end
-        end
+      successes = invoices.select do |invoice|
+        invoice.successful? && invoice.merchant_id == merchant.id
       end
 
-      # select only invoice_items that were on successful invoices
-      successful_invoice_items = []
-      invoice_items.each do |invoice_item|
-        matching_invoices.each do |matching_invoice|
-          if matching_invoice.id == invoice_item.invoice_id
-            successful_invoice_items << invoice_item
-          end
-        end
+      successful_invoice_items = successes.collect do |invoice|
+        invoice.invoice_items
       end
-      successful_invoice_items
+
+      successful_invoice_items.flatten
     end
 
   end

@@ -19,6 +19,10 @@ class SalesEngine
       SalesEngine::Database.invoice_repository.find_by_id(invoice_id)
     end
 
+    def successful?
+      result == 'success'
+    end
+
   end
 end
 # references only the invoice
