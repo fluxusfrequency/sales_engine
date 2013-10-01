@@ -20,8 +20,8 @@ class SalesEngine
     def transactions
       transactions = []
       invoices.each do |invoice|
-        SalesEngine::Database.transaction_repository.find_all_by_invoice_id(id).each do |invoice|
-          transactions << invoice
+        SalesEngine::Database.transaction_repository.find_all_by_invoice_id(invoice.id).each do |transaction|
+          transactions << transaction
         end
       end
       transactions

@@ -3,10 +3,7 @@ Dir["./lib/sales_engine/*.rb"].each do |file|
 end
 
 class SalesEngine
-  attr_reader :file
-
-  def initialize(file)
-    @file = file
+  def initialize(data="")
     startup
   end
 
@@ -38,19 +35,4 @@ class SalesEngine
     SalesEngine::Database.transaction_repository
   end
 
-
 end
-
-# Jeff's solution to DB problem: create a singleton class called Database
-# class Database
-#   def items
-#     @items ||= ItemRepository.new
-#   end
-# end
-#
-# call it from the merchant instance:
-# Database.items
-#
-#
-# This is a global variable, which is bad because it will reference whichever DB was loaded last
-# If you instantiate it, you have to pass it down the chain anyway

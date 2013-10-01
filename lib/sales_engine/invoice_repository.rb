@@ -1,5 +1,6 @@
 require_relative 'loader'
 require_relative '../sales_engine.rb'
+require 'pry'
 
 class SalesEngine
   class InvoiceRepository
@@ -19,16 +20,34 @@ class SalesEngine
     end
 
     def create(params={})
-      item_counts = Hash.new(0)
-      params.values[4].each_with_object(item_counts) do |item|
-        item_counts[item] += 1
+      if params[:items]
+        item_counts = Hash.new(0)
+        params[:items].each_with_object(item_counts) do |item|
+          item_counts[item] += 1
+        end
+
+        item_counts.keys.each_with_index do |item, index|
+          next_id = SalesEngine::Database.find_last_invoice_item.id.to_i+index+1
+          invoice_item_hash = {
+            :id => next_id,
+            # the above line is not working ?!
+            :item_id => item.id,
+            :invoice_id => data[:id],
+            :quantity => item_counts[item],
+            :unit_price => item.unit_price,
+            :created_at => item.created_at,
+            :updated_at => item.updated_at
+          }
+          new_invoice_item = SalesEngine::InvoiceItem.new(invoice_item_hash, SalesEngine)
+          SalesEngine::Database.save_new_invoice_item_row(new_invoice_item)
+        end
       end
 
       data = {
-        :id => params.values[0].to_i,
-        :customer_id => params.values[1].id.to_i,
-        :merchant_id => params.values[2].id.to_i,
-        :status => params.values[3],
+        :id => SalesEngine::Database.find_last_invoice.id.to_i+1,
+        :customer_id => params[:customer_id],
+        :merchant_id => params[:merchant_id],
+        :status => params[:status] || 'pending',
         :created_at => Time.now,
         :updated_at => Time.now
         }
@@ -36,21 +55,8 @@ class SalesEngine
       new_invoice = SalesEngine::Invoice.new(data, SalesEngine)
       SalesEngine::Database.save_new_invoice_row(new_invoice)
 
-      item_counts.keys.each_with_index do |item, index|
-        next_id = SalesEngine::Database.find_last_invoice_item.id.to_i+index+1
-        invoice_item_hash = {
-          :id => next_id,
-          # the above line is not working ?!
-          :item_id => item.id,
-          :invoice_id => params.values[0].to_i,
-          :quantity => item_counts[item],
-          :unit_price => item.unit_price,
-          :created_at => item.created_at,
-          :updated_at => item.updated_at
-        }
-        new_invoice_item = SalesEngine::InvoiceItem.new(invoice_item_hash, SalesEngine)
-        SalesEngine::Database.save_new_invoice_item_row(new_invoice_item)
-      end
+      SalesEngine::Database.setup
+      new_invoice
 
     end
 
