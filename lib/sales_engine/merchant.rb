@@ -89,7 +89,7 @@ class SalesEngine
     end
 
     def pending_transactions
-      transactions = successful_transactions
+      transactions - successful_transactions
     end
 
     def successful_invoice_items

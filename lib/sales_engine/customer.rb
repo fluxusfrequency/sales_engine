@@ -19,20 +19,17 @@ class SalesEngine
 
     def merchants
       my_merchants = []
-      invoices.each do |invoice|
+      invoices.collect do |invoice|
         my_merchants << invoice.merchant unless invoice.merchant.nil?
       end
       my_merchants
     end
 
     def transactions
-      transactions = []
-      invoices.each do |invoice|
-        SalesEngine::Database.transaction_repository.find_all_by_invoice_id(invoice.id).each do |transaction|
-          transactions << transaction
-        end
+      transactions = invoices.collect do |invoice|
+        invoice.transactions
       end
-      transactions
+      transactions.flatten
     end
 
     def successful_customer_invoices
@@ -53,7 +50,7 @@ class SalesEngine
       end
 
       sorted_hash = merchant_count.sort_by {|merchant, count| count}.reverse
-      sorted_hash.first.first
+      sorted_hash.flatten.first
     end
 
   end
