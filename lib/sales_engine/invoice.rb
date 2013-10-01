@@ -48,6 +48,18 @@ class SalesEngine
       end
     end
 
+    def charge(data={})
+      params_for_transaction = {:id => SalesEngine::Database.find_last_transaction.id.to_i+1,
+                                :invoice_id => id,
+                                :credit_card_number => data[:credit_card_number],
+                                :credit_card_expiration_date => nil,
+                                :result => data[:result],
+                                :created_at => created_at,
+                                :updated_at => updated_at
+                                }
+      SalesEngine::Database.transaction_repository.create(params_for_transaction)
+    end
+
 
   end
 end

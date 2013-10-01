@@ -17,6 +17,22 @@ class SalesEngine
       transactions.sample
     end
 
+    def create(params={})
+      data = {
+        :id => SalesEngine::Database.find_last_transaction.id.to_i+1,
+        :invoice_id => params[:invoice_id],
+        :credit_card_number => params[:credit_card_number],
+        :credit_card_expiration_date => nil,
+        :result => params[:result],
+        :created_at => params[:created_at],
+        :updated_at => params[:updated_at]
+        }
+
+      new_transaction = SalesEngine::Transaction.new(data, SalesEngine)
+      SalesEngine::Database.save_new_transaction_row(new_transaction)
+
+    end
+
     private
 
     def populate_list

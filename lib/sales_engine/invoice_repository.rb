@@ -90,9 +90,5 @@ class SalesEngine
       end
     end
 
-    def find_last_invoice
-      invoices.last
-    end
-
   end
 end

@@ -88,4 +88,18 @@ class TransactionRepositoryTest < Minitest::Test
   def test_find_all_by_updated_at_returns_a_transaction_with_the_correct_updated_at
     assert_equal "2012-03-27 14:54:09 UTC", transaction_repository.find_all_by_updated_at("2012-03-27 14:54:09 UTC").first.updated_at
   end
+
+  def test_it_has_a_create_function_that_takes_a_hash_of_parameters
+    params_hash = {:id => SalesEngine::Database.find_last_transaction.id.to_i+1,
+                  :invoice_id => 15,
+                  :credit_card_number => '4444333322221111',
+                  :credit_card_expiration_date => '10/13',
+                  :result => 'success',
+                  :created_at => "2012-03-27 14:54:09 UTC",
+                  :updated_at => "2012-03-27 14:54:09 UTC"
+                  }
+
+    assert SalesEngine::Database.transaction_repository.create(params_hash)
+  end
+
 end

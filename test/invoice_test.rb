@@ -96,5 +96,11 @@ class InvoiceTest < Minitest::Test
     assert_equal invoice.merchant_id, invoice.merchant.id.to_i
   end
 
+  def test_the_charge_method_creates_an_invoice_object
+    assert invoice.charge ({ credit_card_number: '4444333322221111',
+                          credit_card_expiration: '10/13',
+                          result: 'submitted'})
+  end
+
 end
 

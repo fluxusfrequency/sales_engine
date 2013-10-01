@@ -39,6 +39,10 @@ class SalesEngine
         invoice_repository.invoices.last
       end
 
+      def find_last_transaction
+        transaction_repository.transactions.last
+      end
+
       def save_new_invoice_item_row(invoice_item)
         invoice_item_attrs = [invoice_item.id, invoice_item.item_id, invoice_item.invoice_id, invoice_item.quantity, invoice_item.unit_price, invoice_item.created_at, invoice_item.updated_at]
         file = CSV.open(load_stubs_for("invoice_item"), 'ab', headers: true, header_converters: :symbol) do |csv|
@@ -50,6 +54,13 @@ class SalesEngine
         invoice_attrs = [invoice.id, invoice.customer_id, invoice.merchant_id, invoice.status, invoice.created_at, invoice.updated_at]
         CSV.open(load_stubs_for("invoice"), 'ab', headers: true, header_converters: :symbol) do |csv|
           csv << invoice_attrs
+        end
+      end
+
+      def save_new_transaction_row(transaction)
+        transaction_attrs = [transaction.id, transaction.invoice_id, transaction.credit_card_number, transaction.credit_card_expiration_date, transaction.result, transaction.created_at, transaction.updated_at]
+        CSV.open(load_stubs_for("transaction"), 'ab', headers: true, header_converters: :symbol) do |csv|
+          csv << transaction_attrs
         end
       end
 
