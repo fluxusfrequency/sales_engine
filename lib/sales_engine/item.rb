@@ -1,5 +1,4 @@
 require_relative '../sales_engine.rb'
-require 'time'
 
 class SalesEngine
   class Item

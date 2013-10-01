@@ -7,12 +7,12 @@ Dir["./lib/sales_engine/*.rb"].each do |file|
 end
 
 class SalesEngine
-  def initialize(data="./data")
-    startup(data)
+  def initialize(dir="./data")
+    startup(dir)
   end
 
-  def startup(data)
-    SalesEngine::Database.load_data(data)
+  def startup(dir)
+    SalesEngine::Database.load_data(dir)
   end
 
   def customer_repository

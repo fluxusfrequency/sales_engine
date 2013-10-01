@@ -1,5 +1,4 @@
 require_relative '../sales_engine.rb'
-require 'bigdecimal'
 
 class SalesEngine
   class Merchant
