@@ -15,5 +15,9 @@ class SalesEngine
       end
     end
 
+    def all
+      invoice_items
+    end
+
   end
 end

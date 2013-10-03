@@ -15,5 +15,9 @@ class SalesEngine
       end
     end
 
+    def all
+      transactions
+    end
+
   end
 end

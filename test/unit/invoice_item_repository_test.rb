@@ -22,4 +22,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal SalesEngine::InvoiceItem, result.first.class
   end
 
+  def test_it_has_an_all_method_that_returns_an_array_of_invoice_item_objects
+    result = invoice_item_repository.all
+    assert_equal Array, result.class
+    assert_equal SalesEngine::InvoiceItem, result.last.class
+  end
+
 end

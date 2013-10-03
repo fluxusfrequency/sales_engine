@@ -22,4 +22,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal SalesEngine::Item, result.first.class
   end
 
+  def test_it_has_an_all_method_that_returns_an_array_of_item_objects
+    result = item_repository.all
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Item, result.last.class
+  end
+
 end

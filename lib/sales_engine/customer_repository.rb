@@ -15,5 +15,9 @@ class SalesEngine
       end
     end
 
+    def all
+      customers
+    end
+
   end
 end

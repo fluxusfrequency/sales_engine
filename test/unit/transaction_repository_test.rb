@@ -22,4 +22,10 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal SalesEngine::Transaction, result.first.class
   end
 
+  def test_it_has_an_all_method_that_returns_an_array_of_transaction_objects
+    result = transaction_repository.all
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Transaction, result.last.class
+  end
+
 end
