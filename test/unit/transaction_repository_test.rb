@@ -16,4 +16,10 @@ class TransactionRepositoryTest < Minitest::Test
     assert !transaction_repository.nil?
   end
 
+  def test_it_should_have_an_attr_called_transactions_that_returns_an_array_of_transaction_objects
+    result = transaction_repository.transactions
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Transaction, result.first.class
+  end
+
 end

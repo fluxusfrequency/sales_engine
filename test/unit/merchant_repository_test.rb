@@ -16,4 +16,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert !merchant_repository.nil?
   end
 
+  def test_it_should_have_an_attr_called_merchants_that_returns_an_array_of_merchant_objects
+    result = merchant_repository.merchants
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Merchant, result.first.class
+  end
+
 end

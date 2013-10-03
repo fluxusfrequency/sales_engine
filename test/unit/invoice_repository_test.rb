@@ -16,4 +16,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert !invoice_repository.nil?
   end
 
+  def test_it_should_have_an_attr_called_invoices_that_returns_an_array_of_invoice_objects
+    result = invoice_repository.invoices
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Invoice, result.first.class
+  end
+
 end

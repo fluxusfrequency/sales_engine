@@ -16,4 +16,10 @@ class CustomerRepositoryTest < Minitest::Test
     assert !customer_repository.nil?
   end
 
+  def test_it_should_have_an_attr_called_customers_that_returns_an_array_of_customer_objects
+    result = customer_repository.customers
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Customer, result.first.class
+  end
+
 end

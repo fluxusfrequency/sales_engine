@@ -16,4 +16,10 @@ class ItemRepositoryTest < Minitest::Test
     assert !item_repository.nil?
   end
 
+  def test_it_should_have_an_attr_called_items_that_returns_an_array_of_item_objects
+    result = item_repository.items
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Item, result.first.class
+  end
+
 end
