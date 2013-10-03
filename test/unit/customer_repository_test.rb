@@ -37,7 +37,7 @@ class CustomerRepositoryTest < Minitest::Test
     assert random_searches.length > 2
   end
 
-  def test_it_has_a_find_by_id_method_that_returns_an_invoice_item_with_the_matching_id
+  def test_it_has_a_find_by_id_method_that_returns_a_customer_with_the_matching_id
     result = customer_repository.find_by_id(5)
     assert_equal SalesEngine::Customer, result.class
     assert_equal 5, result.id.to_i

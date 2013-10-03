@@ -37,4 +37,82 @@ class InvoiceRepositoryTest < Minitest::Test
     assert random_searches.length > 2
   end
 
+  def test_it_has_a_find_by_id_method_that_returns_an_invoice_with_the_matching_id
+    result = invoice_repository.find_by_id(6)
+    assert_equal SalesEngine::Invoice, result.class
+    assert_equal 6, result.id.to_i
+  end
+
+  def test_it_has_a_find_all_by_id_method_that_returns_an_array_of_invoices_with_the_matching_id
+    result = invoice_repository.find_all_by_id(6)
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Invoice, result.first.class
+    assert_equal 6, result.last.id.to_i
+  end
+
+  def test_it_has_a_find_by_customer_id_method_that_returns_an_invoice_with_the_matching_customer_id
+    result = invoice_repository.find_by_customer_id(1)
+    assert_equal SalesEngine::Invoice, result.class
+    assert_equal 1, result.customer_id.to_i
+  end
+
+  def test_it_has_a_find_all_by_customer_id_method_that_returns_an_array_of_invoices_with_the_matching_customer_id
+    result = invoice_repository.find_all_by_customer_id(1)
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Invoice, result.last.class
+    assert_equal 1, result.last.customer_id.to_i
+  end
+
+  def test_it_has_a_find_by_merchant_id_method_that_returns_an_invoice_with_the_matching_id
+    result = invoice_repository.find_by_merchant_id(33)
+    assert_equal SalesEngine::Invoice, result.class
+    assert_equal 33, result.merchant_id.to_i
+  end
+
+  def test_it_has_a_find_all_by_merchant_id_method_that_returns_an_array_of_invoices_with_the_matching_id
+    result = invoice_repository.find_all_by_merchant_id(33)
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Invoice, result.last.class
+    assert_equal 33, result.last.merchant_id.to_i
+  end
+
+  def test_it_has_a_find_by_status_method_that_returns_an_invoice_itm_with_the_matching_id
+    result = invoice_repository.find_by_status("shipped")
+    assert_equal SalesEngine::Invoice, result.class
+    assert_equal "shipped", result.status
+  end
+
+  def test_it_has_a_find_all_by_status_method_that_returns_an_array_of_invoices_with_the_matching_id
+    result = invoice_repository.find_all_by_status("shipped")
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Invoice, result.last.class
+    assert_equal "shipped", result.last.status
+  end
+
+  def test_it_has_a_find_by_created_at_method_that_returns_an_invoice_itm_with_the_matching_id
+    result = invoice_repository.find_by_created_at(Date.parse("2012-03-07 19:54:10 UTC"))
+    assert_equal SalesEngine::Invoice, result.class
+    assert_equal Date.parse("2012-03-07 19:54:10 UTC"), result.created_at
+  end
+
+  def test_it_has_a_find_all_by_created_at_method_that_returns_an_array_of_invoices_with_the_matching_id
+    result = invoice_repository.find_all_by_created_at(Date.parse("2012-03-07 19:54:10 UTC"))
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Invoice, result.last.class
+    assert_equal Date.parse("2012-03-07 19:54:10 UTC"), result.last.created_at
+  end
+
+  def test_it_has_a_find_by_updated_at_method_that_returns_an_invoice_itm_with_the_matching_id
+    result = invoice_repository.find_by_updated_at(Date.parse("2012-03-07 19:54:10 UTC"))
+    assert_equal SalesEngine::Invoice, result.class
+    assert_equal Date.parse("2012-03-07 19:54:10 UTC"), result.updated_at
+  end
+
+  def test_it_has_a_find_all_by_updated_at_method_that_returns_an_array_of_invoices_with_the_matching_id
+    result = invoice_repository.find_all_by_updated_at(Date.parse("2012-03-07 19:54:10 UTC"))
+    assert_equal Array, result.class
+    assert_equal SalesEngine::Invoice, result.last.class
+    assert_equal Date.parse("2012-03-07 19:54:10 UTC"), result.last.updated_at
+  end
+
 end
