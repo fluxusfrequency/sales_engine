@@ -71,6 +71,14 @@ class SalesEngine
       grouped_by_created_at[date]
     end
 
+    def find_by_updated_at(date)
+      grouped_by_updated_at[date].first
+    end
+
+    def find_all_by_updated_at(date)
+      grouped_by_updated_at[date]
+    end
+
     def grouped_by_id
       @grouped_by_id ||= invoice_items.group_by {|invoice_item| invoice_item.id }
     end
@@ -93,6 +101,10 @@ class SalesEngine
 
     def grouped_by_created_at
       @grouped_by_created_at ||= invoice_items.group_by {|invoice_item| invoice_item.created_at }
+    end
+
+    def grouped_by_updated_at
+      @grouped_by_updated_at ||= invoice_items.group_by {|invoice_item| invoice_item.updated_at }
     end
 
   end

@@ -115,4 +115,17 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal Date.parse("2012-03-27 14:54:09 UTC"), result.last.created_at
   end
 
+  def test_it_has_a_find_by_updated_at_method_that_returns_an_invoice_itm_with_the_matching_id
+    result = invoice_item_repository.find_by_updated_at(Date.parse("2012-03-27 14:54:09 UTC"))
+    assert_equal SalesEngine::InvoiceItem, result.class
+    assert_equal Date.parse("2012-03-27 14:54:09 UTC"), result.updated_at
+  end
+
+  def test_it_has_a_find_all_by_updated_at_method_that_returns_an_array_of_invoice_items_with_the_matching_id
+    result = invoice_item_repository.find_all_by_updated_at(Date.parse("2012-03-27 14:54:09 UTC"))
+    assert_equal Array, result.class
+    assert_equal SalesEngine::InvoiceItem, result.last.class
+    assert_equal Date.parse("2012-03-27 14:54:09 UTC"), result.last.updated_at
+  end
+
 end
