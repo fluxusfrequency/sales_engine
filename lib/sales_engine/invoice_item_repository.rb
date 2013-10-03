@@ -27,6 +27,14 @@ class SalesEngine
       grouped_by_id[id.to_s].first
     end
 
+    def find_all_by_item_id(id)
+      grouped_by_item_id[id.to_s]
+    end
+
+    def find_by_item_id(id)
+      grouped_by_item_id[id.to_s].first
+    end
+
     def find_all_by_id(id)
       grouped_by_id[id.to_s]
     end
@@ -41,6 +49,10 @@ class SalesEngine
 
     def grouped_by_id
       @grouped_by_id ||= invoice_items.group_by {|invoice_item| invoice_item.id }
+    end
+
+    def grouped_by_item_id
+      @grouped_by_item_id ||= invoice_items.group_by {|invoice_item| invoice_item.item_id }
     end
 
     def grouped_by_invoice_id
