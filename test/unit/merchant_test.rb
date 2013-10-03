@@ -40,4 +40,10 @@ class MerchantTest < Minitest::Test
     assert_equal merchant.id, merchant.items[-1].merchant_id.to_i
   end
 
+  def test_the_invoice_method_returns_associated_invoices
+      assert_equal SalesEngine::Invoice, merchant.invoices[0].class
+      assert_equal merchant.id, merchant.invoices[0].merchant_id.to_i
+      assert_equal merchant.id, merchant.invoices[-1].merchant_id.to_i
+    end
+
 end
