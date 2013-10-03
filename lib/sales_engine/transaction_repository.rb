@@ -32,19 +32,19 @@ class SalesEngine
     end
 
     def find_by_invoice_id(id)
-      grouped_by_invoice_id[id.to_s].first
+      grouped_by_invoice_id[id].first
     end
 
     def find_all_by_invoice_id(id)
-      grouped_by_invoice_id[id.to_s] || []
+      grouped_by_invoice_id[id] || []
     end
 
     def find_by_credit_card_number(num)
-      grouped_by_credit_card_number[num.to_s].first
+      grouped_by_credit_card_number[num].first
     end
 
     def find_all_by_credit_card_number(num)
-      grouped_by_credit_card_number[num.to_s] || []
+      grouped_by_credit_card_number[num] || []
     end
 
     def find_by_result(result)

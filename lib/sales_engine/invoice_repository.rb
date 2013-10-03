@@ -26,27 +26,27 @@ class SalesEngine
     end
 
     def find_by_id(id)
-      grouped_by_id[id.to_s].first
+      grouped_by_id[id].first
     end
 
     def find_all_by_id(id)
-      grouped_by_id[id.to_s] || []
+      grouped_by_id[id] || []
     end
 
     def find_by_customer_id(id)
-      grouped_by_customer_id[id.to_s].first
+      grouped_by_customer_id[id].first
     end
 
     def find_all_by_customer_id(id)
-      grouped_by_customer_id[id.to_s] || []
+      grouped_by_customer_id[id] || []
     end
 
     def find_by_merchant_id(id)
-      grouped_by_merchant_id[id.to_s].first
+      grouped_by_merchant_id[id].first
     end
 
     def find_all_by_merchant_id(id)
-      grouped_by_merchant_id[id.to_s] || []
+      grouped_by_merchant_id[id] || []
     end
 
     def find_by_status(status)

@@ -24,11 +24,11 @@ class SalesEngine
     end
 
     def find_by_id(id)
-      grouped_by_id[id.to_s].first
+      grouped_by_id[id].first
     end
 
     def find_all_by_id(id)
-      grouped_by_id[id.to_s] || []
+      grouped_by_id[id] || []
     end
 
     def find_by_first_name(name)

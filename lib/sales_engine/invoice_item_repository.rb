@@ -24,35 +24,35 @@ class SalesEngine
     end
 
     def find_by_id(id)
-      grouped_by_id[id.to_s].first
+      grouped_by_id[id].first
     end
 
     def find_all_by_id(id)
-      grouped_by_id[id.to_s] || []
+      grouped_by_id[id] || []
     end
 
     def find_by_item_id(id)
-      grouped_by_item_id[id.to_s].first
+      grouped_by_item_id[id].first
     end
 
     def find_all_by_item_id(id)
-      grouped_by_item_id[id.to_s] || []
+      grouped_by_item_id[id] || []
     end
 
     def find_by_invoice_id(id)
-      grouped_by_invoice_id[id.to_s].first
+      grouped_by_invoice_id[id].first
     end
 
     def find_all_by_invoice_id(id)
-      grouped_by_invoice_id[id.to_s] || []
+      grouped_by_invoice_id[id] || []
     end
 
     def find_by_quantity(qty)
-      grouped_by_quantity[qty.to_s].first
+      grouped_by_quantity[qty].first
     end
 
     def find_all_by_quantity(qty)
-      grouped_by_quantity[qty.to_s] || []
+      grouped_by_quantity[qty] || []
     end
 
     def find_by_unit_price(price)
