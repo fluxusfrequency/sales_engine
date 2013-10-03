@@ -6,16 +6,16 @@ class SalesEngine
 
     def initialize(file)
       @file = file
-      @data = Loader.load(file)
+      @data = SalesEngine::Database.load(file)
       populate_list
     end
 
     def find_by_unit_price(match)
-      items.find { |item| BigDecimal.new(item.unit_price) == match }
+      items.find { |item| BigDecimal.new(item.unit_price) / 100 == match }
     end
 
     def find_all_by_unit_price(match)
-      items.select { |item| BigDecimal.new(item.unit_price) == match }
+      items.select { |item| BigDecimal.new(item.unit_price) / 100  == match }
     end
 
     def all
@@ -27,30 +27,60 @@ class SalesEngine
     end
 
     def most_revenue(x)
-    #   returns the top x item instances ranked by total revenue generated
       item_revenues = Hash.new(0)
-      items.each_with_object(item_revenues) do |item|
+
+      items.each do |item|
         item_revenues[item] += item.revenue_generated
       end
 
-      sorted_item_count_nested_array = item_revenues.sort_by{|item, revenue| revenue }.reverse
-      sorted_items = sorted_item_count_nested_array.collect do |inner_array|
-        inner_array.first
+      sorted_revenues = item_revenues.values.sort_by{|value| value.to_i}.reverse
+      top_producers = sorted_revenues[0,x].collect do |revenue|
+        item_revenues[revenue]
       end
-      sorted_items[0..x.to_i-1]
+
+      top_producers
     end
 
     def most_items(x)
       item_counts = Hash.new(0)
-      items.each_with_object(item_counts) do |item|
-        item_counts[item] += item.number_sold
+
+      items.each do |item|
+        item_counts[item] = item.number_sold
       end
 
-      sorted_item_sales_nested_array = item_counts.sort_by{|item, count| count}.reverse
-      sorted_counts = sorted_item_sales_nested_array.collect do |inner_array|
-        inner_array.first
+      sorted_item_sales = item_counts.values.sort.reverse
+      top_sellers = sorted_item_sales[0,x].collect do |revenue|
+        item_counts[revenue]
       end
-      sorted_counts[0..x.to_i]
+      top_sellers
+    end
+
+    [:name, :description, :merchant_id, :created_at, :updated_at].each do |attr|
+      define_method("find_by_#{attr}") do |match|
+        items.find { |item| item.send(attr).to_s == match.to_s }
+      end
+    end
+
+    [:id, :name, :description, :created_at, :updated_at].each do |attr|
+      define_method("find_all_by_#{attr}") do |match|
+        items.select { |item| item.send(attr).to_s == match.to_s }
+      end
+    end
+
+    def find_by_id(id)
+      Array(items_grouped_by_id[id.to_i]).first
+    end
+
+    def items_grouped_by_id
+      @items_grouped_by_id ||= all.group_by { |item| item.id.to_i }
+    end
+
+    def find_all_by_merchant_id(merchant_id)
+      items_grouped_by_merchant_id[merchant_id.to_i] || []
+    end
+
+    def items_grouped_by_merchant_id
+      @items_grouped_by_merchant_id ||= all.group_by { |item| item.merchant_id.to_i }
     end
 
     private
@@ -58,18 +88,6 @@ class SalesEngine
     def populate_list
       @items = data.collect do |row|
         Item.new(row, SalesEngine)
-      end
-    end
-
-    [:id, :name, :description, :merchant_id, :created_at, :updated_at].each do |attr|
-      define_method("find_by_#{attr}") do |match|
-        items.find { |item| item.send(attr).to_s == match.to_s }
-      end
-    end
-
-    [:id, :name, :description, :merchant_id, :created_at, :updated_at].each do |attr|
-      define_method("find_all_by_#{attr}") do |match|
-        items.select { |item| item.send(attr).to_s == match.to_s }
       end
     end
 

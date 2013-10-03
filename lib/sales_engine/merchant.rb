@@ -22,42 +22,27 @@ class SalesEngine
 
     def revenue(date="default")
       if date == "default"
-        BigDecimal.new(revenue_without_date) / 100
+        revenue_without_date
       else
-        BigDecimal.new(revenue_with_date(date)) / 100
+        revenue_with_date(date)
       end
     end
 
     def revenue_without_date
-      rev = 0
-      successful_invoice_items.each do |inv_item|
-        rev += (inv_item.quantity.to_i * inv_item.unit_price.to_i)
-      end
-      rev
+      total_invoices successful_invoices
     end
 
     def revenue_with_date(date)
-      rev = 0
-      successful_invoice_items.each do |inv_item|
-        if inv_item.created_at == date
-          rev += (inv_item.quantity.to_i * inv_item.unit_price.to_i)
-        end
-      end
-      rev
+      total_invoices successful_invoices_for_date(date)
     end
 
-    def transactions
-      invoices.collect { |invoice| invoice.transactions }.flatten
+    def total_invoices(invoices)
+      sum = invoices.collect {|invoice| invoice.total }.inject(0,:+)
+      BigDecimal.new(sum / 100)
     end
 
-    def favorite_customer
-      customer_hash = Hash.new(0)
-      successful_transactions.collect do |transaction|
-        customer_hash[transaction.invoice.customer] += 1
-      end
-
-      customers = customer_hash.sort_by{ |customer, count| count }.reverse
-      customers.flatten.first
+    def successful_invoices_for_date(date)
+      successful_invoices.find_all { |invoice| Date.parse(invoice.created_at) == date }
     end
 
     def customers_with_pending_invoices
@@ -65,30 +50,60 @@ class SalesEngine
     end
 
     def successful_invoices
-      invoices - pending_invoices
+      @successful_invoice ||= invoices.find_all { |invoice| invoice.successful? }
     end
 
     def pending_invoices
-      p_invoices ||= []
-
-      if p_invoices.empty?
-        p_invoices = pending_transactions.collect { |transaction| transaction.invoice }
-      end
-
-      p_invoices
+      @pending_invoices ||= invoices.find_all { |invoice| invoice.pending? }
     end
 
+    # TODO: how can we do this without asking for the successful transactions
+    def favorite_customer
+      successful_customers = successful_invoices.collect do |invoice|
+        invoice.customer
+      end
+
+      customer_hash = Hash.new(0)
+      successful_customers.each do |customer|
+        customer_hash[customer] += 1
+      end
+
+      customers = customer_hash.sort_by{ |customer, count| count }.reverse
+      customers.flatten.first
+    end
+
+    def customers_with_successful_invoices
+
+    end
+
+    def transactions
+      invoices.collect { |invoice| invoice.transactions }.flatten
+    end
+
+    # TODO: Could we remove this if we fix #favorite_customer
     def successful_transactions
-      transactions.select { |transaction| transaction.successful? }
+      @successful_transactions ||= transactions.select { |transaction| transaction.successful? }
+    end
+
+    # TODO: Could we remove this if we fix #favorite_customer
+    def successful_transaction_ids
+      successful_transactions.collect {|transaction| transaction.id }
     end
 
     def pending_transactions
-      transactions - successful_transactions
+      failed_transactions.reject do |transaction|
+        successful_transaction_ids.include?(transaction.id)
+      end
+    end
+
+    def failed_transactions
+      @failed_transactions ||= transactions.reject {|transaction| successful_transactions.include?(transaction)}
     end
 
     def successful_invoice_items
       successful_transactions.collect { |transaction| transaction.invoice.invoice_items }.flatten
     end
+
 
   end
 end

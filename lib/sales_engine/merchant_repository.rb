@@ -6,7 +6,7 @@ class SalesEngine
 
     def initialize(file)
       @file = file
-      @data = Loader.load(file)
+      @data = SalesEngine::Database.load(file)
       populate_list
     end
 
@@ -20,28 +20,54 @@ class SalesEngine
 
     def most_revenue(x)
       x ||= 0
-      sorted = merchants.each {|merchant| merchant.revenue}
-      sorted[0..x-1]
+      hash = Hash.new
+      merchants.each do |merchant|
+        hash[merchant] = merchant.revenue
+      end
+
+      top_revenues = hash.values.sort_by{|v|v.to_s}.reverse
+      top_producers = []
+      top_revenues.each_with_index do |revenue, index|
+        top_producers << hash.keys.find {|k| hash[k] == top_revenues[index]}
+        break if index <= x
+      end
+      top_producers
     end
 
     #   returns the top x merchant instances ranked by total number of items sold
     def most_items(x)
       x ||= 0
       count = count_all_merchant_sales
-      sorted_array = count.sort_by {|merchant, sales| sales}
-      inner = sorted_array[0..(x-1)].collect do |inner_array|
-        inner_array.first
-      end
-      inner[0..x-1]
+      sorted_array = count.sort_by {|merchant, sales| sales}.reverse.flatten
+      sorted_array[0..x-1]
     end
 
     def revenue(date)
-      # returns the total revenue for that date across all merchants
       revenue = 0
       merchants.each do |merchant|
-        revenue += merchant.revenue
+        revenue += merchant.revenue(date)
       end
       revenue
+    end
+
+    [:name, :created_at, :updated_at].each do |attr|
+      define_method("find_by_#{attr}") do |match|
+        merchants.find { |merchant| merchant.send(attr).to_s == match.to_s }
+      end
+    end
+
+    [:id, :name, :created_at, :updated_at].each do |attr|
+      define_method("find_all_by_#{attr}") do |match|
+        merchants.select { |merchant| merchant.send(attr).to_s == match.to_s }
+      end
+    end
+
+    def find_by_id(id)
+      Array(merchants_grouped_by_id[id.to_i]).first
+    end
+
+    def merchants_grouped_by_id
+      @merchants_grouped_by_id ||= all.group_by { |merchant| merchant.id.to_i }
     end
 
     private
@@ -60,18 +86,6 @@ class SalesEngine
         end
       end
       merchant_sales
-    end
-
-    [:id, :name, :created_at, :updated_at].each do |attr|
-      define_method("find_by_#{attr}") do |match|
-        merchants.find { |merchant| merchant.send(attr).to_s == match.to_s }
-      end
-    end
-
-    [:id, :name, :created_at, :updated_at].each do |attr|
-      define_method("find_all_by_#{attr}") do |match|
-        merchants.select { |merchant| merchant.send(attr).to_s == match.to_s }
-      end
     end
 
   end

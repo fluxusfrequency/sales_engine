@@ -24,5 +24,9 @@ class SalesEngine
       SalesEngine::Database.item_repository.find_by_id(item_id)
     end
 
+    def total
+      unit_price.to_i * quantity.to_i
+    end
+
   end
 end

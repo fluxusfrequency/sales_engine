@@ -29,32 +29,32 @@ class SalesEngine
       end
     end
 
-    def successful_invoice_items
-      successes = invoices.select do |invoice|
-        invoice.successful? && invoice.merchant_id == merchant.id
-      end
+    def successful_invoices
+      @successful_invoices ||= invoices.compact.select {|invoice| invoice.successful? }
+    end
 
-      successes.collect { |invoice| invoice.invoice_items }.flatten
+    def successful_invoice_items
+      @successful_invoice_items ||= successful_invoices.collect { |invoice| invoice.invoice_items}.flatten
     end
 
     def successful_transactions
       successes = invoices.collect do |invoice|
-        invoice.successful_transactions
+        invoice.successful_transactions if invoice.successful?
       end
       successes.flatten
     end
 
-    def count_successful_transaction_dates
+    def count_invoice_item_quantity_sold_for_date
       date_counts = Hash.new(0)
-      successful_transactions.each_with_object(date_counts) do |transaction|
-        date = Time.strptime(transaction.invoice.created_at, "%Y-%m-%d %H:%M:%S %z").to_date
-        date_counts[date] += 1
+      successful_invoice_items.each_with_object(date_counts) do |invoice_item|
+        date = Time.strptime(invoice_item.invoice.created_at, "%Y-%m-%d %H:%M:%S %z").to_date
+        date_counts[date] += invoice_item.quantity.to_i*invoice_item.unit_price.to_i
       end
-      date_counts
     end
 
     def best_day
-      sorted_dates = count_successful_transaction_dates.sort_by {|date, count| count}.reverse
+      sorted_dates = count_invoice_item_quantity_sold_for_date.sort_by {|date, count| count}.reverse
+
       sorted_dates.flatten.first
     end
 

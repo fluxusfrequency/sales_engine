@@ -34,7 +34,7 @@ class SalesEngine
 
     def successful_customer_invoices
       successes = successful_merchant_invoices.select do |invoice|
-        invoice.customer_id == id.to_s
+        invoice.customer_id.to_s == id.to_s
       end
       successes.flatten
     end

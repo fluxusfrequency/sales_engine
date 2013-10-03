@@ -7,7 +7,7 @@ class SalesEngine
 
     def initialize(file)
       @file = file
-      @data = SalesEngine::Loader.load(file)
+      @data = SalesEngine::Database.load(file)
       populate_list
     end
 
@@ -19,11 +19,41 @@ class SalesEngine
       invoice_items.sample
     end
 
-    def save_new_invoice_item_row(invoice_item)
-      invoice_item_attrs = [invoice_item.id, invoice_item.item_id, invoice_item.invoice_id, invoice_item.quantity, invoice_item.unit_price, invoice_item.created_at, invoice_item.updated_at]
-      CSV.open(file, 'ab', headers: true, header_converters: :symbol) do |csv|
-        csv << invoice_item_attrs
+    def create(item_counts, invoice_id)
+      item_counts.keys.each_with_index do |item, index|
+        next_id = SalesEngine::Database.find_last_invoice_item.id.to_i+index+1
+        data_hash = { :id => next_id,
+                      :item_id => item.id,
+                      :invoice_id => invoice_id,
+                      :quantity => item_counts[item],
+                      :unit_price => item.unit_price,
+                      :created_at => item.created_at,
+                      :updated_at => item.updated_at
+                      }
+        new_invoice_item = SalesEngine::InvoiceItem.new(data_hash, SalesEngine)
+        SalesEngine::Database.invoice_item_repository.save_new_invoice_item_row(new_invoice_item)
       end
+      SalesEngine::Database.reload_invoice_item_repository(file)
+    end
+
+    def save_new_invoice_item_row(invoice_item)
+      invoice_item_attrs = [invoice_item.id,
+                            invoice_item.item_id,
+                            invoice_item.invoice_id,
+                            invoice_item.quantity,
+                            invoice_item.unit_price,
+                            invoice_item.created_at,
+                            invoice_item.updated_at]
+
+      SalesEngine::Database.save(file, invoice_item_attrs)
+    end
+
+    def find_all_by_invoice_id(invoice_id)
+      invoice_items_grouped_by_invoice_id[invoice_id.to_i]
+    end
+
+    def invoice_items_grouped_by_invoice_id
+      @invoice_items_grouped_by_invoice_id ||= all.group_by { |invoice_item| invoice_item.invoice_id.to_i }
     end
 
     private

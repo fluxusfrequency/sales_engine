@@ -76,8 +76,8 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_the_most_revenue_method_returns_an_array_of_merchants_sorted_by_revenue
     result = merchant_repository.most_revenue(2)
-    assert_equal SalesEngine::Merchant, result.first.class
-    assert result.first.revenue > result.last.revenue
+    assert_kind_of SalesEngine::Merchant, result.first
+    assert result.first.revenue.to_s > result.last.revenue.to_s
   end
 
   def test_the_most_items_x_method_returns_an_array_of_x_merchants
