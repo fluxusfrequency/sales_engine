@@ -19,5 +19,9 @@ class SalesEngine
       customers
     end
 
+    def random
+      customers.sample
+    end
+
   end
 end

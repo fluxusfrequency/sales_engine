@@ -28,4 +28,13 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal SalesEngine::Customer, result.last.class
   end
 
+  def test_the_random_method_returns_a_random_item_from_the_loaded_items
+    result = customer_repository.random
+    assert_equal SalesEngine::Customer, result.class
+    random_searches = []
+    10.times { random_searches << customer_repository.random }
+    random_searches.reject {|s| s == customer_repository.customers[0]}
+    assert random_searches.length > 2
+  end
+
 end

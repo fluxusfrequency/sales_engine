@@ -28,4 +28,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal SalesEngine::Transaction, result.last.class
   end
 
+  def test_the_random_method_returns_a_random_item_from_the_loaded_items
+    result = transaction_repository.random
+    assert_equal SalesEngine::Transaction, result.class
+    random_searches = []
+    10.times { random_searches << transaction_repository.random }
+    random_searches.reject {|s| s == transaction_repository.transactions[0]}
+    assert random_searches.length > 2
+  end
+
 end

@@ -19,5 +19,9 @@ class SalesEngine
       transactions
     end
 
+    def random
+      transactions.sample
+    end
+
   end
 end

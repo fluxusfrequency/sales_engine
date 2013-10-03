@@ -19,5 +19,9 @@ class SalesEngine
       merchants
     end
 
+    def random
+      merchants.sample
+    end
+
   end
 end

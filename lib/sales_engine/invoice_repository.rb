@@ -19,5 +19,9 @@ class SalesEngine
       invoices
     end
 
+    def random
+      invoices.sample
+    end
+
   end
 end

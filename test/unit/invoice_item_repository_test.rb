@@ -28,4 +28,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal SalesEngine::InvoiceItem, result.last.class
   end
 
+  def test_the_random_method_returns_a_random_item_from_the_loaded_items
+    result = invoice_item_repository.random
+    assert_equal SalesEngine::InvoiceItem, result.class
+    random_searches = []
+    10.times { random_searches << invoice_item_repository.random }
+    random_searches.reject {|s| s == invoice_item_repository.invoice_items[0]}
+    assert random_searches.length > 2
+  end
+
 end

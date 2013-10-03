@@ -19,5 +19,9 @@ class SalesEngine
       items
     end
 
+    def random
+      items.sample
+    end
+
   end
 end

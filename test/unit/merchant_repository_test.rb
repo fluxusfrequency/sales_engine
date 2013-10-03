@@ -28,4 +28,13 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal SalesEngine::Merchant, result.last.class
   end
 
+  def test_the_random_method_returns_a_random_item_from_the_loaded_items
+    result = merchant_repository.random
+    assert_equal SalesEngine::Merchant, result.class
+    random_searches = []
+    10.times { random_searches << merchant_repository.random }
+    random_searches.reject {|s| s == merchant_repository.merchants[0]}
+    assert random_searches.length > 2
+  end
+
 end
