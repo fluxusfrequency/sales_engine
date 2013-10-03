@@ -1,11 +1,11 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/sales_engine.rb'
+require_relative '../../lib/sales_engine.rb'
 
 class TransactionsTest < Minitest::Test
 
-  attr_accessor :database
+  attr_accessor :database, :merchant_repository
 
   def initialize
     @database = SalesEngine::Database
