@@ -23,6 +23,41 @@ class SalesEngine
       invoices.sample
     end
 
+    def create(attrs={})
+      new_invoice = Invoice.new(hash_for_new_invoice(attrs))
+      Database.save(file, attrs_array(new_invoice))
+
+      #reload the repository
+      Database.invoice_repository = InvoiceRepository.new(file)
+
+      if attrs[:items]
+        Database.invoice_item_repository.create_new_invoice_items(attrs[:items], new_invoice)
+      end
+      new_invoice
+    end
+
+    def hash_for_new_invoice(attrs)
+      { :id => find_last_invoice_id + 1,
+        :customer_id => attrs[:customer].id,
+        :merchant_id => attrs[:merchant].id,
+        :status => attrs[:status] || 'unknown',
+        :created_at => Time.now.to_s,
+        :updated_at => Time.now.to_s }
+    end
+
+    def find_last_invoice_id
+      invoices.last.id
+    end
+
+    def attrs_array(invoice)
+      [ invoice.id,
+        invoice.customer_id,
+        invoice.merchant_id,
+        invoice.status,
+        invoice.created_at,
+        invoice.updated_at]
+    end
+
     def find_by_id(id)
       grouped_by_id[id].first
     end

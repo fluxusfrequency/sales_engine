@@ -43,5 +43,14 @@ class SalesEngine
       successful_invoice_items.collect { |invoice_item| invoice_item.quantity }.inject(0, :+)
     end
 
+    def revenue
+      total_up(successful_invoice_items)
+    end
+
+    def total_up(invoice_items)
+      sum = invoice_items.collect { |invoice_item| invoice_item.total }.inject(0,:+)
+      BigDecimal.new(sum)/100
+    end
+
   end
 end

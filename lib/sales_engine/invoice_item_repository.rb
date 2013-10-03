@@ -23,6 +23,50 @@ class SalesEngine
       invoice_items.sample
     end
 
+    def create_new_invoice_items(items, invoice)
+      item_counts(invoice_items)
+      @count_hash.keys.each do |item|
+        new_invoice_item = InvoiceItem.new(hash_for_new_invoice_item(item, invoice, @count_hash[item]))
+        Database.save(file, attrs_array(new_invoice_item))
+      end
+
+      #reload the repository
+      Database.invoice_item_repository = InvoiceItemRepository.new(file)
+
+    end
+
+     def item_counts(items)
+      @count_hash ||= Hash.new(0)
+      items.each do |item|
+        @count_hash[item] += 1
+      end
+      @count_hash
+    end
+
+    def hash_for_new_invoice_item(item, invoice, quantity)
+      { :id => find_last_invoice_item_id + 1,
+        :item_id => item.id,
+        :invoice_id => invoice.id,
+        :quantity => quantity,
+        :unit_price => item.unit_price,
+        :created_at => invoice.created_at.to_s,
+        :updated_at => invoice.created_at.to_s }
+    end
+
+    def find_last_invoice_item_id
+      invoice_items.last.id
+    end
+
+    def attrs_array(invoice_item)
+      [ invoice_item.id,
+        invoice_item.item_id,
+        invoice_item.invoice_id,
+        invoice_item.quantity,
+        invoice_item.unit_price,
+        invoice_item.created_at,
+        invoice_item.updated_at ]
+    end
+
     def find_by_id(id)
       grouped_by_id[id].first
     end

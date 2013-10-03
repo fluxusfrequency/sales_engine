@@ -29,6 +29,12 @@ class SalesEngine
         CSV.open(file, headers: true, header_converters: :symbol)
       end
 
+      def save(file, row)
+        CSV.open(file, 'ab', headers: true, header_converters: :symbol) do |csv|
+          csv << row
+        end
+      end
+
     end
   end
 end
