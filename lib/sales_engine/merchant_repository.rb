@@ -43,6 +43,11 @@ class SalesEngine
       most_revenue.flatten[0,x]
     end
 
+    def revenue(date)
+      sum = merchants.map {|merchant| merchant.revenue(date)}.inject(BigDecimal.new(0),:+)
+      BigDecimal.new(sum)
+    end
+
     def merchants_grouped_by_items_sold
       merchants.group_by { |merchant| merchant.items_on_successful_invoices.length }
     end
