@@ -37,10 +37,17 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert random_searches.length > 2
   end
 
-  def test_it_has_a_find_by_id_method_that_returns_an_invoice_with_the_matching_id
+  def test_it_has_a_find_by_id_method_that_returns_an_invoice_item_with_the_matching_id
     result = invoice_item_repository.find_by_id(1)
     assert_equal SalesEngine::InvoiceItem, result.class
     assert_equal 1, result.id.to_i
+  end
+
+  def test_it_has_a_find_all_by_id_method_that_returns_an_array_of_invoice_items_with_the_matching_id
+    result = invoice_item_repository.find_all_by_id(1)
+    assert_equal Array, result.class
+    assert_equal SalesEngine::InvoiceItem, result.first.class
+    assert_equal 1, result.last.id.to_i
   end
 
   def test_it_has_a_find_by_invoice_id_method_that_returns_an_invoice_with_the_matching_id
