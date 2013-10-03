@@ -23,11 +23,12 @@ class SalesEngine
       Database.item_repository.find_by_id(item_id)
     end
 
-    def merchant
-    end
-
     def total
       quantity * (unit_price*100)
+    end
+
+    def successful?
+      invoice.successful?
     end
 
   end

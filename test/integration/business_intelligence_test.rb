@@ -67,7 +67,6 @@ class BusinessIntelligenceTest < Minitest::Test
   end
 
   def test_the_item_best_day_method_returns_the_correct_date
-    skip
     item = item_repository.find_by_name "Item Accusamus Ut"
     date = Date.parse "Sat, 24 Mar 2012"
     assert_equal date, item.best_day.to_date
