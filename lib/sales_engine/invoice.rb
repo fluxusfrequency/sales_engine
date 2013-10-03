@@ -39,6 +39,7 @@ class SalesEngine
     def charge(data={})
       Database.invoice_repository.create(params_for_invoice)
       Database.transaction_repository.create(params_for_transaction(data))
+      @transactions = Database.transaction_repository.find_all_by_invoice_id(id)
     end
 
     def params_for_invoice

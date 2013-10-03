@@ -27,12 +27,13 @@ class SalesEngine
       new_invoice = Invoice.new(hash_for_new_invoice(attrs))
       Database.save(file, attrs_array(new_invoice))
 
-      #reload the repository
-      Database.invoice_repository = InvoiceRepository.new(file)
-
       if attrs[:items]
         Database.invoice_item_repository.create_new_invoice_items(attrs[:items], new_invoice)
       end
+
+      #reload the repository
+      Database.invoice_repository = InvoiceRepository.new(file)
+
       new_invoice
     end
 

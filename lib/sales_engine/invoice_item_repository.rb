@@ -24,15 +24,15 @@ class SalesEngine
     end
 
     def create_new_invoice_items(items, invoice)
-      item_counts(invoice_items)
-      @count_hash.keys.each do |item|
-        new_invoice_item = InvoiceItem.new(hash_for_new_invoice_item(item, invoice, @count_hash[item]))
+      item_counts(items)
+      @count_hash.keys.each do |i|
+        new_id = find_last_invoice_item_id + 1
+        new_invoice_item = InvoiceItem.new(hash_for_new_invoice_item(i, new_id, invoice, @count_hash[i]))
         Database.save(file, attrs_array(new_invoice_item))
       end
 
       #reload the repository
       Database.invoice_item_repository = InvoiceItemRepository.new(file)
-
     end
 
      def item_counts(items)
@@ -43,8 +43,8 @@ class SalesEngine
       @count_hash
     end
 
-    def hash_for_new_invoice_item(item, invoice, quantity)
-      { :id => find_last_invoice_item_id + 1,
+    def hash_for_new_invoice_item(item, id, invoice, quantity)
+      { :id => id,
         :item_id => item.id,
         :invoice_id => invoice.id,
         :quantity => quantity,
