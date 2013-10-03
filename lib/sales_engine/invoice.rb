@@ -38,7 +38,7 @@ class SalesEngine
 
     def successful?
       if transactions
-        transactions.any? {|transaction| transaction.result == "success"}
+        transactions.any? { |transaction| transaction.result == "success" }
       end
     end
 

@@ -19,7 +19,7 @@ class BusinessIntelligenceTest < Minitest::Test
   before_suite
 
   def test_the_customer_transactions_method_successfully_returns_transactions
-    customer = @@customer_repository.find_by_id 2
+    customer = customer_repository.find_by_id 2
     assert_equal 1, customer.transactions.length
     assert_equal SalesEngine::Transaction, customer.transactions.first.class
   end
@@ -80,14 +80,12 @@ class BusinessIntelligenceTest < Minitest::Test
   end
 
   def test_the_merchant_repository_most_revenue_method_returns_the_top_n_revenue_earners
-    skip
     most = merchant_repository.most_revenue(3)
     assert_equal "Dicki-Bednar", most.first.name
     assert_equal "Okuneva, Prohaska and Rolfson", most.last.name
   end
 
-  def test_the_merchant_repository_most_items_method_returns_the_top_n_items_earners
-    skip
+  def test_the_merchant_repository_most_items_method_returns_the_top_n_items_sellers
     most = merchant_repository.most_items(5)
     assert_equal "Kassulke, O'Hara and Quitzon", most.first.name
     assert_equal "Daugherty Group", most.last.name

@@ -22,17 +22,17 @@ class SalesEngine
     end
 
     def favorite_merchant
-      most_invoices = successful_invoices_grouped_by_merchant.values.max {|v| v.length}
+      most_invoices = successful_invoices_grouped_by_merchant.values.max { |v| v.length }
       successful_invoices_grouped_by_merchant.key(most_invoices)
     end
 
     def successful_invoices
-      invoices.select {|invoice| invoice.successful? }
+      invoices.select { |invoice| invoice.successful? }
     end
 
     def successful_invoices_grouped_by_merchant
       # {<merchant1> => [<invoice1>, <invoice2>], <merchant2> => [<invoice3>]}
-      successful_invoices.group_by {|invoice| invoice.merchant }
+      successful_invoices.group_by { |invoice| invoice.merchant }
     end
 
   end

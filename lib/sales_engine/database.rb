@@ -29,7 +29,6 @@ class SalesEngine
         CSV.open(file, headers: true, header_converters: :symbol)
       end
 
-
     end
   end
 end

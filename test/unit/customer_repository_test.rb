@@ -102,5 +102,4 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal Date.parse("2012-03-27 14:54:11 UTC"), result.last.updated_at
   end
 
-
 end

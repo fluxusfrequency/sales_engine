@@ -61,5 +61,9 @@ class SalesEngine
       successful_invoices.find_all { |invoice| invoice.created_at == date }
     end
 
+    def items_on_successful_invoices
+      successful_invoices.collect { |invoice| invoice.items }.flatten
+    end
+
   end
 end
