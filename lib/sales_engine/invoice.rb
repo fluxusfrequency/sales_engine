@@ -36,6 +36,30 @@ class SalesEngine
       Database.merchant_repository.find_by_id(merchant_id)
     end
 
+    def charge(data={})
+      Database.invoice_repository.create(params_for_invoice)
+      Database.transaction_repository.create(params_for_transaction(data))
+    end
+
+    def params_for_invoice
+      {:id => Database.invoice_repository.find_last_invoice_id + 1,
+      :customer => customer,
+      :merchant => merchant,
+      :status => status,
+      :created_at => created_at,
+      :updated_at => updated_at }
+    end
+
+    def params_for_transaction(data)
+      { :id => Database.transaction_repository.find_last_transaction_id + 1,
+        :invoice_id => id,
+        :credit_card_number => data[:credit_card_number].to_s,
+        :credit_card_expiration_date => nil,
+        :result => data[:result] || 'unknown',
+        :created_at => created_at.to_s,
+        :updated_at => updated_at.to_s }
+    end
+
     def successful?
       if transactions
         transactions.any? { |transaction| transaction.result == "success" }

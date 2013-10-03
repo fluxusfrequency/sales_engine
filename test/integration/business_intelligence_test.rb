@@ -29,15 +29,15 @@ class BusinessIntelligenceTest < Minitest::Test
     assert_equal "Shields, Hirthe and Smith", customer.favorite_merchant.name
   end
 
-  def test_the_invoice_create_method_successfully_creates_an_invoice_and_items
-    customer = customer_repository.find_by_id(7)
-    merchant = merchant_repository.find_by_id(22)
-    items = (1..3).map { item_repository.random }
+  # def test_the_invoice_create_method_successfully_creates_an_invoice_and_items
+  #   customer = customer_repository.find_by_id(7)
+  #   merchant = merchant_repository.find_by_id(22)
+  #   items = (1..3).map { item_repository.random }
 
-    invoice = invoice_repository.create(customer: customer, merchant: merchant, items: items)
-    assert_equal merchant.id, invoice.merchant_id
-    assert_equal customer.id, invoice.customer_id
-  end
+  #   invoice = invoice_repository.create(customer: customer, merchant: merchant, items: items)
+  #   assert_equal merchant.id, invoice.merchant_id
+  #   assert_equal customer.id, invoice.customer_id
+  # end
 
   def test_the_invoice_charge_method_creates_a_transaction
     invoice = invoice_repository.find_by_id(100)

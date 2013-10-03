@@ -22,7 +22,7 @@ class SalesEngine
         @invoice_item_repository = InvoiceItemRepository.new(load_path_and_class(path, "invoice_item"))
         @item_repository = ItemRepository.new(load_path_and_class(path, "item"))
         @merchant_repository = MerchantRepository.new(load_path_and_class(path, "merchant"))
-        @transaction_repository =TransactionRepository.new(load_path_and_class(path, "transaction"))
+        @transaction_repository = TransactionRepository.new(load_path_and_class(path, "transaction"))
       end
 
       def load(file)

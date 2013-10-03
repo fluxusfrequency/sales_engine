@@ -15,6 +15,28 @@ class SalesEngine
       end
     end
 
+    def create(params={})
+      new_transaction = Transaction.new(params)
+      Database.save(file, attrs_array(new_transaction))
+
+      #reload the repository
+      Database.transaction_repository = TransactionRepository.new(file)
+    end
+
+    def find_last_transaction_id
+      transactions.last.id
+    end
+
+    def attrs_array(transaction)
+      [ transaction.id,
+        transaction.invoice_id,
+        transaction.credit_card_number,
+        transaction.credit_card_expiration_date,
+        transaction.result,
+        transaction.created_at,
+        transaction.updated_at ]
+    end
+
     def all
       transactions
     end
