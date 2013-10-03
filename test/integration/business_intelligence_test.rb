@@ -40,7 +40,6 @@ class BusinessIntelligenceTest < Minitest::Test
   end
 
   def test_the_invoice_charge_method_creates_a_transaction
-    skip
     invoice = invoice_repository.find_by_id(100)
     prior_transaction_count = invoice.transactions.count
 
