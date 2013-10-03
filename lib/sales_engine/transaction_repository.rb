@@ -28,7 +28,7 @@ class SalesEngine
     end
 
     def find_all_by_id(id)
-      grouped_by_id[id.to_s]
+      grouped_by_id[id.to_s] || []
     end
 
     def find_by_invoice_id(id)
@@ -36,7 +36,7 @@ class SalesEngine
     end
 
     def find_all_by_invoice_id(id)
-      grouped_by_invoice_id[id.to_s]
+      grouped_by_invoice_id[id.to_s] || []
     end
 
     def find_by_credit_card_number(num)
@@ -44,7 +44,7 @@ class SalesEngine
     end
 
     def find_all_by_credit_card_number(num)
-      grouped_by_credit_card_number[num.to_s]
+      grouped_by_credit_card_number[num.to_s] || []
     end
 
     def find_by_result(result)
@@ -52,7 +52,7 @@ class SalesEngine
     end
 
     def find_all_by_result(result)
-      grouped_by_result[result.to_s]
+      grouped_by_result[result.to_s] || []
     end
 
     def find_by_created_at(date)
@@ -60,7 +60,7 @@ class SalesEngine
     end
 
     def find_all_by_created_at(date)
-      grouped_by_created_at[date]
+      grouped_by_created_at[date] || []
     end
 
     def find_by_updated_at(date)
@@ -68,7 +68,7 @@ class SalesEngine
     end
 
     def find_all_by_updated_at(date)
-      grouped_by_updated_at[date]
+      grouped_by_updated_at[date] || []
     end
 
     def grouped_by_id

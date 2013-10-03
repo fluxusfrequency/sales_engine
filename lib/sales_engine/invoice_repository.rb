@@ -28,7 +28,7 @@ class SalesEngine
     end
 
     def find_all_by_id(id)
-      grouped_by_id[id.to_s]
+      grouped_by_id[id.to_s] || []
     end
 
     def find_by_customer_id(id)
@@ -36,7 +36,7 @@ class SalesEngine
     end
 
     def find_all_by_customer_id(id)
-      grouped_by_customer_id[id.to_s]
+      grouped_by_customer_id[id.to_s] || []
     end
 
     def find_by_merchant_id(id)
@@ -44,7 +44,7 @@ class SalesEngine
     end
 
     def find_all_by_merchant_id(id)
-      grouped_by_merchant_id[id.to_s]
+      grouped_by_merchant_id[id.to_s] || []
     end
 
     def find_by_status(status)
@@ -52,7 +52,7 @@ class SalesEngine
     end
 
     def find_all_by_status(status)
-      grouped_by_status[status.to_s]
+      grouped_by_status[status.to_s] || []
     end
 
     def find_by_created_at(date)
@@ -60,7 +60,7 @@ class SalesEngine
     end
 
     def find_all_by_created_at(date)
-      grouped_by_created_at[date]
+      grouped_by_created_at[date] || []
     end
 
     def find_by_updated_at(date)
@@ -68,7 +68,7 @@ class SalesEngine
     end
 
     def find_all_by_updated_at(date)
-      grouped_by_updated_at[date]
+      grouped_by_updated_at[date] || []
     end
 
     def grouped_by_id

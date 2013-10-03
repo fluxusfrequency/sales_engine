@@ -28,7 +28,7 @@ class SalesEngine
     end
 
     def find_all_by_id(id)
-      grouped_by_id[id.to_s]
+      grouped_by_id[id.to_s] || []
     end
 
     def find_by_name(name)
@@ -36,7 +36,7 @@ class SalesEngine
     end
 
     def find_all_by_name(name)
-      grouped_by_name[name]
+      grouped_by_name[name] || []
     end
 
     def find_by_description(description)
@@ -44,7 +44,7 @@ class SalesEngine
     end
 
     def find_all_by_description(description)
-      grouped_by_description[description]
+      grouped_by_description[description] || []
     end
 
     def find_by_unit_price(price)
@@ -52,7 +52,7 @@ class SalesEngine
     end
 
     def find_all_by_unit_price(price)
-      grouped_by_unit_price[price.to_s]
+      grouped_by_unit_price[price.to_s] || []
     end
 
     def find_by_merchant_id(id)
@@ -60,7 +60,7 @@ class SalesEngine
     end
 
     def find_all_by_merchant_id(id)
-      grouped_by_merchant_id[id.to_s]
+      grouped_by_merchant_id[id.to_s] || []
     end
 
     def find_by_created_at(date)
@@ -68,7 +68,7 @@ class SalesEngine
     end
 
     def find_all_by_created_at(date)
-      grouped_by_created_at[date]
+      grouped_by_created_at[date] || []
     end
 
     def find_by_updated_at(date)
@@ -76,7 +76,7 @@ class SalesEngine
     end
 
     def find_all_by_updated_at(date)
-      grouped_by_updated_at[date]
+      grouped_by_updated_at[date] || []
     end
 
     def grouped_by_id

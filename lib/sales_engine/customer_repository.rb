@@ -28,7 +28,7 @@ class SalesEngine
     end
 
     def find_all_by_id(id)
-      grouped_by_id[id.to_s]
+      grouped_by_id[id.to_s] || []
     end
 
     def find_by_first_name(name)
@@ -36,7 +36,7 @@ class SalesEngine
     end
 
     def find_all_by_first_name(name)
-      grouped_by_first_name[name]
+      grouped_by_first_name[name] || []
     end
 
     def find_by_last_name(name)
@@ -44,7 +44,7 @@ class SalesEngine
     end
 
     def find_all_by_last_name(name)
-      grouped_by_last_name[name]
+      grouped_by_last_name[name] || []
     end
 
     def find_by_created_at(date)
@@ -52,7 +52,7 @@ class SalesEngine
     end
 
     def find_all_by_created_at(date)
-      grouped_by_created_at[date]
+      grouped_by_created_at[date] || []
     end
 
     def find_by_updated_at(date)
@@ -60,7 +60,7 @@ class SalesEngine
     end
 
     def find_all_by_updated_at(date)
-      grouped_by_updated_at[date]
+      grouped_by_updated_at[date] || []
     end
 
     def grouped_by_id
