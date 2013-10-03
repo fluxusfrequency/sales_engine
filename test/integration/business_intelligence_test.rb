@@ -132,4 +132,34 @@ class BusinessIntelligenceTest < Minitest::Test
     assert customers.any? { |customer| customer.last_name == "Ledner" }
   end
 
+  private
+
+  def database
+    @@database
+  end
+
+  def customer_repository
+    @@customer_repository
+  end
+
+  def invoice_repository
+    @@invoice_repository
+  end
+
+  def invoice_item_repository
+    @@invoice_item_repository
+  end
+
+  def item_repository
+    @@item_repository
+  end
+
+  def merchant_repository
+    @@merchant_repository
+  end
+
+  def transaction_repository
+    @@transaction_repository
+  end
+
 end
