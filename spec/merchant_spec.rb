@@ -31,31 +31,31 @@ describe "SalesEngine merchants" do
     end
   end
 
-  # context "Relationships" do
-  #   let(:merchant) { engine.merchant_repository.find_by_name "Kirlin, Jakubowski and Smitham" }
+  context "Relationships" do
+    let(:merchant) { engine.merchant_repository.find_by_name "Kirlin, Jakubowski and Smitham" }
 
-  #   describe "#items" do
-  #     it "has the correct number of them" do
-  #       merchant.items.should have(33).items
-  #     end
+    describe "#items" do
+      it "has the correct number of them" do
+        merchant.items.should have(33).items
+      end
 
-  #     it "includes a known item" do
-  #       item = merchant.items.find {|i| i.name == 'Item Consequatur Odit' }
-  #       item.should_not be_nil
-  #     end
-  #   end
+      it "includes a known item" do
+        item = merchant.items.find {|i| i.name == 'Item Consequatur Odit' }
+        item.should_not be_nil
+      end
+    end
 
-  #   describe "#invoices" do
-  #     it "has the correct number of them" do
-  #       merchant.invoices.should have(43).invoices
-  #     end
+    describe "#invoices" do
+      it "has the correct number of them" do
+        merchant.invoices.should have(43).invoices
+      end
 
-  #     it "has a shipped invoice for a specific customer" do
-  #       invoice = merchant.invoices.find {|i| i.customer.last_name == 'Block' }
-  #       invoice.status.should == "shipped"
-  #     end
-  #   end
-  # end
+      it "has a shipped invoice for a specific customer" do
+        invoice = merchant.invoices.find {|i| i.customer.last_name == 'Block' }
+        invoice.status.should == "shipped"
+      end
+    end
+  end
 
   # context "Business Intelligence" do
 

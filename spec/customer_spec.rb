@@ -34,21 +34,21 @@ describe "SalesEngine customers" do
 
   end
 
-#   context "Relationships" do
-#     let(:customer) { engine.customer_repository.find_by_id 999 }
+  context "Relationships" do
+    let(:customer) { engine.customer_repository.find_by_id 999 }
 
-#     describe "#invoices" do
-#       it "returns all of a customer's invoices" do
-#         customer.invoices.should have(7).invoices
-#       end
+    describe "#invoices" do
+      it "returns all of a customer's invoices" do
+        customer.invoices.should have(7).invoices
+      end
 
-#       it "returns invoices belonging to the customer" do
-#         customer.invoices.each do |invoice|
-#           invoice.customer_id.should == 999
-#         end
-#       end
-#     end
-#   end
+      it "returns invoices belonging to the customer" do
+        customer.invoices.each do |invoice|
+          invoice.customer_id.should == 999
+        end
+      end
+    end
+  end
 
 #   context "Business Intelligence" do
 #     let(:customer) { engine.customer_repository.find_by_id 2 }

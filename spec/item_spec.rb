@@ -31,28 +31,28 @@ describe "SalesEngine items" do
     end
   end
 
-  # context "Relationships" do
-  #   let(:item) { engine.item_repository.find_by_name "Item Saepe Ipsum" }
+  context "Relationships" do
+    let(:item) { engine.item_repository.find_by_name "Item Saepe Ipsum" }
 
-  #   describe "#invoice_items" do
-  #     it "has the correct number of them" do
-  #       item.invoice_items.should have(8).items
-  #     end
+    describe "#invoice_items" do
+      it "has the correct number of them" do
+        item.invoice_items.should have(8).items
+      end
 
-  #     it "really owns them all" do
-  #       item.invoice_items.each do |ii|
-  #         ii.item_id.should == item.id
-  #       end
-  #     end
-  #   end
+      it "really owns them all" do
+        item.invoice_items.each do |ii|
+          ii.item_id.should == item.id
+        end
+      end
+    end
 
-  #   describe "#merchant" do
-  #     it "exists" do
-  #       item.merchant.name.should == "Kilback Inc"
-  #     end
-  #   end
+    describe "#merchant" do
+      it "exists" do
+        item.merchant.name.should == "Kilback Inc"
+      end
+    end
 
-  # end
+  end
 
   # context "Business Intelligence" do
 

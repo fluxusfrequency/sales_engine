@@ -31,44 +31,44 @@ describe "SalesEngine invoices" do
     end
   end
 
-  # context "Relationships" do
-  #   let(:invoice) { engine.invoice_repository.find_by_id 1002 }
+  context "Relationships" do
+    let(:invoice) { engine.invoice_repository.find_by_id 1002 }
 
-  #   describe "#transactions" do
-  #     it "has the correct number of them" do
-  #       invoice.transactions.should have(1).transaction
-  #     end
-  #   end
+    describe "#transactions" do
+      it "has the correct number of them" do
+        invoice.transactions.should have(1).transaction
+      end
+    end
 
-  #   describe "#items" do
-  #     it "has the correct number of them" do
-  #       invoice.items.should have(3).items
-  #     end
+    describe "#items" do
+      it "has the correct number of them" do
+        invoice.items.should have(3).items
+      end
 
-  #     it "has one with a specific name" do
-  #       item = invoice.items.find {|i| i.name == 'Item Accusamus Officia' }
-  #       item.should_not be_nil
-  #     end
-  #   end
+      it "has one with a specific name" do
+        item = invoice.items.find {|i| i.name == 'Item Accusamus Officia' }
+        item.should_not be_nil
+      end
+    end
 
-  #   describe "#customer" do
-  #     it "exists" do
-  #       invoice.customer.first_name.should == "Eric"
-  #       invoice.customer.last_name.should  == "Bergnaum"
-  #     end
-  #   end
+    describe "#customer" do
+      it "exists" do
+        invoice.customer.first_name.should == "Eric"
+        invoice.customer.last_name.should  == "Bergnaum"
+      end
+    end
 
-  #   describe "#invoice_items" do
-  #     it "has the correct number of them" do
-  #       invoice.invoice_items.should have(3).items
-  #     end
+    describe "#invoice_items" do
+      it "has the correct number of them" do
+        invoice.invoice_items.should have(3).items
+      end
 
-  #     it "has one for a specific item" do
-  #       item = invoice.invoice_items.find {|ii| ii.item.name == 'Item Accusamus Officia' }
-  #       item.should_not be_nil
-  #     end
-  #   end
-  # end
+      it "has one for a specific item" do
+        item = invoice.invoice_items.find {|ii| ii.item.name == 'Item Accusamus Officia' }
+        item.should_not be_nil
+      end
+    end
+  end
 
   # context "Business Intelligence" do
 
