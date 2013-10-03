@@ -118,7 +118,6 @@ class BusinessIntelligenceTest < Minitest::Test
   end
 
   def test_the_merchant_customers_with_pending_invoices_method_returns_the_number_of_customers_with_pending_invoices
-    skip
     merchant = merchant_repository.find_by_name "Parisian Group"
     customers = merchant.customers_with_pending_invoices
     assert_equal 4, customers.count

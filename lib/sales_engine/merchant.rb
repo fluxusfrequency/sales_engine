@@ -32,6 +32,10 @@ class SalesEngine
       successful_invoices.group_by {|invoice| invoice.customer}
     end
 
+    def customers_with_pending_invoices
+      pending_invoices.collect {|invoice| invoice.customer }
+    end
+
     def revenue_without_date
       total_up(successful_invoices)
     end
@@ -47,6 +51,10 @@ class SalesEngine
 
     def successful_invoices
       invoices.select { |invoice| invoice.successful? }
+    end
+
+    def pending_invoices
+      invoices.reject { |invoice| invoice.successful? }
     end
 
     def successful_invoices_on_date(date)
