@@ -28,11 +28,17 @@ class CustomerTest < Minitest::Test
   end
 
   def test_it_sets_up_attrs
-      assert_equal 1, customer.id
-      assert_equal "Joey", customer.first_name
-      assert_equal "Ondricka", customer.last_name
-      assert_equal Date.parse("2012-03-27 14:54:09 UTC"), customer.created_at
-      assert_equal Date.parse("2012-03-27 14:54:09 UTC"), customer.updated_at
-    end
+    assert_equal 1, customer.id
+    assert_equal "Joey", customer.first_name
+    assert_equal "Ondricka", customer.last_name
+    assert_equal Date.parse("2012-03-27 14:54:09 UTC"), customer.created_at
+    assert_equal Date.parse("2012-03-27 14:54:09 UTC"), customer.updated_at
+  end
+
+  def test_the_invoices_method_returns_assocaiated_invoices
+    assert_equal SalesEngine::Invoice, customer.invoices.first.class
+    assert_equal customer.id, customer.invoices.first.customer_id.to_i
+    assert_equal customer.id, customer.invoices.last.customer_id.to_i
+  end
 
 end

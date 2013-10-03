@@ -13,5 +13,9 @@ class SalesEngine
       @updated_at = Date.parse(data[:updated_at])
     end
 
+    def invoices
+      Database.invoice_repository.find_all_by_customer_id(id)
+    end
+
   end
 end
