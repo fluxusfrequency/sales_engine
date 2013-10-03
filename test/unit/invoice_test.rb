@@ -29,4 +29,13 @@ class InvoiceTest < Minitest::Test
     assert_equal SalesEngine::Invoice, invoice.class
   end
 
+  def test_it_sets_up_attrs
+      assert_equal 1, invoice.id
+      assert_equal 1, invoice.customer_id
+      assert_equal 3, invoice.merchant_id
+      assert_equal "shipped", invoice.status
+      assert_equal Date.parse("2012-03-25 09:54:09 UTC"), invoice.created_at
+      assert_equal Date.parse("2012-03-25 09:54:09 UTC"), invoice.updated_at
+    end
+
 end

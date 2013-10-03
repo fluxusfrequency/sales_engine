@@ -29,4 +29,14 @@ class ItemsTest < Minitest::Test
     assert_equal SalesEngine::Item, item.class
   end
 
+  def test_it_sets_up_attrs
+      assert_equal 13, item.id
+      assert_equal "Item Qui Esse", item.name
+      assert_equal "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", item.description
+      assert_equal 75107, item.unit_price
+      assert_equal 1, item.merchant_id
+      assert_equal Date.parse("2012-03-27 14:53:59 UTC"), item.created_at
+      assert_equal Date.parse("2012-03-27 14:53:59 UTC"), item.updated_at
+    end
+
 end

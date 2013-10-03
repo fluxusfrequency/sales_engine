@@ -30,4 +30,14 @@ class TransactionTest < Minitest::Test
     assert_equal SalesEngine::Transaction, transaction.class
   end
 
+  def test_it_sets_up_attrs
+      assert_equal 1, transaction.id
+      assert_equal 1, transaction.invoice_id
+      assert_equal 4654405418249632, transaction.credit_card_number
+      assert_equal "", transaction.credit_card_expiration_date
+      assert_equal "success", transaction.result
+      assert_equal Date.parse("2012-03-27 14:54:09 UTC"), transaction.created_at
+      assert_equal Date.parse("2012-03-27 14:54:09 UTC"), transaction.updated_at
+    end
+
 end
