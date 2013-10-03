@@ -28,10 +28,16 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_sets_up_attrs
-      assert_equal 1, merchant.id
-      assert_equal "Schroeder-Jerde", merchant.name
-      assert_equal Date.parse("2012-03-27 14:53:59 UTC"), merchant.created_at
-      assert_equal Date.parse("2012-03-27 14:53:59 UTC"), merchant.updated_at
-    end
+    assert_equal 1, merchant.id
+    assert_equal "Schroeder-Jerde", merchant.name
+    assert_equal Date.parse("2012-03-27 14:53:59 UTC"), merchant.created_at
+    assert_equal Date.parse("2012-03-27 14:53:59 UTC"), merchant.updated_at
+  end
+
+  def test_the_items_method_returns_assocaiated_items
+    assert_equal SalesEngine::Item, merchant.items[0].class
+    assert_equal merchant.id, merchant.items[0].merchant_id.to_i
+    assert_equal merchant.id, merchant.items[-1].merchant_id.to_i
+  end
 
 end

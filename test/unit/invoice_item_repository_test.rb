@@ -90,16 +90,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_has_a_find_by_unit_price_method_that_returns_an_invoice_itm_with_the_matching_id
-    result = invoice_item_repository.find_by_unit_price(34873)
+    result = invoice_item_repository.find_by_unit_price(BigDecimal.new(34873)/100)
     assert_equal SalesEngine::InvoiceItem, result.class
-    assert_equal 34873, result.unit_price.to_i
+    assert_equal BigDecimal.new(34873)/100, result.unit_price
   end
 
   def test_it_has_a_find_all_by_unit_price_method_that_returns_an_array_of_invoice_items_with_the_matching_id
-    result = invoice_item_repository.find_all_by_unit_price(34873)
+    result = invoice_item_repository.find_all_by_unit_price(BigDecimal.new(34873)/100)
     assert_equal Array, result.class
     assert_equal SalesEngine::InvoiceItem, result.last.class
-    assert_equal 34873, result.last.unit_price.to_i
+    assert_equal BigDecimal.new(34873)/100, result.last.unit_price
   end
 
   def test_it_has_a_find_by_created_at_method_that_returns_an_invoice_itm_with_the_matching_id

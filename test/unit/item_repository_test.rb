@@ -77,16 +77,16 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_has_a_find_by_unit_price_method_that_returns_an_item_with_the_matching_id
-    result = item_repository.find_by_unit_price(67076)
+    result = item_repository.find_by_unit_price(BigDecimal.new(67076)/100)
     assert_equal SalesEngine::Item, result.class
-    assert_equal 67076, result.unit_price.to_i
+    assert_equal BigDecimal.new(67076)/100, result.unit_price
   end
 
   def test_it_has_a_find_all_by_unit_price_method_that_returns_an_array_of_items_with_the_matching_id
-    result = item_repository.find_all_by_unit_price(67076)
+    result = item_repository.find_all_by_unit_price(BigDecimal.new(67076)/100)
     assert_equal Array, result.class
     assert_equal SalesEngine::Item, result.last.class
-    assert_equal 67076, result.last.unit_price.to_i
+    assert_equal BigDecimal.new(67076)/100, result.last.unit_price
   end
 
   def test_it_has_a_find_by_merchant_id_method_that_returns_an_item_with_the_matching_id

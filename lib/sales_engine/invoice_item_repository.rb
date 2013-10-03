@@ -56,11 +56,11 @@ class SalesEngine
     end
 
     def find_by_unit_price(price)
-      grouped_by_unit_price[price.to_s].first
+      grouped_by_unit_price[price].first
     end
 
     def find_all_by_unit_price(price)
-      grouped_by_unit_price[price.to_s] || []
+      grouped_by_unit_price[price] || []
     end
 
     def find_by_created_at(date)

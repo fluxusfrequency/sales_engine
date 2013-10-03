@@ -12,5 +12,9 @@ class SalesEngine
       @updated_at = Date.parse(data[:updated_at])
     end
 
+    def items
+      Database.item_repository.find_all_by_merchant_id(id)
+    end
+
   end
 end
