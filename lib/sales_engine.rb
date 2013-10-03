@@ -8,12 +8,11 @@ end
 
 class SalesEngine
 
-  attr_reader :dir
   def initialize(dir="./data")
-    @dir = dir
+    startup(dir)
   end
 
-  def startup
+  def startup(dir)
     Database.startup(dir)
   end
 

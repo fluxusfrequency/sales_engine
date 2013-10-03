@@ -32,16 +32,16 @@ describe "SalesEngine  transactions" do
     end
   end
 
-  context "Relationships" do
-    let(:transaction) { engine.transaction_repository.find_by_id 1138 }
+  # context "Relationships" do
+  #   let(:transaction) { engine.transaction_repository.find_by_id 1138 }
 
-    describe "#invoice" do
-      it "exists" do
-        invoice_customer = engine.customer_repository.find_by_id 192
-        transaction.invoice.customer.first_name.should == invoice_customer.first_name
-      end
-    end
+  #   describe "#invoice" do
+  #     it "exists" do
+  #       invoice_customer = engine.customer_repository.find_by_id 192
+  #       transaction.invoice.customer.first_name.should == invoice_customer.first_name
+  #     end
+  #   end
 
-  end
+  # end
 end
 

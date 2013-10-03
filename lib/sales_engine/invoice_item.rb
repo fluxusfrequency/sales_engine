@@ -10,7 +10,7 @@ class SalesEngine
       @item_id = data[:item_id]
       @invoice_id = data[:invoice_id]
       @quantity = data[:quantity]
-      @unit_price = data[:unit_price]
+      @unit_price = BigDecimal.new(data[:unit_price])/100
       @created_at = Date.parse(data[:created_at])
       @updated_at = Date.parse(data[:updated_at])
     end

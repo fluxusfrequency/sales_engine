@@ -31,21 +31,21 @@ describe "SalesEngine invoice items" do
     end
   end
 
-  context "Relationships" do
-    let(:invoice_item) { engine.invoice_item_repository.find_by_id 16934 }
+#   context "Relationships" do
+#     let(:invoice_item) { engine.invoice_item_repository.find_by_id 16934 }
 
-    describe "#item" do
-      it "exists" do
-        invoice_item.item.name.should == "Item Cupiditate Magni"
-      end
-    end
+#     describe "#item" do
+#       it "exists" do
+#         invoice_item.item.name.should == "Item Cupiditate Magni"
+#       end
+#     end
 
-    describe "#invoice" do
-      it "exists" do
-        invoice_item.invoice.should be
-      end
-    end
+#     describe "#invoice" do
+#       it "exists" do
+#         invoice_item.invoice.should be
+#       end
+#     end
 
-  end
+#   end
 end
 

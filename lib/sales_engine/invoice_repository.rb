@@ -48,6 +48,7 @@ class SalesEngine
     end
 
     def find_by_status(status)
+      return nil if grouped_by_status[status.to_s].nil?
       grouped_by_status[status.to_s].first
     end
 
@@ -84,7 +85,7 @@ class SalesEngine
     end
 
     def grouped_by_status
-      @grouped_by_status ||= invoices.group_by {|invoice| invoice.status }
+      @grouped_by_status ||= invoices.group_by {|invoice| invoice.status.to_s }
     end
 
     def grouped_by_created_at

@@ -9,7 +9,7 @@ class SalesEngine
       @id = data[:id]
       @name = data[:name]
       @description = data[:description]
-      @unit_price = data[:unit_price]
+      @unit_price = BigDecimal.new(data[:unit_price])/100
       @merchant_id = data[:merchant_id]
       @created_at = Date.parse(data[:created_at])
       @updated_at = Date.parse(data[:updated_at])
