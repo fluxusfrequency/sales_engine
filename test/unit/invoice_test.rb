@@ -30,12 +30,24 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_sets_up_attrs
-      assert_equal 1, invoice.id
-      assert_equal 1, invoice.customer_id
-      assert_equal 3, invoice.merchant_id
-      assert_equal "shipped", invoice.status
-      assert_equal Date.parse("2012-03-25 09:54:09 UTC"), invoice.created_at
-      assert_equal Date.parse("2012-03-25 09:54:09 UTC"), invoice.updated_at
-    end
+    assert_equal 1, invoice.id
+    assert_equal 1, invoice.customer_id
+    assert_equal 3, invoice.merchant_id
+    assert_equal "shipped", invoice.status
+    assert_equal Date.parse("2012-03-25 09:54:09 UTC"), invoice.created_at
+    assert_equal Date.parse("2012-03-25 09:54:09 UTC"), invoice.updated_at
+  end
+
+  def test_the_transcations_method_returns_assocaiated_transcations
+    assert_equal SalesEngine::Transaction, invoice.transactions[0].class
+    assert_equal invoice.id, invoice.transactions[0].invoice_id.to_i
+    assert_equal invoice.id, invoice.transactions[-1].invoice_id.to_i
+  end
+
+  def test_the_invoice_items_method_returns_assocaiated_invoice_items
+    assert_equal SalesEngine::InvoiceItem, invoice.invoice_items[0].class
+    assert_equal invoice.id, invoice.invoice_items[0].invoice_id.to_i
+    assert_equal invoice.id, invoice.invoice_items[-1].invoice_id.to_i
+  end
 
 end
