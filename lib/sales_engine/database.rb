@@ -17,12 +17,12 @@ class SalesEngine
       end
 
       def load_data(path)
-        @customer_repository = SalesEngine::CustomerRepository.new(load_path_and_class(path, "customer"))
-        @invoice_repository = SalesEngine::InvoiceRepository.new(load_path_and_class(path, "invoice"))
-        @invoice_item_repository = SalesEngine::InvoiceItemRepository.new(load_path_and_class(path, "invoice_item"))
-        @item_repository = SalesEngine::ItemRepository.new(load_path_and_class(path, "item"))
-        @merchant_repository = SalesEngine::MerchantRepository.new(load_path_and_class(path, "merchant"))
-        @transaction_repository =SalesEngine::TransactionRepository.new(load_path_and_class(path, "transaction"))
+        @customer_repository = CustomerRepository.new(load_path_and_class(path, "customer"))
+        @invoice_repository = InvoiceRepository.new(load_path_and_class(path, "invoice"))
+        @invoice_item_repository = InvoiceItemRepository.new(load_path_and_class(path, "invoice_item"))
+        @item_repository = ItemRepository.new(load_path_and_class(path, "item"))
+        @merchant_repository = MerchantRepository.new(load_path_and_class(path, "merchant"))
+        @transaction_repository =TransactionRepository.new(load_path_and_class(path, "transaction"))
       end
 
       def load(file)
