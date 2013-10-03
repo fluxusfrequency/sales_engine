@@ -70,38 +70,38 @@ describe "SalesEngine invoices" do
     end
   end
 
-  # context "Business Intelligence" do
+  context "Business Intelligence" do
 
-  #   describe ".create" do
-  #     let(:customer) { engine.customer_repository.find_by_id(7) }
-  #     let(:merchant) { engine.merchant_repository.find_by_id(22) }
-  #     let(:items) do
-  #       (1..3).map { engine.item_repository.random }
-  #     end
-  #     it "creates a new invoice" do
+    describe ".create" do
+      let(:customer) { engine.customer_repository.find_by_id(7) }
+      let(:merchant) { engine.merchant_repository.find_by_id(22) }
+      let(:items) do
+        (1..3).map { engine.item_repository.random }
+      end
+      it "creates a new invoice" do
 
-  #       invoice = engine.invoice_repository.create(customer: customer, merchant: merchant, items: items)
+        invoice = engine.invoice_repository.create(customer: customer, merchant: merchant, items: items)
 
-  #       items.map(&:name).each do |name|
-  #         invoice.items.map(&:name).should include(name)
-  #       end
+        items.map(&:name).each do |name|
+          invoice.items.map(&:name).should include(name)
+        end
 
-  #       invoice.merchant_id.should == merchant.id
-  #       invoice.customer.id.should == customer.id
-  #     end
-  #   end
+        invoice.merchant_id.should == merchant.id
+        invoice.customer.id.should == customer.id
+      end
+    end
 
-  #   describe "#charge" do
-  #     it "creates a transaction" do
-  #       invoice = engine.invoice_repository.find_by_id(100)
-  #       prior_transaction_count = invoice.transactions.count
+    describe "#charge" do
+      it "creates a transaction" do
+        invoice = engine.invoice_repository.find_by_id(100)
+        prior_transaction_count = invoice.transactions.count
 
-  #       invoice.charge(credit_card_number: '1111222233334444',  credit_card_expiration_date: "10/14", result: "success")
+        invoice.charge(credit_card_number: '1111222233334444',  credit_card_expiration_date: "10/14", result: "success")
 
-  #       invoice = engine.invoice_repository.find_by_id(invoice.id)
-  #       invoice.transactions.count.should == prior_transaction_count + 1
-  #     end
-  #   end
+        invoice = engine.invoice_repository.find_by_id(invoice.id)
+        invoice.transactions.count.should == prior_transaction_count + 1
+      end
+    end
 
-  # end
+  end
 end

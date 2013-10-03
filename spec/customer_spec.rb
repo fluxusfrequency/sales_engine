@@ -50,20 +50,20 @@ describe "SalesEngine customers" do
     end
   end
 
-#   context "Business Intelligence" do
-#     let(:customer) { engine.customer_repository.find_by_id 2 }
+  context "Business Intelligence" do
+    let(:customer) { engine.customer_repository.find_by_id 2 }
 
-#     describe "#transactions" do
-#       it "returns a list of transactions the customer has had" do
-#         customer.transactions.should have(1).transaction
-#       end
-#     end
+    describe "#transactions" do
+      it "returns a list of transactions the customer has had" do
+        customer.transactions.should have(1).transaction
+      end
+    end
 
-#     describe "#favorite_merchant" do
-#       it "returns the merchant where the customer has had the most transactions" do
-#         customer.favorite_merchant.name.should == "Shields, Hirthe and Smith"
-#       end
-#     end
-#   end
+    describe "#favorite_merchant" do
+      it "returns the merchant where the customer has had the most transactions" do
+        customer.favorite_merchant.name.should == "Shields, Hirthe and Smith"
+      end
+    end
+  end
 end
 

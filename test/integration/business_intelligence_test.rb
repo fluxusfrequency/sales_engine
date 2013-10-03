@@ -29,15 +29,15 @@ class BusinessIntelligenceTest < Minitest::Test
     assert_equal "Shields, Hirthe and Smith", customer.favorite_merchant.name
   end
 
-  # def test_the_invoice_create_method_successfully_creates_an_invoice_and_items
-  #   customer = customer_repository.find_by_id(7)
-  #   merchant = merchant_repository.find_by_id(22)
-  #   items = (1..3).map { item_repository.random }
+  def test_the_invoice_create_method_successfully_creates_an_invoice_and_items
+    customer = customer_repository.find_by_id(7)
+    merchant = merchant_repository.find_by_id(22)
+    items = (1..3).map { item_repository.random }
 
-  #   invoice = invoice_repository.create(customer: customer, merchant: merchant, items: items)
-  #   assert_equal merchant.id, invoice.merchant_id
-  #   assert_equal customer.id, invoice.customer_id
-  # end
+    invoice = invoice_repository.create(customer: customer, merchant: merchant, items: items)
+    assert_equal merchant.id, invoice.merchant_id
+    assert_equal customer.id, invoice.customer_id
+  end
 
   def test_the_invoice_charge_method_creates_a_transaction
     invoice = invoice_repository.find_by_id(100)
@@ -48,19 +48,19 @@ class BusinessIntelligenceTest < Minitest::Test
     assert_equal prior_transaction_count + 1, invoice.transactions.count
   end
 
-  # def test_the_item_repository_most_revenue_method_returns_n_items_ranked_by_total_revenue
-  #   most = item_repository.most_revenue(5)
+  def test_the_item_repository_most_revenue_method_returns_n_items_ranked_by_total_revenue
+    most = item_repository.most_revenue(5)
 
-  #   assert_equal "Item Dicta Autem", most.first.name
-  #   assert_equal "Item Amet Accusamus", most.last.name
-  # end
+    assert_equal "Item Dicta Autem", most.first.name
+    assert_equal "Item Amet Accusamus", most.last.name
+  end
 
-  # def test_the_item_repository_most_items_method_returns_n_items_ranked_by_most_sold
-  #   most = item_repository.most_items(37)
+  def test_the_item_repository_most_items_method_returns_n_items_ranked_by_most_sold
+    most = item_repository.most_items(37)
 
-  #   assert_equal "Item Nam Magnam", most[1].name
-  #   assert_equal "Item Ut Quaerat", most.last.name
-  # end
+    assert_equal "Item Nam Magnam", most[1].name
+    assert_equal "Item Ut Quaerat", most.last.name
+  end
 
   def test_the_item_best_day_method_returns_the_correct_date
     item = item_repository.find_by_name "Item Accusamus Ut"
@@ -74,17 +74,17 @@ class BusinessIntelligenceTest < Minitest::Test
     assert_equal BigDecimal.new("2549722.91"), revenue
   end
 
-  # def test_the_merchant_repository_most_revenue_method_returns_the_top_n_revenue_earners
-  #   most = merchant_repository.most_revenue(3)
-  #   assert_equal "Dicki-Bednar", most.first.name
-  #   assert_equal "Okuneva, Prohaska and Rolfson", most.last.name
-  # end
+  def test_the_merchant_repository_most_revenue_method_returns_the_top_n_revenue_earners
+    most = merchant_repository.most_revenue(3)
+    assert_equal "Dicki-Bednar", most.first.name
+    assert_equal "Okuneva, Prohaska and Rolfson", most.last.name
+  end
 
-  # def test_the_merchant_repository_most_items_method_returns_the_top_n_items_sellers
-  #   most = merchant_repository.most_items(5)
-  #   assert_equal "Kassulke, O'Hara and Quitzon", most.first.name
-  #   assert_equal "Daugherty Group", most.last.name
-  # end
+  def test_the_merchant_repository_most_items_method_returns_the_top_n_items_sellers
+    most = merchant_repository.most_items(5)
+    assert_equal "Kassulke, O'Hara and Quitzon", most.first.name
+    assert_equal "Daugherty Group", most.last.name
+  end
 
   def test_the_merchant_revenue_method_without_date_reports_all_revenue
     merchant = merchant_repository.find_by_name "Dicki-Bednar"

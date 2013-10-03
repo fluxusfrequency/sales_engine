@@ -54,34 +54,34 @@ describe "SalesEngine items" do
 
   end
 
-  # context "Business Intelligence" do
+  context "Business Intelligence" do
 
-  #   describe ".most_revenue" do
-  #     it "returns the top n items ranked by most total revenue" do
-  #       most = engine.item_repository.most_revenue(5)
+    describe ".most_revenue" do
+      it "returns the top n items ranked by most total revenue" do
+        most = engine.item_repository.most_revenue(5)
 
-  #       most.first.name.should == "Item Dicta Autem"
-  #       most.last.name.should  == "Item Amet Accusamus"
-  #     end
-  #   end
+        most.first.name.should == "Item Dicta Autem"
+        most.last.name.should  == "Item Amet Accusamus"
+      end
+    end
 
-  #   describe ".most_items" do
-  #     it "returns the top n items ranked by most sold" do
-  #       most = engine.item_repository.most_items(37)
+    describe ".most_items" do
+      it "returns the top n items ranked by most sold" do
+        most = engine.item_repository.most_items(37)
 
-  #       most[1].name.should == "Item Nam Magnam"
-  #       most.last.name.should   == "Item Ut Quaerat"
-  #     end
-  #   end
+        most[1].name.should == "Item Nam Magnam"
+        most.last.name.should   == "Item Ut Quaerat"
+      end
+    end
 
-  #   describe "#best_day" do
-  #     let(:item) { engine.item_repository.find_by_name "Item Accusamus Ut" }
+    describe "#best_day" do
+      let(:item) { engine.item_repository.find_by_name "Item Accusamus Ut" }
 
-  #     it "returns something castable to date" do
-  #       date = Date.parse "Sat, 24 Mar 2012"
-  #       item.best_day.to_date.should == date
-  #     end
-  #   end
+      it "returns something castable to date" do
+        date = Date.parse "Sat, 24 Mar 2012"
+        item.best_day.to_date.should == date
+      end
+    end
 
-  # end
+  end
 end
