@@ -18,9 +18,6 @@ class BusinessIntelligenceTest < Minitest::Test
 
   before_suite
 
-  def setup
-  end
-
   def test_the_customer_transactions_method_successfully_returns_transactions
     customer = @@customer_repository.find_by_id 2
     assert_equal 1, customer.transactions.length
@@ -28,7 +25,6 @@ class BusinessIntelligenceTest < Minitest::Test
   end
 
   def test_the_customer_favorite_merchant_method_successfully_returns_a_merchant
-    skip
     customer = customer_repository.find_by_id 2
     assert_equal "Shields, Hirthe and Smith", customer.favorite_merchant.name
   end

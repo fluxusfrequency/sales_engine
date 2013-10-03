@@ -23,5 +23,8 @@ class SalesEngine
       Database.item_repository.find_by_id(item_id)
     end
 
+    def merchant
+    end
+
   end
 end

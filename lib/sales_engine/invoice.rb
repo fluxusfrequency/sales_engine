@@ -36,5 +36,11 @@ class SalesEngine
       Database.merchant_repository.find_by_id(merchant_id)
     end
 
+    def successful?
+      if transactions
+        transactions.any? {|transaction| transaction.result == "success"}
+      end
+    end
+
   end
 end
