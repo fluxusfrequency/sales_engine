@@ -1,62 +1,34 @@
-require_relative '../sales_engine.rb'
-
 class SalesEngine
   class Database
     class << self
-      attr_reader :customer_repository, :invoice_repository, :invoice_item_repository, :item_repository, :merchant_repository, :transaction_repository
 
-      def setup
-        load_data('./data')
+      attr_accessor :customer_repository, :invoice_repository, :invoice_item_repository, :item_repository, :merchant_repository, :transaction_repository
+
+      def startup(path)
+
       end
 
-      def setup_stubs
-        load_data('./test/fixtures')
+      def load_path_and_class(path, klass)
+        "#{path}/#{klass}s.csv"
       end
 
-      def load_data(dir)
-        @customer_repository = SalesEngine::CustomerRepository.new(load_for(dir, "customer"))
-        @invoice_repository = SalesEngine::InvoiceRepository.new(load_for(dir, "invoice"))
-        @invoice_item_repository = SalesEngine::InvoiceItemRepository.new(load_for(dir, "invoice_item"))
-        @item_repository = SalesEngine::ItemRepository.new(load_for(dir, "item"))
-        @merchant_repository = SalesEngine::MerchantRepository.new(load_for(dir, "merchant"))
-        @transaction_repository = SalesEngine::TransactionRepository.new(load_for(dir, "transaction"))
+      def load_data(path)
+        @customer_repository = SalesEngine::CustomerRepository.new(load_path_and_class(path, klass)
+        @invoice_repository = SalesEngine::InvoiceRepository.new
+        @invoice_item_repository = SalesEngine::InvoiceItemRepository.new
+        @item_repository = SalesEngine::ItemRepository.new
+        @merchant_repository = SalesEngine::MerchantRepository.new
+        @transaction_repository =SalesEngine::TransactionRepository.new
       end
 
-      def load_for(dir, klass)
-        "#{dir}/#{klass}s.csv"
+      def load(file)
+        CSV.open(file, headers: true, header_converters: :symbol)
       end
 
-      def reload_invoice_repository(file)
-        invoice_repository = SalesEngine::InvoiceRepository.new(file)
+      def reload(klass)
+
       end
 
-      def reload_invoice_item_repository(file)
-        invoice_repository = SalesEngine::InvoiceRepository.new(file)
-      end
-
-      def find_last_invoice_item
-        invoice_item_repository.invoice_items.last
-      end
-
-      def find_last_invoice
-        invoice_repository.invoices.last
-      end
-
-      def find_last_transaction
-        transaction_repository.transactions.last
-      end
-
-      def save_new_invoice_item_row(invoice_item)
-        invoice_item_repository.save_new_invoice_item_row(invoice_item)
-      end
-
-      def save_new_invoice_row(invoice)
-        invoice_repository.save_new_invoice_row(invoice)
-      end
-
-      def save_new_transaction_row(transaction)
-        transaction_repository.save_new_transaction_row(transaction)
-      end
 
     end
   end
