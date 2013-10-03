@@ -8,36 +8,36 @@ end
 
 class SalesEngine
 
-  attr_reader :data
-  def initialize(data)
-    @data = data
+  attr_reader :dir
+  def initialize(dir="./data")
+    @dir = dir
   end
 
   def startup
-    SalesEngine::Database.startup(data)
+    Database.startup(dir)
   end
 
   def customer_repository
-    SalesEngine::Database.customer_repository
+    Database.customer_repository
   end
 
   def invoice_repository
-    SalesEngine::Database.invoice_repository
+    Database.invoice_repository
   end
 
   def invoice_item_repository
-    SalesEngine::Database.invoice_item_repository
+    Database.invoice_item_repository
   end
 
   def item_repository
-    SalesEngine::Database.item_repository
+    Database.item_repository
   end
 
   def merchant_repository
-    SalesEngine::Database.merchant_repository
+    Database.merchant_repository
   end
 
   def transaction_repository
-    SalesEngine::Database.transaction_repository
+    Database.transaction_repository
   end
 end

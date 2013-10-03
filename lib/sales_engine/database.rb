@@ -4,8 +4,8 @@ class SalesEngine
 
       attr_accessor :customer_repository, :invoice_repository, :invoice_item_repository, :item_repository, :merchant_repository, :transaction_repository
 
-      def startup
-        load_data('./data')
+      def startup(dir)
+        load_data(dir)
       end
 
       def startup_fixtures
