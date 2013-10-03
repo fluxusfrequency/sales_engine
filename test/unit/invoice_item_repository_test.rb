@@ -50,30 +50,43 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 1, result.last.id.to_i
   end
 
-  def test_it_has_a_find_by_item_id_method_that_returns_an_item_with_the_matching_id
+  def test_it_has_a_find_by_item_id_method_that_returns_an_invoice_item_with_the_matching_id
     result = invoice_item_repository.find_by_item_id(539)
     assert_equal SalesEngine::InvoiceItem, result.class
     assert_equal 539, result.item_id.to_i
   end
 
-  def test_it_has_a_find_all_by_item_id_method_that_returns_an_array_of_items_with_the_matching_id
+  def test_it_has_a_find_all_by_item_id_method_that_returns_an_array_of_invoice_items_with_the_matching_id
     result = invoice_item_repository.find_all_by_item_id(539)
     assert_equal Array, result.class
     assert_equal SalesEngine::InvoiceItem, result.last.class
     assert_equal 539, result.last.item_id.to_i
   end
 
-  def test_it_has_a_find_by_invoice_id_method_that_returns_an_invoice_with_the_matching_id
+  def test_it_has_a_find_by_invoice_id_method_that_returns_an_invoice_item_with_the_matching_id
     result = invoice_item_repository.find_by_invoice_id(2)
     assert_equal SalesEngine::InvoiceItem, result.class
     assert_equal 2, result.invoice_id.to_i
   end
 
-  def test_it_has_a_find_all_by_invoice_id_method_that_returns_an_array_of_invoices_with_the_matching_id
+  def test_it_has_a_find_all_by_invoice_id_method_that_returns_an_array_of_invoice_items_with_the_matching_id
     result = invoice_item_repository.find_all_by_invoice_id(2)
     assert_equal Array, result.class
     assert_equal SalesEngine::InvoiceItem, result.last.class
     assert_equal 2, result.last.invoice_id.to_i
+  end
+
+  def test_it_has_a_find_by_quantity_method_that_returns_an_invoice_itm_with_the_matching_id
+    result = invoice_item_repository.find_by_quantity(6)
+    assert_equal SalesEngine::InvoiceItem, result.class
+    assert_equal 6, result.quantity.to_i
+  end
+
+  def test_it_has_a_find_all_by_quantity_method_that_returns_an_array_of_invoice_items_with_the_matching_id
+    result = invoice_item_repository.find_all_by_quantity(6)
+    assert_equal Array, result.class
+    assert_equal SalesEngine::InvoiceItem, result.last.class
+    assert_equal 6, result.last.quantity.to_i
   end
 
 end
