@@ -23,5 +23,53 @@ class SalesEngine
       merchants.sample
     end
 
+    def find_by_id(id)
+      grouped_by_id[id.to_s].first
+    end
+
+    def find_all_by_id(id)
+      grouped_by_id[id.to_s]
+    end
+
+    def find_by_name(name)
+      grouped_by_name[name].first
+    end
+
+    def find_all_by_name(name)
+      grouped_by_name[name]
+    end
+
+    def find_by_created_at(date)
+      grouped_by_created_at[date].first
+    end
+
+    def find_all_by_created_at(date)
+      grouped_by_created_at[date]
+    end
+
+    def find_by_updated_at(date)
+      grouped_by_updated_at[date].first
+    end
+
+    def find_all_by_updated_at(date)
+      grouped_by_updated_at[date]
+    end
+
+    def grouped_by_id
+      @grouped_by_id ||= merchants.group_by {|merchant| merchant.id }
+    end
+
+    def grouped_by_name
+      @grouped_by_name ||= merchants.group_by {|merchant| merchant.name }
+    end
+
+    def grouped_by_created_at
+      @grouped_by_created_at ||= merchants.group_by {|merchant| merchant.created_at }
+    end
+
+    def grouped_by_updated_at
+      @grouped_by_updated_at ||= merchants.group_by {|merchant| merchant.updated_at }
+    end
+
   end
 end
