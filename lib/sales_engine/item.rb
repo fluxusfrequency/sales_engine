@@ -39,5 +39,9 @@ class SalesEngine
       invoice_items.select { |invoice_item| invoice_item.successful? }
     end
 
+    def number_sold
+      successful_invoice_items.collect { |invoice_item| invoice_item.quantity }.inject(0, :+)
+    end
+
   end
 end

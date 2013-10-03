@@ -24,7 +24,7 @@ class SalesEngine
     end
 
     def total
-      quantity * (unit_price*100)
+      quantity * (unit_price * 100)
     end
 
     def successful?

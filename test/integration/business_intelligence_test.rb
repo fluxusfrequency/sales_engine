@@ -59,11 +59,10 @@ class BusinessIntelligenceTest < Minitest::Test
   end
 
   def test_the_item_repository_most_items_method_returns_n_items_ranked_by_most_sold
-    skip
-    most = item_repository.most_revenue(37)
+    most = item_repository.most_items(37)
 
-    most[1].name.should == "Item Nam Magnam"
-    most.last.name.should  == "Item Ut Quaerat"
+    assert_equal "Item Nam Magnam", most[1].name
+    assert_equal "Item Ut Quaerat", most.last.name
   end
 
   def test_the_item_best_day_method_returns_the_correct_date

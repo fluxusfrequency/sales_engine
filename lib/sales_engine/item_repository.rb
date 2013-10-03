@@ -23,6 +23,21 @@ class SalesEngine
       items.sample
     end
 
+    def most_items(x)
+      # returns_n_items_ranked_by_most_sold
+      sorted_totals = items_grouped_by_number_sold.keys.sort.reverse
+
+      most_items = sorted_totals.collect do |total|
+        items_grouped_by_number_sold[total]
+      end
+
+      most_items.flatten[0,x]
+    end
+
+    def items_grouped_by_number_sold
+      items.group_by {|item| item.number_sold}
+    end
+
     def find_by_id(id)
       grouped_by_id[id].first
     end
