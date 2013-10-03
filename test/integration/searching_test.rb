@@ -7,7 +7,7 @@ class TransactionsTest < Minitest::Test
 
   attr_accessor :database, :customer_repository, :invoice_repository, :invoice_item_repository, :item_repository, :merchant_repository, :transaction_repository
 
-  def initialize
+  def setup
     @database = SalesEngine::Database
     database.startup_fixtures
     @customer_repository ||= database.customer_repository

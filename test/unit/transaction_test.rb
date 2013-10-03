@@ -3,14 +3,27 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../../lib/sales_engine.rb'
 
-class TransactionsTest < Minitest::Test
+class TransactionTest < Minitest::Test
 
-  attr_accessor :database, :transaction_repository
+  attr_accessor :database, :transaction
 
-  def initialize()
+  def setup
+    data = { :id => 1,
+             :invoice_id => 1,
+             :credit_card_number => 4654405418249632,
+             :credit_card_expiration_date => "",
+             :result => "success",
+             :created_at => "2012-03-27 14:54:09 UTC",
+             :updated_at => "2012-03-27 14:54:09 UTC"
+             }
+
     @database = SalesEngine::Database
     database.startup_fixtures
-    @transacation_repository ||= database.transacation_repository
+    @transaction ||= SalesEngine::Transaction.new(data)
+  end
+
+  def test_it_should_exist
+    assert !transaction.nil?
   end
 
 end

@@ -3,14 +3,24 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../../lib/sales_engine.rb'
 
-class TransactionsTest < Minitest::Test
+class MerchantTest < Minitest::Test
 
-  attr_accessor :database, :merchant_repository
+  attr_accessor :database, :merchant
 
-  def initialize
+  def setup
+    data = { :id => 1,
+             :name => "Schroeder-Jerde",
+             :created_at => "2012-03-27 14:53:59 UTC",
+             :updated_at => "2012-03-27 14:53:59 UTC"
+             }
+
     @database = SalesEngine::Database
     database.startup_fixtures
-    @merchant_repository ||= database.merchant_repository
+    @merchant ||= SalesEngine::Merchant.new(data)
+  end
+
+  def test_it_should_exist
+    assert !merchant.nil?
   end
 
 end

@@ -6,7 +6,6 @@ class SalesEngine
     attr_reader :id, :first_name, :last_name, :created_at, :updated_at
 
     def initialize(data={})
-      @file = file
     end
 
   end

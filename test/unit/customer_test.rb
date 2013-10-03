@@ -4,17 +4,23 @@ require 'minitest/pride'
 require_relative '../../lib/sales_engine.rb'
 
 class CustomerTest < Minitest::Test
+  attr_accessor :database, :customer
 
-  attr_accessor :database, :customer_repository
+  def setup
+    data = { :id => 1,
+             :first_name => "Joey",
+             :last_name => "Ondricka",
+             :created_at => "2012-03-27 14:54:09 UTC",
+             :updated_at => "2012-03-27 14:54:09 UTC"
+             }
 
-  def initialize
     @database = SalesEngine::Database
     database.startup_fixtures
-    @customer_repository ||= database.customer_repository
+    @customer ||= SalesEngine::Customer.new(data)
   end
 
   def test_it_should_exist
-    assert customer_repositcustomers.first.exist?
+    assert !customer.nil?
   end
 
 end

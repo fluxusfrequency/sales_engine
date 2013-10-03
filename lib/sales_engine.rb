@@ -2,7 +2,7 @@ require 'csv'
 require 'bigdecimal'
 require 'time'
 
-Dir['./sales_engine/*.rb'].each do |file|
+Dir["./lib/sales_engine/*.rb"].each do |file|
   require file
 end
 

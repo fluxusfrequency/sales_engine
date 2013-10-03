@@ -3,7 +3,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_engine.rb'
 
-class TransactionsTest < Minitest::Test
+class SearchingTest < Minitest::Test
 
   attr_accessor :database
 
