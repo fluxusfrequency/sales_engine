@@ -16,11 +16,11 @@ class SalesEngine
     end
 
     def invoice
-      Database.invoice_repository.find_by_id(invoice_id)
+      @invoice ||= Database.invoice_repository.find_by_id(invoice_id)
     end
 
     def item
-      Database.item_repository.find_by_id(item_id)
+      @invoice ||= Database.item_repository.find_by_id(item_id)
     end
 
     def total

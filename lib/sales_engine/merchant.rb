@@ -13,11 +13,11 @@ class SalesEngine
     end
 
     def items
-      Database.item_repository.find_all_by_merchant_id(id)
+      @items ||= Database.item_repository.find_all_by_merchant_id(id)
     end
 
     def invoices
-      Database.invoice_repository.find_all_by_merchant_id(id)
+      @invoice ||= Database.invoice_repository.find_all_by_merchant_id(id)
     end
 
     def revenue(date="default")

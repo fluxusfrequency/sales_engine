@@ -16,7 +16,7 @@ class SalesEngine
     end
 
     def invoice
-      Database.invoice_repository.find_by_id(invoice_id)
+      @invoice ||= Database.invoice_repository.find_by_id(invoice_id)
     end
 
   end

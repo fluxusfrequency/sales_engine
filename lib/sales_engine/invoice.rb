@@ -15,11 +15,11 @@ class SalesEngine
     end
 
     def transactions
-      Database.transaction_repository.find_all_by_invoice_id(id)
+      @transactions ||= Database.transaction_repository.find_all_by_invoice_id(id)
     end
 
     def invoice_items
-      Database.invoice_item_repository.find_all_by_invoice_id(id)
+      @invoice_items ||= Database.invoice_item_repository.find_all_by_invoice_id(id)
     end
 
     def items
@@ -29,11 +29,11 @@ class SalesEngine
     end
 
     def customer
-      Database.customer_repository.find_by_id(customer_id)
+      @customer ||= Database.customer_repository.find_by_id(customer_id)
     end
 
     def merchant
-      Database.merchant_repository.find_by_id(merchant_id)
+      @merchant ||= Database.merchant_repository.find_by_id(merchant_id)
     end
 
     def charge(data={})

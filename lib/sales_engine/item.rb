@@ -16,11 +16,11 @@ class SalesEngine
     end
 
     def invoice_items
-      Database.invoice_item_repository.find_all_by_item_id(id)
+      @invoice_items ||= Database.invoice_item_repository.find_all_by_item_id(id)
     end
 
     def merchant
-      Database.merchant_repository.find_by_id(merchant_id)
+      @merchant ||= Database.merchant_repository.find_by_id(merchant_id)
     end
 
     def best_day
