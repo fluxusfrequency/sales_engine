@@ -66,14 +66,14 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_has_a_find_by_credit_card_number_method_that_returns_a_transaction_with_the_matching_id
     result = transaction_repository.find_by_credit_card_number("4540842003561938")
     assert_equal SalesEngine::Transaction, result.class
-    assert_equal 4540842003561938, result.credit_card_number.to_i
+    assert_equal "4540842003561938", result.credit_card_number
   end
 
   def test_it_has_a_find_all_by_credit_card_number_method_that_returns_an_array_of_transactions_with_the_matching_id
     result = transaction_repository.find_all_by_credit_card_number("4540842003561938")
     assert_equal Array, result.class
     assert_equal SalesEngine::Transaction, result.last.class
-    assert_equal 4540842003561938, result.last.credit_card_number.to_i
+    assert_equal "4540842003561938", result.last.credit_card_number
   end
 
   def test_it_has_a_find_by_result_method_that_returns_a_transaction_with_the_matching_id
