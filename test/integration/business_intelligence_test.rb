@@ -95,7 +95,6 @@ class BusinessIntelligenceTest < Minitest::Test
   end
 
   def test_the_merchant_revenue_method_without_date_reports_all_revenue
-    skip
     merchant = merchant_repository.find_by_name "Dicki-Bednar"
     assert_equal BigDecimal.new("1148393.74"), merchant.revenue
   end

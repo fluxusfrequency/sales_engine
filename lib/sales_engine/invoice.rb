@@ -42,5 +42,9 @@ class SalesEngine
       end
     end
 
+    def total
+      invoice_items.map { |invoice_item| invoice_item.total }.inject(0,:+)
+    end
+
   end
 end

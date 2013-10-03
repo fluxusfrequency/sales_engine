@@ -26,5 +26,9 @@ class SalesEngine
     def merchant
     end
 
+    def total
+      quantity * (unit_price*100)
+    end
+
   end
 end

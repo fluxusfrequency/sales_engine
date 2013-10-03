@@ -20,5 +20,26 @@ class SalesEngine
       Database.invoice_repository.find_all_by_merchant_id(id)
     end
 
+    def revenue(date="default")
+      if date == "default"
+        revenue_without_date
+      else
+        revenue_with_date(date)
+      end
+    end
+
+    def revenue_without_date
+      total_up(successful_invoices)
+    end
+
+    def total_up(invoices)
+      sum = invoices.collect {|invoice| invoice.total }.inject(0,:+)
+      BigDecimal.new(sum)/100
+    end
+
+    def successful_invoices
+      invoices.select { |invoice| invoice.successful? }
+    end
+
   end
 end
