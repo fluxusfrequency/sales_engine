@@ -28,6 +28,10 @@ class SalesEngine
       end
     end
 
+    def favorite_customer
+      successful_invoices.group_by {|invoice| invoice.customer}
+    end
+
     def revenue_without_date
       total_up(successful_invoices)
     end
@@ -37,7 +41,7 @@ class SalesEngine
     end
 
     def total_up(invoices)
-      sum = invoices.collect {|invoice| invoice.total }.inject(0,:+)
+      sum = invoices.collect { |invoice| invoice.total }.inject(0,:+)
       BigDecimal.new(sum)/100
     end
 

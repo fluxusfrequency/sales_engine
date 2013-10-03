@@ -106,7 +106,6 @@ class BusinessIntelligenceTest < Minitest::Test
   end
 
   def test_the_merchant_favorite_customer_method_returns_the_customer_with_the_most_transactions
-    skip
     merchant = merchant_repository.find_by_name "Terry-Moore"
     customer_names = [["Jayme", "Hammes"], ["Elmer", "Konopelski"], ["Eleanora", "Kling"],
                      ["Friedrich", "Rowe"], ["Orion", "Hills"], ["Lambert", "Abernathy"]]
