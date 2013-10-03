@@ -1,5 +1,6 @@
 require 'csv'
 require 'bigdecimal'
+require 'time'
 
 Dir['./sales_engine/*.rb'].each do |file|
   require file
