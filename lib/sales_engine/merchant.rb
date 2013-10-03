@@ -32,6 +32,10 @@ class SalesEngine
       total_up(successful_invoices)
     end
 
+    def revenue_with_date(date)
+      total_up(successful_invoices_on_date(date))
+    end
+
     def total_up(invoices)
       sum = invoices.collect {|invoice| invoice.total }.inject(0,:+)
       BigDecimal.new(sum)/100
@@ -39,6 +43,10 @@ class SalesEngine
 
     def successful_invoices
       invoices.select { |invoice| invoice.successful? }
+    end
+
+    def successful_invoices_on_date(date)
+      successful_invoices.find_all { |invoice| invoice.created_at == date }
     end
 
   end

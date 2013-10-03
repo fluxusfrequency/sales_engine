@@ -100,7 +100,6 @@ class BusinessIntelligenceTest < Minitest::Test
   end
 
   def test_the_merchant_revenue_method_with_a_date_reports_all_revenue_for_that_date
-    skip
     merchant = merchant_repository.find_by_name "Willms and Sons"
     date = Date.parse "Fri, 09 Mar 2012"
     assert_equal BigDecimal.new("8373.29"), merchant.revenue(date)
