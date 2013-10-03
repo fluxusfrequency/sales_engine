@@ -1,4 +1,5 @@
 require_relative '../sales_engine.rb'
+require 'pry'
 
 class SalesEngine
   class Merchant
@@ -29,7 +30,17 @@ class SalesEngine
     end
 
     def favorite_customer
+      top_buyer_count = successful_invoices_grouped_by_customer.values.flatten.max {|invoice| invoice.transactions.count }
+      successful_invoices_grouped_by_customer.key(Array(top_buyer_count))
+      # {customer => invoices, customer => invoices}
+    end
+
+    def successful_invoices_grouped_by_customer
       successful_invoices.group_by {|invoice| invoice.customer}
+    end
+
+    def transactions_on_successful_invoices_grouped_by_customer
+      transactions_on_successful_invoices.group_by { |transaction| transaction.invoice.customer }
     end
 
     def customers_with_pending_invoices
@@ -63,6 +74,10 @@ class SalesEngine
 
     def items_on_successful_invoices
       successful_invoices.collect { |invoice| invoice.items }.flatten
+    end
+
+    def transactions_on_successful_invoices
+      successful_invoices.collect { |invoice| invoice.transactions }
     end
 
   end
