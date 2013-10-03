@@ -40,4 +40,15 @@ class InvoiceItemsTest < Minitest::Test
     assert_equal Date.parse("2012-03-27 14:54:09 UTC"), invoice_item.updated_at
   end
 
+  def test_the_invoice_method_returns_an_associated_invoice
+    assert_equal SalesEngine::Invoice, invoice_item.invoice.class
+    assert_equal invoice_item.invoice_id, invoice_item.invoice.id.to_i
+  end
+
+  def test_the_item_method_returns_an_associated_item
+    assert_equal SalesEngine::Item, invoice_item.item.class
+    found_item = invoice_item.item
+    assert_equal invoice_item.item_id, found_item.id.to_i
+  end
+
 end

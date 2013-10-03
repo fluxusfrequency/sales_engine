@@ -39,15 +39,31 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_the_transcations_method_returns_assocaiated_transcations
-    assert_equal SalesEngine::Transaction, invoice.transactions[0].class
-    assert_equal invoice.id, invoice.transactions[0].invoice_id.to_i
-    assert_equal invoice.id, invoice.transactions[-1].invoice_id.to_i
+    assert_equal SalesEngine::Transaction, invoice.transactions.first.class
+    assert_equal invoice.id, invoice.transactions.first.invoice_id.to_i
+    assert_equal invoice.id, invoice.transactions.last.invoice_id.to_i
   end
 
   def test_the_invoice_items_method_returns_assocaiated_invoice_items
-    assert_equal SalesEngine::InvoiceItem, invoice.invoice_items[0].class
-    assert_equal invoice.id, invoice.invoice_items[0].invoice_id.to_i
-    assert_equal invoice.id, invoice.invoice_items[-1].invoice_id.to_i
+    assert_equal SalesEngine::InvoiceItem, invoice.invoice_items.first.class
+    assert_equal invoice.id, invoice.invoice_items.first.invoice_id.to_i
+    assert_equal invoice.id, invoice.invoice_items.last.invoice_id.to_i
+  end
+
+  def test_the_items_method_returns_assocaiated_items
+    assert_equal SalesEngine::Item, invoice.items.first.class
+    assert_equal invoice.id, invoice.items.first.invoice_id.to_i
+    assert_equal invoice.id, invoice.items.last.invoice_id.to_i
+  end
+
+  def test_the_customer_method_returns_assocaiated_customer
+    assert_equal SalesEngine::Customer, invoice.customer.class
+    assert_equal invoice.customer_id, invoice.customer.id.to_i
+  end
+
+  def test_the_items_method_returns_assocaiated_items
+    assert_equal SalesEngine::Merchant, invoice.merchant.class
+    assert_equal invoice.merchant_id, invoice.merchant.id.to_i
   end
 
 end
