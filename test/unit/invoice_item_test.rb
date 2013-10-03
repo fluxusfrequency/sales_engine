@@ -26,4 +26,8 @@ class InvoiceItemsTest < Minitest::Test
     assert !invoice_item.nil?
   end
 
+  def test_it_returns_an_item_object
+    assert_equal SalesEngine::InvoiceItem, invoice_item.class
+  end
+
 end

@@ -25,4 +25,8 @@ class ItemsTest < Minitest::Test
     assert !item.nil?
   end
 
+  def test_it_returns_an_item_object
+    assert_equal SalesEngine::Item, item.class
+  end
+
 end

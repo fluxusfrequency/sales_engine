@@ -26,4 +26,8 @@ class TransactionTest < Minitest::Test
     assert !transaction.nil?
   end
 
+  def test_it_returns_an_item_object
+    assert_equal SalesEngine::Transaction, transaction.class
+  end
+
 end

@@ -23,4 +23,8 @@ class MerchantTest < Minitest::Test
     assert !merchant.nil?
   end
 
+  def test_it_returns_an_item_object
+    assert_equal SalesEngine::Merchant, merchant.class
+  end
+
 end

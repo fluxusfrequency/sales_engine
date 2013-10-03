@@ -23,4 +23,8 @@ class CustomerTest < Minitest::Test
     assert !customer.nil?
   end
 
+  def test_it_returns_an_item_object
+    assert_equal SalesEngine::Customer, customer.class
+  end
+
 end
