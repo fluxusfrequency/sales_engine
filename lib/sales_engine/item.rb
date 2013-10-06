@@ -36,7 +36,7 @@ class SalesEngine
     end
 
     def successful_invoice_items
-      invoice_items.select { |invoice_item| invoice_item.successful? }
+      invoice_items.compact.select { |invoice_item| invoice_item.successful? }
     end
 
     def number_sold

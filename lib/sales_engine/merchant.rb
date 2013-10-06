@@ -30,13 +30,21 @@ class SalesEngine
     end
 
     def favorite_customer
-      top_buyer_count = successful_invoices_grouped_by_customer.values.flatten.max {|invoice| invoice.transactions.count }
-      successful_invoices_grouped_by_customer.key(Array(top_buyer_count))
-      # {customer => invoices, customer => invoices}
+      Database.customer_repository.find_by_id(top_customer_id)
     end
 
     def successful_invoices_grouped_by_customer
       successful_invoices.group_by {|invoice| invoice.customer}
+    end
+
+    def count_customers
+      successful_invoices.each_with_object(Hash.new(0)) do |invoice, counts|
+        counts[invoice.customer_id] += 1
+      end
+    end
+
+    def top_customer_id
+      count_customers.max_by {|customer_id, count| count}.first
     end
 
     def transactions_on_successful_invoices_grouped_by_customer
@@ -77,7 +85,7 @@ class SalesEngine
     end
 
     def transactions_on_successful_invoices
-      successful_invoices.collect { |invoice| invoice.transactions }
+      successful_invoices.collect { |invoice| invoice.transactions }.flatten
     end
 
   end

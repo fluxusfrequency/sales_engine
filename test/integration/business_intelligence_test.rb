@@ -103,9 +103,8 @@ class BusinessIntelligenceTest < Minitest::Test
                      ["Friedrich", "Rowe"], ["Orion", "Hills"], ["Lambert", "Abernathy"]]
     customer = merchant.favorite_customer
 
-    assert customer_names.any? do |first_name, last_name|
-      customer.first_name == first_name
-      customer.last_name  == last_name
+    assert customer_names.any? do |customer_name|
+      customer_name[0] == customer.first_name && customer_name[1] == customer.last_name
     end
   end
 

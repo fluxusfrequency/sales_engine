@@ -28,7 +28,7 @@ class SalesEngine
     end
 
     def successful?
-      invoice.successful?
+      invoice.successful? unless invoice.nil?
     end
 
   end
