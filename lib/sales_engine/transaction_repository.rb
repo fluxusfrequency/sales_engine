@@ -27,16 +27,6 @@ class SalesEngine
       transactions.last.id
     end
 
-    def attrs_array(transaction)
-      [ transaction.id,
-        transaction.invoice_id,
-        transaction.credit_card_number,
-        transaction.credit_card_expiration_date,
-        transaction.result,
-        transaction.created_at,
-        transaction.updated_at ]
-    end
-
     def all
       transactions
     end
@@ -46,7 +36,8 @@ class SalesEngine
     end
 
     def find_by_id(id)
-      grouped_by_id[id].first
+      result = grouped_by_id[id] || return
+      result.first
     end
 
     def find_all_by_id(id)
@@ -91,6 +82,18 @@ class SalesEngine
 
     def find_all_by_updated_at(date)
       grouped_by_updated_at[date] || []
+    end
+
+    private
+
+    def attrs_array(transaction)
+      [ transaction.id,
+        transaction.invoice_id,
+        transaction.credit_card_number,
+        transaction.credit_card_expiration_date,
+        transaction.result,
+        transaction.created_at,
+        transaction.updated_at ]
     end
 
     def grouped_by_id

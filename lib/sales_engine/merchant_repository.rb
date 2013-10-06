@@ -36,20 +36,9 @@ class SalesEngine
       BigDecimal.new(sum)
     end
 
-    def merchants_sorted_by_items_sold
-      merchants.sort_by { |merchant| merchant.items_on_successful_invoices.length }
-    end
-
-    def merchants_grouped_by_revenue
-      merchants.group_by { |merchant| merchant.revenue }
-    end
-
-    def merchants_sorted_by_revenue
-      merchants.sort_by { |merchant| merchant.revenue }
-    end
-
     def find_by_id(id)
-      grouped_by_id[id].first
+      result = grouped_by_id[id] || return
+      result.first
     end
 
     def find_all_by_id(id)
@@ -78,6 +67,16 @@ class SalesEngine
 
     def find_all_by_updated_at(date)
       grouped_by_updated_at[date] || []
+    end
+
+    private
+
+    def merchants_sorted_by_items_sold
+      merchants.sort_by { |merchant| merchant.items_on_successful_invoices.length }
+    end
+
+    def merchants_sorted_by_revenue
+      merchants.sort_by { |merchant| merchant.revenue }
     end
 
     def grouped_by_id

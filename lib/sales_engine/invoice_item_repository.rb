@@ -43,32 +43,13 @@ class SalesEngine
       @count_hash
     end
 
-    def hash_for_new_invoice_item(item, id, invoice, quantity)
-      { :id => id,
-        :item_id => item.id,
-        :invoice_id => invoice.id,
-        :quantity => quantity,
-        :unit_price => item.unit_price,
-        :created_at => invoice.created_at.to_s,
-        :updated_at => invoice.created_at.to_s }
-    end
-
     def find_last_invoice_item_id
       invoice_items.last.id
     end
 
-    def attrs_array(invoice_item)
-      [ invoice_item.id,
-        invoice_item.item_id,
-        invoice_item.invoice_id,
-        invoice_item.quantity,
-        invoice_item.unit_price,
-        invoice_item.created_at,
-        invoice_item.updated_at ]
-    end
-
     def find_by_id(id)
-      grouped_by_id[id].first
+      result = grouped_by_id[id] || return
+      result.first
     end
 
     def find_all_by_id(id)
@@ -121,6 +102,28 @@ class SalesEngine
 
     def find_all_by_updated_at(date)
       grouped_by_updated_at[date] || []
+    end
+
+    private
+
+    def hash_for_new_invoice_item(item, id, invoice, quantity)
+      { :id => id,
+        :item_id => item.id,
+        :invoice_id => invoice.id,
+        :quantity => quantity,
+        :unit_price => item.unit_price,
+        :created_at => invoice.created_at.to_s,
+        :updated_at => invoice.created_at.to_s }
+    end
+
+    def attrs_array(invoice_item)
+      [ invoice_item.id,
+        invoice_item.item_id,
+        invoice_item.invoice_id,
+        invoice_item.quantity,
+        invoice_item.unit_price,
+        invoice_item.created_at,
+        invoice_item.updated_at ]
     end
 
     def grouped_by_id

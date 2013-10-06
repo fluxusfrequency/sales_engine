@@ -40,7 +40,8 @@ class SalesEngine
     end
 
     def find_by_id(id)
-      grouped_by_id[id].first
+    result = grouped_by_id[id] || return
+    result.first
     end
 
     def find_all_by_id(id)
@@ -94,6 +95,8 @@ class SalesEngine
     def find_all_by_updated_at(date)
       grouped_by_updated_at[date] || []
     end
+
+    private
 
     def grouped_by_id
       @grouped_by_id ||= items.group_by {|item| item.id }

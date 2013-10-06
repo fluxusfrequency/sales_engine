@@ -37,26 +37,8 @@ class SalesEngine
       new_invoice
     end
 
-    def hash_for_new_invoice(attrs)
-      { :id => find_last_invoice_id + 1,
-        :customer_id => attrs[:customer].id,
-        :merchant_id => attrs[:merchant].id,
-        :status => attrs[:status] || 'unknown',
-        :created_at => Time.now.to_s,
-        :updated_at => Time.now.to_s }
-    end
-
     def find_last_invoice_id
       invoices.last.id
-    end
-
-    def attrs_array(invoice)
-      [ invoice.id,
-        invoice.customer_id,
-        invoice.merchant_id,
-        invoice.status,
-        invoice.created_at,
-        invoice.updated_at]
     end
 
     def find_by_id(id)
@@ -107,6 +89,26 @@ class SalesEngine
 
     def find_all_by_updated_at(date)
       grouped_by_updated_at[date] || []
+    end
+
+    private
+
+    def attrs_array(invoice)
+      [ invoice.id,
+        invoice.customer_id,
+        invoice.merchant_id,
+        invoice.status,
+        invoice.created_at,
+        invoice.updated_at]
+    end
+
+    def hash_for_new_invoice(attrs)
+      { :id => find_last_invoice_id + 1,
+        :customer_id => attrs[:customer].id,
+        :merchant_id => attrs[:merchant].id,
+        :status => attrs[:status] || 'unknown',
+        :created_at => Time.now.to_s,
+        :updated_at => Time.now.to_s }
     end
 
     def grouped_by_id
