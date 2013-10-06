@@ -1,6 +1,3 @@
-require_relative '../sales_engine.rb'
-require 'pry'
-
 class SalesEngine
   class Merchant
 
@@ -33,8 +30,30 @@ class SalesEngine
       Database.customer_repository.find_by_id(top_customer_id)
     end
 
+    def customers_with_pending_invoices
+      pending_invoices.collect(&:customer)
+    end
+
+    def successful_invoices
+      invoices.select(&:successful?)
+    end
+
+    def items_on_successful_invoices
+      successful_invoices.collect(&:items).flatten
+    end
+
+    private
+
+    def pending_invoices
+      invoices.reject(&:successful?)
+    end
+
+    def successful_invoices_on_date(date)
+      successful_invoices.find_all { |invoice| invoice.created_at == date }
+    end
+
     def successful_invoices_grouped_by_customer
-      successful_invoices.group_by {|invoice| invoice.customer}
+      successful_invoices.group_by(&:customer)
     end
 
     def count_customers
@@ -47,14 +66,6 @@ class SalesEngine
       count_customers.max_by {|customer_id, count| count}.first
     end
 
-    def transactions_on_successful_invoices_grouped_by_customer
-      transactions_on_successful_invoices.group_by { |transaction| transaction.invoice.customer }
-    end
-
-    def customers_with_pending_invoices
-      pending_invoices.collect {|invoice| invoice.customer }
-    end
-
     def revenue_without_date
       total_up(successful_invoices)
     end
@@ -64,28 +75,8 @@ class SalesEngine
     end
 
     def total_up(invoices)
-      sum = invoices.collect { |invoice| invoice.total }.inject(0,:+)
+      sum = invoices.collect(&:total).inject(0,:+)
       BigDecimal.new(sum)/100
-    end
-
-    def successful_invoices
-      invoices.select { |invoice| invoice.successful? }
-    end
-
-    def pending_invoices
-      invoices.reject { |invoice| invoice.successful? }
-    end
-
-    def successful_invoices_on_date(date)
-      successful_invoices.find_all { |invoice| invoice.created_at == date }
-    end
-
-    def items_on_successful_invoices
-      successful_invoices.collect { |invoice| invoice.items }.flatten
-    end
-
-    def transactions_on_successful_invoices
-      successful_invoices.collect { |invoice| invoice.transactions }.flatten
     end
 
   end

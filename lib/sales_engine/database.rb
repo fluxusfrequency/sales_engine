@@ -12,10 +12,6 @@ class SalesEngine
         load_data('./test/fixtures')
       end
 
-      def load_path_and_class(path, klass)
-        "#{path}/#{klass}s.csv"
-      end
-
       def load_data(path)
         @customer_repository = CustomerRepository.new(load_path_and_class(path, "customer"))
         @invoice_repository = InvoiceRepository.new(load_path_and_class(path, "invoice"))
@@ -34,6 +30,13 @@ class SalesEngine
           csv << row
         end
       end
+
+      private
+
+      def load_path_and_class(path, klass)
+        "#{path}/#{klass}s.csv"
+      end
+
 
     end
   end

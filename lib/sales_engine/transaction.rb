@@ -1,5 +1,3 @@
-require_relative '../sales_engine.rb'
-
 class SalesEngine
   class Transaction
 
@@ -17,6 +15,10 @@ class SalesEngine
 
     def invoice
       @invoice ||= Database.invoice_repository.find_by_id(invoice_id)
+    end
+
+    def customer
+      invoice.customer
     end
 
   end

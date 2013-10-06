@@ -1,5 +1,3 @@
-require_relative '../sales_engine.rb'
-
 class SalesEngine
   class Customer
 
@@ -18,21 +16,22 @@ class SalesEngine
     end
 
     def transactions
-      @transactions ||= invoices.collect { |invoice| invoice.transactions }.flatten
+      @transactions ||= invoices.collect(&:transactions).flatten
     end
 
     def favorite_merchant
-      most_invoices = successful_invoices_grouped_by_merchant.values.max { |v| v.length }
+      most_invoices = successful_invoices_grouped_by_merchant.values.max(&:length)
       successful_invoices_grouped_by_merchant.key(most_invoices)
     end
 
     def successful_invoices
-      invoices.select { |invoice| invoice.successful? }
+      invoices.select(&:successful?)
     end
 
+    private
+
     def successful_invoices_grouped_by_merchant
-      # {<merchant1> => [<invoice1>, <invoice2>], <merchant2> => [<invoice3>]}
-      successful_invoices.group_by { |invoice| invoice.merchant }
+      successful_invoices.group_by(&:merchant)
     end
 
   end

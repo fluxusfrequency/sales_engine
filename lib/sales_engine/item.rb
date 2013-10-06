@@ -1,5 +1,3 @@
-require_relative '../sales_engine.rb'
-
 class SalesEngine
   class Item
 
@@ -24,27 +22,29 @@ class SalesEngine
     end
 
     def best_day
-      top_total = count_invoice_item_quantity_sold_for_date.values.sort_by { |value| value.to_s }.first
-      count_invoice_item_quantity_sold_for_date.key(top_total)
-    end
-
-    def count_invoice_item_quantity_sold_for_date
-      successful_invoice_items.each_with_object(Hash.new(0)) do |invoice_item, date_counts|
-        date = invoice_item.invoice.created_at.to_date
-        date_counts[date] += invoice_item.total
-      end
-    end
-
-    def successful_invoice_items
-      invoice_items.compact.select { |invoice_item| invoice_item.successful? }
-    end
-
-    def number_sold
-      successful_invoice_items.collect { |invoice_item| invoice_item.quantity }.inject(0, :+)
+      top_total = invoice_item_quantity_sold_on_date.values.sort_by(&:to_s).first
+      invoice_item_quantity_sold_on_date.key(top_total)
     end
 
     def revenue
       total_up(successful_invoice_items)
+    end
+
+    def successful_invoice_items
+      invoice_items.compact.select(&:successful?)
+    end
+
+    def number_sold
+      successful_invoice_items.collect(&:quantity).inject(0, :+)
+    end
+
+    private
+
+    def invoice_item_quantity_sold_on_date
+      successful_invoice_items.each_with_object(Hash.new(0)) do |invoice_item, date_counts|
+        date = invoice_item.invoice.created_at.to_date
+        date_counts[date] += invoice_item.total
+      end
     end
 
     def total_up(invoice_items)

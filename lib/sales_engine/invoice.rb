@@ -1,5 +1,3 @@
-require_relative '../sales_engine.rb'
-
 class SalesEngine
   class Invoice
 
@@ -42,6 +40,18 @@ class SalesEngine
       @transactions = Database.transaction_repository.find_all_by_invoice_id(id)
     end
 
+    def successful?
+      if transactions
+        transactions.any? { |transaction| transaction.result == "success" }
+      end
+    end
+
+    def total
+      invoice_items.map(&:total).inject(0,:+)
+    end
+
+    private
+
     def params_for_invoice
       {:id => Database.invoice_repository.find_last_invoice_id + 1,
       :customer => customer,
@@ -59,16 +69,6 @@ class SalesEngine
         :result => data[:result] || 'unknown',
         :created_at => created_at.to_s,
         :updated_at => updated_at.to_s }
-    end
-
-    def successful?
-      if transactions
-        transactions.any? { |transaction| transaction.result == "success" }
-      end
-    end
-
-    def total
-      invoice_items.map { |invoice_item| invoice_item.total }.inject(0,:+)
     end
 
   end
