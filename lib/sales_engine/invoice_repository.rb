@@ -60,7 +60,8 @@ class SalesEngine
     end
 
     def find_by_id(id)
-      grouped_by_id[id].first
+      result = grouped_by_id[id] || return
+      result.first
     end
 
     def find_all_by_id(id)

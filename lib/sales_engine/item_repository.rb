@@ -24,31 +24,19 @@ class SalesEngine
     end
 
     def most_items(x)
-      sorted_totals = items_grouped_by_number_sold.keys.sort.reverse
-
-      most_items = sorted_totals.collect do |total|
-        items_grouped_by_number_sold[total]
-      end
-
-      most_items.flatten[0,x]
+      items_sorted_by_number_sold.reverse[0,x]
     end
 
     def most_revenue(x)
-      sorted_totals = items_grouped_by_revenue.keys.sort.reverse
-
-      most_revenue = sorted_totals.collect do |total|
-        items_grouped_by_revenue[total]
-      end
-
-      most_revenue.flatten[0,x]
+      items_sorted_by_revenue.reverse[0,x]
     end
 
-    def items_grouped_by_number_sold
-      items.group_by { |item| item.number_sold }
+    def items_sorted_by_number_sold
+      items.sort_by { |item| item.number_sold }
     end
 
-    def items_grouped_by_revenue
-      items.group_by { |item| item.revenue }
+    def items_sorted_by_revenue
+      items.sort_by { |item| item.revenue }
     end
 
     def find_by_id(id)

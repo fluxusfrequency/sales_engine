@@ -24,23 +24,11 @@ class SalesEngine
     end
 
     def most_items(x)
-      sorted_totals = merchants_grouped_by_items_sold.keys.sort.reverse
-
-      most_items = sorted_totals.collect do |total|
-        merchants_grouped_by_items_sold[total]
-      end
-
-      most_items.flatten[0,x]
+      merchants_sorted_by_items_sold.reverse[0,x]
     end
 
     def most_revenue(x)
-      sorted_totals = merchants_grouped_by_revenue.keys.sort.reverse
-
-      most_revenue = sorted_totals.collect do |total|
-        merchants_grouped_by_revenue[total]
-      end
-
-      most_revenue.flatten[0,x]
+      merchants_sorted_by_revenue.reverse[0,x]
     end
 
     def revenue(date)
@@ -48,12 +36,16 @@ class SalesEngine
       BigDecimal.new(sum)
     end
 
-    def merchants_grouped_by_items_sold
-      merchants.group_by { |merchant| merchant.items_on_successful_invoices.length }
+    def merchants_sorted_by_items_sold
+      merchants.sort_by { |merchant| merchant.items_on_successful_invoices.length }
     end
 
     def merchants_grouped_by_revenue
       merchants.group_by { |merchant| merchant.revenue }
+    end
+
+    def merchants_sorted_by_revenue
+      merchants.sort_by { |merchant| merchant.revenue }
     end
 
     def find_by_id(id)
